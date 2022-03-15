@@ -8,20 +8,38 @@ import { v4 as uuid } from "uuid";
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "fiction",
-    description:
-      "literature in the form of prose, especially novels, that describes imaginary events and people",
+    categoryName: "Art",
+    description: "Art",
+    img: "https://user-images.githubusercontent.com/52632590/158344469-40902937-7c86-4db0-8718-ffdaa5648045.png",
   },
   {
     _id: uuid(),
-    categoryName: "non-fiction",
-    description:
-      "Non-fiction is writing that gives information or describes real events, rather than telling a story.",
+    categoryName: "Collectibles",
+    description: "Collectibles",
+    img: "https://user-images.githubusercontent.com/52632590/158344628-e3c3e348-e2a0-4a49-aa6e-073cc249cb13.png",
   },
   {
     _id: uuid(),
-    categoryName: "horror",
-    description:
-      "Meant to cause discomfort and fear for both the character and readers, horror writers often make use of supernatural and paranormal elements in morbid stories that are sometimes a little too realistic.",
+    categoryName: "Music",
+    description: "Music",
+    img: "https://user-images.githubusercontent.com/52632590/158345040-d279e25b-6fb4-4729-b4f4-1e28bb0d3d01.jpg",
+  },
+  {
+    _id: uuid(),
+    categoryName: "Photography",
+    description: "Photography",
+    img: "https://user-images.githubusercontent.com/52632590/158345311-99114d30-f3b6-426c-b770-ad773e8fd8e7.png",
+  },
+  {
+    _id: uuid(),
+    categoryName: "Sports",
+    description: "Sports",
+    img: "https://user-images.githubusercontent.com/52632590/158345411-17604753-74ec-4d0b-a0fc-19f1f4ed5290.jpg",
+  },
+  {
+    _id: uuid(),
+    categoryName: "Utility",
+    description: "Utility",
+    img: "https://user-images.githubusercontent.com/52632590/158345492-0f562efa-eb69-47cd-a6a6-8b11e52e0695.png",
   },
 ];

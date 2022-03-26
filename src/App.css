@@ -1,51 +1,44 @@
+/* Theme 1 */
+:root {
+  /* Main */
+  --primary-color: #facc15;
+  --secondary-color: #0ea5e9;
+  --bg-color: #fffffc;
+  --txt-color: #1f2937;
+  --txt-color-2: #fffffc;
+  --cta-color: #dc2626;
+
+  /* Shades */
+  --primary-color-light: #fde047;
+  --primary-color-dark: #eab308;
+  --secondary-color-light: #38bdf8;
+  --secondary-color-dark: #0284c7;
+  --txt-color-light: #374151;
+  --txt-color-light-2: #64748b;
+  --txt-color-dark: #111827;
+  --cta-color-light: #ff5a91;
+  --cta-color-dark: #cf1150;
+  --bg-color-2: #f5f2f2;
+  --bg-color-3: #fcf9f9;
+}
+
+/* Color class */
+.bg-pri-color {
+  background-color: var(--primary-color);
+}
+.color-light {
+  color: var(--txt-color-2);
+}
+.color-dark {
+  color: var(--txt-color);
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #22201c;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.brand-title {
-  font-size: 3rem;
-  color: #d9d9d9;
-}
-
-.brand-title span {
-  color: #ffde59;
-}
-
-.brand-description {
-  font-size: 1.4rem;
-}
-
-.links {
-  display: flex;
-}
-
-.links a {
-  color: #d9d9d9;
-  font-size: 1.2rem;
-  margin: 1rem;
+/* Work around for error */
+/* Uncaught ReferenceError: process is not defined */
+iframe {
+  display: none;
 }

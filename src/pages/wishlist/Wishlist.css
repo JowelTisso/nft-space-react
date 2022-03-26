@@ -1,0 +1,57 @@
+/***********/
+/* Content */
+.content {
+  margin-top: 6rem;
+  background-color: var(--bg-color-3);
+}
+
+.content-header {
+  display: flex;
+  gap: 1rem;
+}
+
+.content-card-section {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* .card {
+  width: 22rem;
+  background-color: var(--bg-color);
+}
+
+.card-img {
+  width: 22rem;
+  height: 25rem;
+}
+
+.card-title {
+  height: 3rem;
+  overflow: hidden;
+}
+
+.card-sub-title {
+  height: 2rem;
+  overflow: hidden;
+}
+
+.card-description {
+  height: 3.5rem;
+  overflow: hidden;
+}
+
+.badge-active {
+  color: var(--cta-color);
+} */
+/* 
+@media screen and (max-width: 500px) {
+  .card {
+    width: 42%;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 20rem;
+  }
+} */

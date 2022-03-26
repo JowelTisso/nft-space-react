@@ -1,10 +1,15 @@
-import axios from "axios";
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { Home, Products, Wishlist } from "./pages";
 
 function App() {
-  axios.get("/api/products/").then((res) => console.log(res));
-
-  return <div className="App"></div>;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<Products />} />
+      <Route path="/wishlist" element={<Wishlist />} />
+    </Routes>
+  );
 }
 
 export default App;

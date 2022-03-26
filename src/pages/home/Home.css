@@ -1,0 +1,175 @@
+/***********/
+/* Content */
+
+/* Container */
+
+.row-category-container {
+  display: flex;
+  overflow: auto;
+  justify-content: center;
+}
+
+.scroll {
+  display: flex;
+  gap: 3rem;
+}
+
+/* Image */
+.img-category {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 10px;
+  object-fit: cover;
+  display: inline-block;
+  box-shadow: 1px 2px 5px 3px var(--bg-color-2);
+}
+
+.img-category:hover {
+  box-shadow: 0px 1px 10px 1px var(--primary-color);
+}
+
+/* Carousel */
+
+.carousel {
+  display: flex;
+  justify-content: center;
+  height: 40rem;
+}
+
+.img-carousel {
+  width: 80%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Category card */
+
+.category-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 3px 1px rgb(226, 218, 218);
+}
+
+.card-img-horizontal {
+  object-fit: cover;
+  width: 22rem;
+  /* height: auto; */
+}
+
+/* Content */
+/***********/
+
+/* Util */
+.pointer {
+  cursor: pointer;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hover-shadow {
+  box-shadow: 0px 1px 10px 1px var(--primary-color);
+}
+
+.txt-rating {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* typography */
+
+.text-left {
+  text-align: start;
+}
+.text-right {
+  text-align: end;
+}
+
+/* width */
+.wd-3x {
+  width: 30rem;
+}
+.wd-4x {
+  width: 40rem;
+}
+.wd-5x {
+  width: 50rem;
+}
+
+.wd-full {
+  width: 100%;
+}
+
+/* flex-center */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 700px) {
+  /* Content container */
+  .content {
+    padding: 0;
+  }
+
+  /* Horizontal category scroll */
+  .row-category-container {
+    justify-content: flex-start;
+  }
+
+  .scroll {
+    gap: 1.5rem;
+    margin: auto 0.5rem;
+  }
+
+  /* Carousel */
+  .carousel {
+    height: 22rem;
+  }
+
+  .img-carousel {
+    width: 95%;
+    height: 100%;
+  }
+
+  /* More card */
+  .category-card-container {
+    flex-direction: column;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .card-horizontal {
+    height: 16rem;
+    min-width: 95%;
+    overflow: hidden;
+  }
+
+  .card-img-horizontal {
+    width: 15rem;
+    height: 16rem;
+  }
+
+  .card-content {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 2.2rem;
+    line-height: 2.5rem;
+  }
+
+  .card-sub-title {
+    margin-bottom: 5px;
+  }
+
+  .card-description {
+    font-size: 1.5rem;
+  }
+}

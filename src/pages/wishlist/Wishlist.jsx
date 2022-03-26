@@ -22,7 +22,7 @@ const Wishlist = () => {
     <>
       <Header />
       <div className="content-wrapper mg-top-6x">
-        <main className="pd-4x pd-top-2x">
+        <main className="content pd-4x pd-top-2x">
           <div className="content-header mg-left-2x">
             <p className="h4">Wishlist</p>
             <p className="t4">(You have wishlist 8 items)</p>

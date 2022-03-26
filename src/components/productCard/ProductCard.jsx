@@ -29,9 +29,9 @@ const ProductCard = ({
         <div className="rating-container">
           {[...Array(5)].map((_, i) =>
             i + 1 <= ratings ? (
-              <IoStar className="rating" />
+              <IoStar className="rating" key={i} />
             ) : (
-              <IoStarOutline className="rating" />
+              <IoStarOutline className="rating" key={i} />
             )
           )}
           <span className="txt-rating"> | ({ratingsCount})</span>

@@ -55,11 +55,11 @@ const Header = () => {
           <p className="badge bdg-s bdg-ic bdg-ic-t">0</p>
         </div>
 
-        <div className="pointer login-icon">
+        {/* <div className="pointer login-icon">
           <Link to={"/logout"}>
             <IoLogInOutline className="ic-normal" />
           </Link>
-        </div>
+        </div> */}
       </nav>
     </header>
   );

@@ -1,10 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 
+:root {
+  --txt-color: #1f2937;
+}
+
 * {
   font-family: "Noto Sans", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: var(--txt-color);
 }
 
 html {

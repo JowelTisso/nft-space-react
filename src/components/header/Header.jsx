@@ -26,32 +26,29 @@ const Header = () => {
       </div>
 
       <nav className="nav-container">
-        <a
-          href="./screens/authentication/login/login.html"
+        <Link
+          to={"/login"}
           className="btn btn-primary btn-sm no-deco btn-login"
         >
           Login
-        </a>
+        </Link>
         <div className="pointer search-icon">
           <a>
             <IoSearchOutline className="ic-normal" />
           </a>
         </div>
-
         <div className="badge-container pointer mg-left-4x">
           <Link to={"/wishlist"}>
             <IoHeartOutline className="ic-normal" />
           </Link>
           <p className="badge bdg-s bdg-ic bdg-ic-t">0</p>
         </div>
-
         <div className="badge-container pointer mg-left-4x">
           <Link to={"/cart"}>
             <IoCartOutline className="ic-normal" />
           </Link>
           <p className="badge bdg-s bdg-ic bdg-ic-t">0</p>
         </div>
-
         {/* <div className="pointer login-icon">
           <Link to={"/logout"}>
             <IoLogInOutline className="ic-normal" />

@@ -1,6 +1,6 @@
 /***********/
 /* Content */
-.content {
+.wishlist-content {
   margin-left: 0rem;
   margin-top: 6rem;
   background-color: var(--bg-color-3);
@@ -11,7 +11,7 @@
   gap: 1rem;
 }
 
-.content-card-section {
+.wishlist-content-card-section {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;

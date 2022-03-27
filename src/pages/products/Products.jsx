@@ -132,12 +132,12 @@ const Products = () => {
             </ul>
           </nav>
         </aside>
-        <main className="content pd-2x">
+        <main className="product-content pd-2x">
           <div className="content-header">
             <p className="h4">Showing All NFT</p>
             <p className="t4">(showing 8 products)</p>
           </div>
-          <div className="content-card-section pd-bottom-4x">
+          <div className="product-content-card-section pd-bottom-4x">
             {products.map((item) => (
               <ProductCard data={item} key={item._id} />
             ))}

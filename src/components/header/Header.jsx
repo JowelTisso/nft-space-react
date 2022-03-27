@@ -14,12 +14,9 @@ const Header = () => {
     <header className="header-container pd-1x pd-right-4x pd-left-4x">
       <div className="logo-container">
         <img className="logo" src={logo} alt="logo" />
-        <a
-          className="h3 mg-left-1x pointer logo-title no-deco"
-          href="../../index.html"
-        >
+        <Link to={"/"} className="h3 mg-left-1x pointer logo-title no-deco">
           SPACE
-        </a>
+        </Link>
       </div>
       <div className="header-middle">
         <div className="input-container search-icon">

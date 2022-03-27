@@ -1,0 +1,69 @@
+/* Card */
+
+.content-card-section {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.card {
+  background-color: var(--bg-color);
+}
+
+.card-title {
+  height: 3rem;
+}
+
+.card-sub-title {
+  height: 2rem;
+}
+
+.card-description {
+  height: 3.5rem;
+}
+
+.card-horizontal {
+  height: fit-content;
+  min-width: 60rem;
+}
+
+.card-content-horizontal {
+  width: 100%;
+}
+
+.card-content-horizontal .card-btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.quantity {
+  display: flex;
+  height: 2rem;
+}
+
+.quantity-title,
+.quantity-value {
+  font-size: 1.5rem;
+}
+
+.quantity-value {
+  width: 3rem;
+}
+
+.quantity-btn {
+  font-size: 1.5rem;
+  height: 100%;
+  width: 2rem;
+  background-color: var(--secondary-color);
+  color: var(--txt-color-2);
+  border-radius: 50%;
+}
+
+.quantity-btn:hover {
+  background-color: var(--secondary-color-light);
+}

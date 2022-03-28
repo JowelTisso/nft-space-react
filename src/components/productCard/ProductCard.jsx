@@ -1,6 +1,7 @@
 import React from "react";
 import { IoHeartOutline, IoStar, IoStarOutline } from "react-icons/io5";
 import "./ProductCard.css";
+import { CONST_ART, CONST_COLLECTIBLES } from "../../utils/Constant";
 
 const ProductCard = ({
   data: {
@@ -21,10 +22,17 @@ const ProductCard = ({
       <div className="card-badge">
         <IoHeartOutline className="ic-normal " />
       </div>
-      <img className="card-img" src={img} alt="card image" />
+      <img
+        className="card-img"
+        src={img}
+        alt="card image"
+        style={{
+          objectFit: categoryName === CONST_COLLECTIBLES ? "cover" : "contain",
+        }}
+      />
       <div className="card-content">
         <p className="card-title">{title}</p>
-        <p className="card-sub-title">{categoryName}</p>
+        <p className="card-sub-title">{creator}</p>
         <p className="card-description">₹{price}</p>
         <div className="rating-container">
           {[...Array(5)].map((_, i) =>

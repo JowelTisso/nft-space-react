@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../../components/header/Header";
 import "../Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -46,13 +47,10 @@ const Login = () => {
 
           <button className="btn btn-primary wd-full mg-top-2x">Login</button>
 
-          <div className="bottom-nav-container mg-top-2x">
-            <a
-              href="../signup/signup.html"
-              className="t4 text-center pointer no-deco"
-            >
+          <div className="bottom-nav-container mg-top-2x ">
+            <Link to={"/"} className="t4 text-center pointer no-deco btn-link">
               Create New Account
-            </a>
+            </Link>
             <IoChevronForward className="goto-icon mg-left-1x" />
           </div>
         </div>

@@ -50,6 +50,10 @@
   font-size: 2rem;
 }
 
+.btn-link {
+  color: var(--txt-color);
+}
+
 @media screen and (max-width: 600px) {
   .login-card {
     width: 100%;

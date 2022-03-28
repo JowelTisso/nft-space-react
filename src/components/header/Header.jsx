@@ -4,7 +4,6 @@ import {
   IoHeartOutline,
   IoCartOutline,
   IoSearchOutline,
-  IoLogInOutline,
 } from "react-icons/io5";
 import "./Header.css";
 import { Link } from "react-router-dom";

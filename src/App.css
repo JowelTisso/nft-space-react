@@ -42,3 +42,9 @@
 iframe {
   display: none;
 }
+
+/* Utils */
+.basic-link {
+  text-decoration: none;
+  color: var(--txt-color);
+}

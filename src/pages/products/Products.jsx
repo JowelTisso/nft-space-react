@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../../components/header/Header";
 import ProductCard from "../../components/productCard/ProductCard";
 import "./Products.css";
 
-const Products = () => {
+const Products = (props) => {
   const [sliderValue, setSliderValue] = useState(0);
   const [products, setProducts] = useState([]);
+
+  const data = useLocation();
+  console.log(data);
 
   useEffect(() => {
     (async () => {
@@ -43,12 +47,12 @@ const Products = () => {
                   <label id="slider-value" className="t4 mg-left-2x">
                     {sliderValue}
                   </label>
-                  <label className="t4">₹2000</label>
+                  <label className="t4">₹3000</label>
                 </div>
                 <input
                   type="range"
                   min={0}
-                  max={2000}
+                  max={3000}
                   value={sliderValue}
                   step={100}
                   className="slider mg-top-2x"

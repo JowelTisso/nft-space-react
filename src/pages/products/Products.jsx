@@ -1,15 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import Header from "../../components/header/Header";
 import ProductCard from "../../components/productCard/ProductCard";
 import { priceSortMenu, ratingsMenu } from "../../utils/FilterData";
 import "./Products.css";
 import {
-  ALL_DELIVERY_TYPE,
-  FAST_DELIVERY_ONLY,
-  IN_STOCK_ONLY,
-  INCLUDE_OUT_OF_STOCK,
   PRICE_RANGE,
   PRODUCT_DATA,
   SORT_PRICE,
@@ -26,21 +21,18 @@ import {
   EQUIPMENT,
   ENTITIES,
   FILTER_CATEGORY,
+  CLEAR,
 } from "../../utils/Constant";
 import { useFilter } from "../../context/provider/FilterProvider";
 import {
   filterCategory,
   filterPriceRange,
-  filterProduct,
   filterRatings,
   sortPrice,
 } from "./helper/FilterHelper";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
-
-  const data = useLocation();
-  // console.log(data);
 
   // Context
   const {
@@ -65,27 +57,33 @@ const Products = () => {
   };
 
   const filterAllCategory = (list) => {
-    const filteredArt = settings.category.Art
-      ? filterCategory(ART, list)
-      : list;
+    const { Art, Collectibles, Wearable, Equipment, Entities } =
+      settings.category;
 
-    const filteredCollectibles = settings.category.Collectibles
-      ? filterCategory(COLLECTIBLES, filteredArt)
-      : filteredArt;
+    const filteredArt = Art ? filterCategory(ART, list) : [];
 
-    const filteredWearables = settings.category.Wearable
-      ? filterCategory(WEARABLE, filteredCollectibles)
-      : filteredCollectibles;
+    const filteredCollectibles = Collectibles
+      ? filterCategory(COLLECTIBLES, list)
+      : [];
 
-    const filteredEquipment = settings.category.Equipment
-      ? filterCategory(EQUIPMENT, filteredWearables)
-      : filteredWearables;
+    const filteredWearables = Wearable ? filterCategory(WEARABLE, list) : [];
 
-    const filteredEntities = settings.category.Entities
-      ? filterCategory(ENTITIES, filteredEquipment)
-      : filteredEquipment;
+    const filteredEquipment = Equipment ? filterCategory(EQUIPMENT, list) : [];
 
-    return filteredEntities;
+    const filteredEntities = Entities ? filterCategory(ENTITIES, list) : [];
+
+    // When all the categories are unchecked return all product
+    if (!Art && !Collectibles && !Wearable && !Equipment && !Entities) {
+      return list;
+    }
+    // Spread Filtered categories together
+    return [
+      ...filteredArt,
+      ...filteredCollectibles,
+      ...filteredWearables,
+      ...filteredEquipment,
+      ...filteredEntities,
+    ];
   };
 
   const applySettingsAndRender = () => {
@@ -124,7 +122,7 @@ const Products = () => {
     });
   };
 
-  const onPriceSortChange = () => {
+  const onPriceSortChange = (i) => {
     dispatch({
       type: SORT_PRICE,
       payload: i === 0 ? LOW_TO_HIGH : HIGH_TO_LOW,
@@ -136,6 +134,10 @@ const Products = () => {
       type: FILTER_CATEGORY,
       payload: { ...settings.category, [categoryName]: checked },
     });
+  };
+
+  const clearFilter = () => {
+    dispatch({ type: CLEAR, payload: {} });
   };
 
   const priceSliderStyle = {
@@ -164,7 +166,12 @@ const Products = () => {
             <ul className="no-bullet">
               <li className="sidenav-header">
                 <p className="t4 mg-bottom-2x fw-4x">Filters</p>
-                <p className="t4 mg-bottom-2x fw-4x pointer clear-btn">Clear</p>
+                <p
+                  className="t4 mg-bottom-2x fw-4x pointer clear-btn"
+                  onClick={clearFilter}
+                >
+                  Clear
+                </p>
               </li>
 
               <li>
@@ -200,11 +207,23 @@ const Products = () => {
                   <input
                     type="checkbox"
                     name="category"
+                    checked={
+                      categoryName === ART
+                        ? settings.category.Art
+                        : categoryName === COLLECTIBLES
+                        ? settings.category.Collectibles
+                        : categoryName === WEARABLE
+                        ? settings.category.Wearable
+                        : categoryName === EQUIPMENT
+                        ? settings.category.Equipment
+                        : categoryName === ENTITIES &&
+                          settings.category.Entities
+                    }
                     onChange={({ target: { checked } }) => {
                       onCategoryChange(categoryName, checked);
                     }}
                   />
-                  <label className="t4 ">{categoryName}</label>
+                  <label className="t4">{categoryName}</label>
                 </li>
               ))}
 
@@ -227,12 +246,12 @@ const Products = () => {
                 <p className="t4 fw-4x mg-top-1x">Sort by</p>
               </li>
 
-              {priceSortMenu.map((item) => (
+              {priceSortMenu.map((item, i) => (
                 <li className="category-item mg-top-1x" key={item}>
                   <input
                     type="radio"
                     name="price"
-                    onChange={onPriceSortChange}
+                    onChange={() => onPriceSortChange(i)}
                   />
                   <label className="t4">{item}</label>
                 </li>

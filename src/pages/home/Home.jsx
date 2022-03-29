@@ -33,15 +33,16 @@ const Home = () => {
         <main className="pd-5x pd-top-2x">
           <div className="row-category-container hide-scroll">
             <div className="scroll pd-1x">
-              {categories.map((data, index) => (
+              {categories.map((data, i) => (
                 <div
                   to={"/products"}
                   className="basic-link"
                   onClick={() => {
                     navigateTo("products", { category: data.categoryName });
                   }}
+                  key={i}
                 >
-                  <CategoryCard data={data} key={index} />
+                  <CategoryCard data={data} />
                 </div>
               ))}
             </div>

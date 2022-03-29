@@ -15,11 +15,17 @@ import {
   SORT_PRICE,
   HIGH_TO_LOW,
   LOW_TO_HIGH,
+  FOUR_STAR_ABOVE,
+  FILTER_RATING,
+  THREE_STAR_ABOVE,
+  TWO_STAR_ABOVE,
+  ONE_STAR_ABOVE,
 } from "../../utils/Constant";
 import { useFilter } from "../../context/provider/FilterProvider";
 import {
   filterPriceRange,
   filterProduct,
+  filterRatings,
   sortPrice,
 } from "./helper/FilterHelper";
 
@@ -61,11 +67,43 @@ const Products = () => {
     //   settings.filter.fastDeliveryOnly ? FAST_DELIVERY_ONLY : ALL_DELIVERY_TYPE,
     //   filteredListforStock
     // );
+    const filteredRatings = filterRatings(settings.rating, sortedList);
     const filteredPriceRange = filterPriceRange(
       settings.priceRange,
-      sortedList
+      filteredRatings
     );
     dispatch({ type: PRODUCT_DATA, payload: filteredPriceRange });
+  };
+
+  const onRatingsChange = (type) => {
+    switch (type) {
+      case FOUR_STAR_ABOVE:
+        dispatch({
+          type: FILTER_RATING,
+          payload: FOUR_STAR_ABOVE,
+        });
+        break;
+      case THREE_STAR_ABOVE:
+        dispatch({
+          type: FILTER_RATING,
+          payload: THREE_STAR_ABOVE,
+        });
+        break;
+      case TWO_STAR_ABOVE:
+        dispatch({
+          type: FILTER_RATING,
+          payload: TWO_STAR_ABOVE,
+        });
+        break;
+      case ONE_STAR_ABOVE:
+        dispatch({
+          type: FILTER_RATING,
+          payload: ONE_STAR_ABOVE,
+        });
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -135,7 +173,11 @@ const Products = () => {
 
               {ratingsMenu.map((item) => (
                 <li className="category-item mg-top-1x" key={item}>
-                  <input type="radio" name="ratings" />
+                  <input
+                    type="radio"
+                    name="ratings"
+                    onChange={() => onRatingsChange(item)}
+                  />
                   <label className="t4">{item}</label>
                 </li>
               ))}

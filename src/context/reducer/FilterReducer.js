@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import {
   CLEAR,
   FILTER_PRODUCT,
+  FILTER_RATING,
   PRICE_RANGE,
   PRODUCT_DATA,
   SORT_PRICE,
@@ -16,7 +17,8 @@ export const filterReducer = () => {
         includeOutOfStock: false,
         fastDeliveryOnly: false,
       },
-      priceRange: 1000,
+      priceRange: 3000,
+      rating: "",
     },
   };
   const reducer = (state, action) => {
@@ -37,6 +39,11 @@ export const filterReducer = () => {
         return {
           ...state,
           settings: { ...state.settings, priceRange: action.payload },
+        };
+      case FILTER_RATING:
+        return {
+          ...state,
+          settings: { ...state.settings, rating: action.payload },
         };
       case CLEAR:
         return defaultData;

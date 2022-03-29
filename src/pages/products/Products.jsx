@@ -3,24 +3,77 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../components/header/Header";
 import ProductCard from "../../components/productCard/ProductCard";
+import { priceSortMenu, ratingsMenu } from "../../utils/FilterData";
 import "./Products.css";
+import {
+  ALL_DELIVERY_TYPE,
+  FAST_DELIVERY_ONLY,
+  IN_STOCK_ONLY,
+  INCLUDE_OUT_OF_STOCK,
+  PRICE_RANGE,
+  PRODUCT_DATA,
+  SORT_PRICE,
+  HIGH_TO_LOW,
+  LOW_TO_HIGH,
+} from "../../utils/Constant";
+import { useFilter } from "../../context/provider/FilterProvider";
+import {
+  filterPriceRange,
+  filterProduct,
+  sortPrice,
+} from "./helper/FilterHelper";
 
-const Products = (props) => {
-  const [sliderValue, setSliderValue] = useState(0);
-  const [products, setProducts] = useState([]);
+const Products = () => {
+  const [categories, setCategories] = useState([]);
 
   const data = useLocation();
-  console.log(data);
+  // console.log(data);
+
+  // Context
+  const {
+    state: { productData, settings },
+    dispatch,
+    products,
+  } = useFilter();
+
+  const { priceRange } = settings;
+
+  const getCategories = async () => {
+    try {
+      const { status, data } = await axios.get("/api/categories");
+      status === 200 && setCategories(data.categories);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const sliderOnChange = ({ target }) => {
+    dispatch({ type: PRICE_RANGE, payload: target.value });
+  };
+
+  const applySettingsAndRender = () => {
+    const sortedList = sortPrice(settings.sort, products);
+    // const filteredListforStock = filterProduct(
+    //   settings.filter.includeOutOfStock ? INCLUDE_OUT_OF_STOCK : IN_STOCK_ONLY,
+    //   sortedList
+    // );
+    // const filteredListforDelivery = filterProduct(
+    //   settings.filter.fastDeliveryOnly ? FAST_DELIVERY_ONLY : ALL_DELIVERY_TYPE,
+    //   filteredListforStock
+    // );
+    const filteredPriceRange = filterPriceRange(
+      settings.priceRange,
+      sortedList
+    );
+    dispatch({ type: PRODUCT_DATA, payload: filteredPriceRange });
+  };
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { status, data } = await axios.get("/api/products");
-        status === 200 && setProducts(data.products);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
+    applySettingsAndRender();
+  }, [settings]);
+
+  useEffect(() => {
+    getCategories();
   }, []);
   return (
     <>
@@ -45,7 +98,7 @@ const Products = (props) => {
                 <div className="range-label">
                   <label className="t4">₹0</label>
                   <label id="slider-value" className="t4 mg-left-2x">
-                    {sliderValue}
+                    {priceRange}
                   </label>
                   <label className="t4">₹3000</label>
                 </div>
@@ -53,11 +106,14 @@ const Products = (props) => {
                   type="range"
                   min={0}
                   max={3000}
-                  value={sliderValue}
                   step={100}
+                  value={priceRange}
                   className="slider mg-top-2x"
-                  onChange={({ target }) => {
-                    setSliderValue(target.value);
+                  onChange={sliderOnChange}
+                  style={{
+                    background: `linear-gradient(to right, var(--primary-color) ${
+                      priceRange / 30
+                    }%, var(--border-color) ${priceRange / 30}%`,
                   }}
                 />
               </div>
@@ -66,73 +122,43 @@ const Products = (props) => {
                 <p className="t4 fw-4x mg-top-1x">Category</p>
               </li>
 
-              <li className="category-item mg-top-1x">
-                <input type="checkbox" name="" id="" />
-                <label className="t4 mg-top-1x">Art</label>
-              </li>
-
-              <li className="category-item">
-                <input type="checkbox" name="" id="" />
-                <label className="t4 mg-top-1x">Collectibles</label>
-              </li>
-
-              <li className="category-item">
-                <input type="checkbox" name="" id="" />
-                <label className="t4 mg-top-1x">Music</label>
-              </li>
-
-              <li className="category-item">
-                <input type="checkbox" name="" id="" />
-                <label className="t4 mg-top-1x">Photography</label>
-              </li>
-
-              <li className="category-item">
-                <input type="checkbox" name="" id="" />
-                <label className="t4 mg-top-1x">Sports</label>
-              </li>
-
-              <li className="category-item">
-                <input type="checkbox" name="" id="" />
-                <label className="t4 mg-top-1x">Utility</label>
-              </li>
+              {categories.map((item) => (
+                <li className="category-item mg-top-1x" key={item.categoryName}>
+                  <input type="checkbox" name="category" />
+                  <label className="t4 ">{item.categoryName}</label>
+                </li>
+              ))}
 
               <li className="mg-top-2x">
                 <p className="t4 fw-4x mg-top-1x">Ratings</p>
               </li>
 
-              <li className="category-item mg-top-1x">
-                <input type="radio" name="" id="" />
-                <label className="t4 mg-top-1x">4 Stars & above</label>
-              </li>
-
-              <li className="category-item">
-                <input type="radio" name="" id="" />
-                <label className="t4 mg-top-1x">3 Stars & above</label>
-              </li>
-
-              <li className="category-item">
-                <input type="radio" name="" id="" />
-                <label className="t4 mg-top-1x">2 Stars & above</label>
-              </li>
-
-              <li className="category-item">
-                <input type="radio" name="" id="" />
-                <label className="t4 mg-top-1x">1 Stars & above</label>
-              </li>
+              {ratingsMenu.map((item) => (
+                <li className="category-item mg-top-1x" key={item}>
+                  <input type="radio" name="ratings" />
+                  <label className="t4">{item}</label>
+                </li>
+              ))}
 
               <li className="mg-top-2x">
                 <p className="t4 fw-4x mg-top-1x">Sort by</p>
               </li>
 
-              <li className="category-item mg-top-1x">
-                <input type="radio" name="" id="" />
-                <label className="t4 mg-top-1x">Price - Low to High</label>
-              </li>
-
-              <li className="category-item">
-                <input type="radio" name="" id="" />
-                <label className="t4 mg-top-1x">Price - High to Low</label>
-              </li>
+              {priceSortMenu.map((item, i) => (
+                <li className="category-item mg-top-1x" key={item}>
+                  <input
+                    type="radio"
+                    name="price"
+                    onChange={() => {
+                      dispatch({
+                        type: SORT_PRICE,
+                        payload: i === 0 ? LOW_TO_HIGH : HIGH_TO_LOW,
+                      });
+                    }}
+                  />
+                  <label className="t4">{item}</label>
+                </li>
+              ))}
             </ul>
           </nav>
         </aside>
@@ -142,7 +168,7 @@ const Products = (props) => {
             <p className="t4">(showing 8 products)</p>
           </div>
           <div className="product-content-card-section pd-bottom-4x">
-            {products.map((item) => (
+            {productData.map((item) => (
               <ProductCard data={item} key={item._id} />
             ))}
           </div>

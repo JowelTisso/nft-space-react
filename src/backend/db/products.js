@@ -387,8 +387,8 @@ const entities = [
 ];
 
 export const products = [
-  ...collectibles,
   ...art,
+  ...collectibles,
   ...wearable,
   ...equipment,
   ...entities,

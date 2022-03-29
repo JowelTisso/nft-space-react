@@ -20,9 +20,16 @@ import {
   THREE_STAR_ABOVE,
   TWO_STAR_ABOVE,
   ONE_STAR_ABOVE,
+  ART,
+  COLLECTIBLES,
+  WEARABLE,
+  EQUIPMENT,
+  ENTITIES,
+  FILTER_CATEGORY,
 } from "../../utils/Constant";
 import { useFilter } from "../../context/provider/FilterProvider";
 import {
+  filterCategory,
   filterPriceRange,
   filterProduct,
   filterRatings,
@@ -57,17 +64,37 @@ const Products = () => {
     dispatch({ type: PRICE_RANGE, payload: target.value });
   };
 
+  const filterAllCategory = (list) => {
+    const filteredArt = settings.category.Art
+      ? filterCategory(ART, list)
+      : list;
+
+    const filteredCollectibles = settings.category.Collectibles
+      ? filterCategory(COLLECTIBLES, filteredArt)
+      : filteredArt;
+
+    const filteredWearables = settings.category.Wearable
+      ? filterCategory(WEARABLE, filteredCollectibles)
+      : filteredCollectibles;
+
+    const filteredEquipment = settings.category.Equipment
+      ? filterCategory(EQUIPMENT, filteredWearables)
+      : filteredWearables;
+
+    const filteredEntities = settings.category.Entities
+      ? filterCategory(ENTITIES, filteredEquipment)
+      : filteredEquipment;
+
+    return filteredEntities;
+  };
+
   const applySettingsAndRender = () => {
     const sortedList = sortPrice(settings.sort, products);
-    // const filteredListforStock = filterProduct(
-    //   settings.filter.includeOutOfStock ? INCLUDE_OUT_OF_STOCK : IN_STOCK_ONLY,
-    //   sortedList
-    // );
-    // const filteredListforDelivery = filterProduct(
-    //   settings.filter.fastDeliveryOnly ? FAST_DELIVERY_ONLY : ALL_DELIVERY_TYPE,
-    //   filteredListforStock
-    // );
-    const filteredRatings = filterRatings(settings.rating, sortedList);
+    const filteredAllCategories = filterAllCategory(sortedList);
+    const filteredRatings = filterRatings(
+      settings.rating,
+      filteredAllCategories
+    );
     const filteredPriceRange = filterPriceRange(
       settings.priceRange,
       filteredRatings
@@ -75,35 +102,46 @@ const Products = () => {
     dispatch({ type: PRODUCT_DATA, payload: filteredPriceRange });
   };
 
-  const onRatingsChange = (type) => {
+  const ratingPayload = (type) => {
     switch (type) {
       case FOUR_STAR_ABOVE:
-        dispatch({
-          type: FILTER_RATING,
-          payload: FOUR_STAR_ABOVE,
-        });
-        break;
+        return FOUR_STAR_ABOVE;
       case THREE_STAR_ABOVE:
-        dispatch({
-          type: FILTER_RATING,
-          payload: THREE_STAR_ABOVE,
-        });
-        break;
+        return THREE_STAR_ABOVE;
       case TWO_STAR_ABOVE:
-        dispatch({
-          type: FILTER_RATING,
-          payload: TWO_STAR_ABOVE,
-        });
-        break;
+        return TWO_STAR_ABOVE;
       case ONE_STAR_ABOVE:
-        dispatch({
-          type: FILTER_RATING,
-          payload: ONE_STAR_ABOVE,
-        });
-        break;
+        return ONE_STAR_ABOVE;
       default:
-        break;
+        return ONE_STAR_ABOVE;
     }
+  };
+
+  const onRatingsChange = (type) => {
+    dispatch({
+      type: FILTER_RATING,
+      payload: ratingPayload(type),
+    });
+  };
+
+  const onPriceSortChange = () => {
+    dispatch({
+      type: SORT_PRICE,
+      payload: i === 0 ? LOW_TO_HIGH : HIGH_TO_LOW,
+    });
+  };
+
+  const onCategoryChange = (categoryName, checked) => {
+    dispatch({
+      type: FILTER_CATEGORY,
+      payload: { ...settings.category, [categoryName]: checked },
+    });
+  };
+
+  const priceSliderStyle = {
+    background: `linear-gradient(to right, var(--primary-color) ${
+      priceRange / 30
+    }%, var(--border-color) ${priceRange / 30}%`,
   };
 
   useEffect(() => {
@@ -113,6 +151,7 @@ const Products = () => {
   useEffect(() => {
     getCategories();
   }, []);
+
   return (
     <>
       <Header />
@@ -148,11 +187,7 @@ const Products = () => {
                   value={priceRange}
                   className="slider mg-top-2x"
                   onChange={sliderOnChange}
-                  style={{
-                    background: `linear-gradient(to right, var(--primary-color) ${
-                      priceRange / 30
-                    }%, var(--border-color) ${priceRange / 30}%`,
-                  }}
+                  style={priceSliderStyle}
                 />
               </div>
 
@@ -160,10 +195,16 @@ const Products = () => {
                 <p className="t4 fw-4x mg-top-1x">Category</p>
               </li>
 
-              {categories.map((item) => (
-                <li className="category-item mg-top-1x" key={item.categoryName}>
-                  <input type="checkbox" name="category" />
-                  <label className="t4 ">{item.categoryName}</label>
+              {categories.map(({ categoryName }) => (
+                <li className="category-item mg-top-1x" key={categoryName}>
+                  <input
+                    type="checkbox"
+                    name="category"
+                    onChange={({ target: { checked } }) => {
+                      onCategoryChange(categoryName, checked);
+                    }}
+                  />
+                  <label className="t4 ">{categoryName}</label>
                 </li>
               ))}
 
@@ -186,17 +227,12 @@ const Products = () => {
                 <p className="t4 fw-4x mg-top-1x">Sort by</p>
               </li>
 
-              {priceSortMenu.map((item, i) => (
+              {priceSortMenu.map((item) => (
                 <li className="category-item mg-top-1x" key={item}>
                   <input
                     type="radio"
                     name="price"
-                    onChange={() => {
-                      dispatch({
-                        type: SORT_PRICE,
-                        payload: i === 0 ? LOW_TO_HIGH : HIGH_TO_LOW,
-                      });
-                    }}
+                    onChange={onPriceSortChange}
                   />
                   <label className="t4">{item}</label>
                 </li>

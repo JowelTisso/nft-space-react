@@ -1,6 +1,9 @@
 // Category name
-export const CONST_ART = "Art";
-export const CONST_COLLECTIBLES = "Collectibles";
+export const ART = "Art";
+export const COLLECTIBLES = "Collectibles";
+export const WEARABLE = "Wearable";
+export const EQUIPMENT = "Equipment";
+export const ENTITIES = "Entities";
 
 // Sort
 export const PRODUCT_DATA = "PRODUCT_DATA";
@@ -8,6 +11,7 @@ export const SORT_PRICE = "SORT_PRICE";
 export const FILTER_PRODUCT = "FILTER_PRODUCT";
 export const PRICE_RANGE = "PRICE_RANGE";
 export const FILTER_RATING = "FILTER_RATING";
+export const FILTER_CATEGORY = "FILTER_CATEGORY";
 export const CLEAR = "CLEAR";
 
 // Rating

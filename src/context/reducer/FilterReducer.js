@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import {
   CLEAR,
+  FILTER_CATEGORY,
   FILTER_PRODUCT,
   FILTER_RATING,
   PRICE_RANGE,
@@ -19,6 +20,13 @@ export const filterReducer = () => {
       },
       priceRange: 3000,
       rating: "",
+      category: {
+        Art: false,
+        Collectibles: false,
+        Wearable: false,
+        Equipment: false,
+        Entities: false,
+      },
     },
   };
   const reducer = (state, action) => {
@@ -44,6 +52,11 @@ export const filterReducer = () => {
         return {
           ...state,
           settings: { ...state.settings, rating: action.payload },
+        };
+      case FILTER_CATEGORY:
+        return {
+          ...state,
+          settings: { ...state.settings, category: action.payload },
         };
       case CLEAR:
         return defaultData;

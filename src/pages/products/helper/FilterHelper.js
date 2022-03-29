@@ -9,6 +9,11 @@ import {
   THREE_STAR_ABOVE,
   TWO_STAR_ABOVE,
   ONE_STAR_ABOVE,
+  ART,
+  COLLECTIBLES,
+  WEARABLE,
+  ENTITIES,
+  EQUIPMENT,
 } from "../../../utils/Constant";
 
 export const sortPrice = (type, list) => {
@@ -38,6 +43,23 @@ export const filterProduct = (type, list) => {
       return [...list].filter(
         (item) => item.fastDelivery || !item.fastDelivery
       );
+    default:
+      return list;
+  }
+};
+
+export const filterCategory = (type, list) => {
+  switch (type) {
+    case ART:
+      return [...list].filter((item) => item.categoryName === ART);
+    case COLLECTIBLES:
+      return [...list].filter((item) => item.categoryName === COLLECTIBLES);
+    case WEARABLE:
+      return [...list].filter((item) => item.categoryName === WEARABLE);
+    case EQUIPMENT:
+      return [...list].filter((item) => item.categoryName === EQUIPMENT);
+    case ENTITIES:
+      return [...list].filter((item) => item.categoryName === ENTITIES);
     default:
       return list;
   }

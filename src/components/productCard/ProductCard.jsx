@@ -1,7 +1,7 @@
 import React from "react";
 import { IoHeartOutline, IoStar, IoStarOutline } from "react-icons/io5";
 import "./ProductCard.css";
-import { CONST_ART, CONST_COLLECTIBLES } from "../../utils/Constant";
+import { COLLECTIBLES } from "../../utils/Constant";
 
 const ProductCard = ({
   data: {
@@ -27,7 +27,7 @@ const ProductCard = ({
         src={img}
         alt="card image"
         style={{
-          objectFit: categoryName === CONST_COLLECTIBLES ? "cover" : "contain",
+          objectFit: categoryName === COLLECTIBLES ? "cover" : "contain",
         }}
       />
       <div className="card-content">

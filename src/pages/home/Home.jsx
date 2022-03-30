@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Home.css";
 import CategoryCard from "./component/CategoryCard";
 import axios from "axios";
-import Header from "../../components/header/Header";
 import { Link, useNavigate } from "react-router-dom";
 import CategoryCardHorizontal from "./component/CategoryCardHorizontal";
 import { TrendingStatusData } from "../../utils/HomeTrendingStatusData";
@@ -29,7 +28,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <div className="wrapper mg-top-6x">
         <main className="pd-5x pd-top-2x">
           <div className="row-category-container hide-scroll">

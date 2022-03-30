@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../../components/header/Header";
 import "../Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -7,7 +6,6 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <>
-      <Header />
       <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
         <div className="login-card wd-5x flex-center pd-5x">
           <p className="h3 text-center mg-top-2x mg-bottom-4x">Login</p>

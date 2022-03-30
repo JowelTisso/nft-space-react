@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Header from "../../components/header/Header";
 import ProductCard from "../../components/productCard/ProductCard";
 import { priceSortMenu, ratingsMenu } from "../../utils/FilterData";
 import "./Products.css";
@@ -178,7 +177,6 @@ const Products = () => {
 
   return (
     <>
-      <Header />
       <div className="content-wrapper">
         <aside
           id="drawer"

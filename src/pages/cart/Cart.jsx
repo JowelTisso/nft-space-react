@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Header from "../../components/header/Header";
 import "./Cart.css";
 import { ProductCard } from "./component/ProductCard";
 
@@ -19,7 +18,6 @@ const Cart = () => {
   }, []);
   return (
     <>
-      <Header />
       <div className="content-wrapper">
         <main className="content pd-4x pd-top-2x">
           <section className="product-section mg-left-5x">

@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Header from "../../components/header/Header";
 import ProductCard from "../../components/productCard/ProductCard";
 import "./Wishlist.css";
 
@@ -20,7 +19,6 @@ const Wishlist = () => {
 
   return (
     <>
-      <Header />
       <div className="content-wrapper mg-top-6x">
         <main className="wishlist-content pd-4x pd-top-2x">
           <div className="content-header mg-left-2x">

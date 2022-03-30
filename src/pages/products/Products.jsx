@@ -28,6 +28,7 @@ import {
   filterCategory,
   filterPriceRange,
   filterRatings,
+  filterTrendingStatus,
   sortPrice,
 } from "./helper/FilterHelper";
 import { useLocation } from "react-router-dom";
@@ -47,8 +48,15 @@ const Products = () => {
   const { state } = useLocation();
 
   const setInitialCategory = () => {
-    if (state) {
+    if (state && state.hasOwnProperty("category")) {
       onCategoryChange(state.category, true);
+    }
+  };
+
+  const setInitialStatus = () => {
+    if (state && state.hasOwnProperty("status")) {
+      const filteredStatus = filterTrendingStatus(state.status, products);
+      dispatch({ type: PRODUCT_DATA, payload: filteredStatus });
     }
   };
 
@@ -162,7 +170,7 @@ const Products = () => {
   useEffect(() => {
     getCategories();
     setInitialCategory();
-
+    setInitialStatus();
     return () => {
       clearFilter();
     };

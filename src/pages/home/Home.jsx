@@ -59,12 +59,18 @@ const Home = () => {
 
           <div className="category-card-container mg-1x mg-top-6x">
             {TrendingStatusData.map(({ img, status, description }) => (
-              <CategoryCardHorizontal
-                img={img}
-                title={status}
-                description={description}
+              <div
+                onClick={() => {
+                  navigateTo("products", { status: status });
+                }}
                 key={status}
-              />
+              >
+                <CategoryCardHorizontal
+                  img={img}
+                  title={status}
+                  description={description}
+                />
+              </div>
             ))}
           </div>
         </main>

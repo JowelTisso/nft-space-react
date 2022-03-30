@@ -14,6 +14,8 @@ import {
   WEARABLE,
   ENTITIES,
   EQUIPMENT,
+  STATUS_POPULAR,
+  STATUS_TRENDING,
 } from "../../../utils/Constant";
 
 export const sortPrice = (type, list) => {
@@ -82,3 +84,14 @@ export const filterRatings = (type, list) => {
 
 export const filterPriceRange = (price, list) =>
   list.filter((item) => parseFloat(item.price) <= price);
+
+export const filterTrendingStatus = (type, list) => {
+  switch (type) {
+    case STATUS_POPULAR:
+      return [...list].filter((item) => item.status === STATUS_POPULAR);
+    case STATUS_TRENDING:
+      return [...list].filter((item) => item.status === STATUS_TRENDING);
+    default:
+      return list;
+  }
+};

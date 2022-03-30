@@ -30,6 +30,7 @@ import {
   filterRatings,
   sortPrice,
 } from "./helper/FilterHelper";
+import { useLocation } from "react-router-dom";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
@@ -42,6 +43,14 @@ const Products = () => {
   } = useFilter();
 
   const { priceRange } = settings;
+
+  const { state } = useLocation();
+
+  const setInitialCategory = () => {
+    if (state) {
+      onCategoryChange(state.category, true);
+    }
+  };
 
   const getCategories = async () => {
     try {
@@ -152,6 +161,11 @@ const Products = () => {
 
   useEffect(() => {
     getCategories();
+    setInitialCategory();
+
+    return () => {
+      clearFilter();
+    };
   }, []);
 
   return (
@@ -184,12 +198,12 @@ const Products = () => {
                   <label id="slider-value" className="t4 mg-left-2x">
                     {priceRange}
                   </label>
-                  <label className="t4">₹3000</label>
+                  <label className="t4">₹4000</label>
                 </div>
                 <input
                   type="range"
                   min={0}
-                  max={3000}
+                  max={4000}
                   step={100}
                   value={priceRange}
                   className="slider mg-top-2x"

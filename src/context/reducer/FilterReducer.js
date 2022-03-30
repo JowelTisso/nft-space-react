@@ -18,7 +18,7 @@ export const filterReducer = () => {
         includeOutOfStock: false,
         fastDeliveryOnly: false,
       },
-      priceRange: 3000,
+      priceRange: 4000,
       rating: "",
       category: {
         Art: false,

@@ -28,8 +28,10 @@ import {
   filterCategory,
   filterPriceRange,
   filterRatings,
+  filterTrendingStatus,
   sortPrice,
 } from "./helper/FilterHelper";
+import { useLocation } from "react-router-dom";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
@@ -42,6 +44,21 @@ const Products = () => {
   } = useFilter();
 
   const { priceRange } = settings;
+
+  const { state } = useLocation();
+
+  const setInitialCategory = () => {
+    if (state && state.hasOwnProperty("category")) {
+      onCategoryChange(state.category, true);
+    }
+  };
+
+  const setInitialStatus = () => {
+    if (state && state.hasOwnProperty("status")) {
+      const filteredStatus = filterTrendingStatus(state.status, products);
+      dispatch({ type: PRODUCT_DATA, payload: filteredStatus });
+    }
+  };
 
   const getCategories = async () => {
     try {
@@ -152,6 +169,11 @@ const Products = () => {
 
   useEffect(() => {
     getCategories();
+    setInitialCategory();
+    setInitialStatus();
+    return () => {
+      clearFilter();
+    };
   }, []);
 
   return (
@@ -184,12 +206,12 @@ const Products = () => {
                   <label id="slider-value" className="t4 mg-left-2x">
                     {priceRange}
                   </label>
-                  <label className="t4">₹3000</label>
+                  <label className="t4">₹4000</label>
                 </div>
                 <input
                   type="range"
                   min={0}
-                  max={3000}
+                  max={4000}
                   step={100}
                   value={priceRange}
                   className="slider mg-top-2x"
@@ -262,7 +284,7 @@ const Products = () => {
         <main className="product-content pd-2x">
           <div className="content-header">
             <p className="h4">Showing All NFT</p>
-            <p className="t4">(showing 8 products)</p>
+            <p className="t4">(showing {productData.length} products)</p>
           </div>
           <div className="product-content-card-section pd-bottom-4x">
             {productData.map((item) => (

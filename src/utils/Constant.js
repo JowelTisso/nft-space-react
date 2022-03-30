@@ -27,3 +27,6 @@ export const INCLUDE_OUT_OF_STOCK = "INCLUDE_OUT_OF_STOCK";
 export const FAST_DELIVERY_ONLY = "FAST_DELIVERY_ONLY";
 export const IN_STOCK_ONLY = "IN_STOCK_ONLY";
 export const ALL_DELIVERY_TYPE = "ALL_DELIVERY_TYPE";
+
+export const STATUS_POPULAR = "Popular";
+export const STATUS_TRENDING = "Trending";

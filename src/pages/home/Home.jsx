@@ -3,8 +3,9 @@ import "./Home.css";
 import CategoryCard from "./component/CategoryCard";
 import axios from "axios";
 import Header from "../../components/header/Header";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CategoryCardHorizontal from "./component/CategoryCardHorizontal";
+import { TrendingStatusData } from "../../utils/HomeTrendingStatusData";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -48,27 +49,29 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="carousel mg-top-2x">
+          <Link to={"/products"} className="carousel mg-top-2x">
             <img
               className="img-carousel pointer"
               src="https://user-images.githubusercontent.com/52632590/153457954-a3cb3152-bfde-42db-bb34-e113825757d9.png"
               alt="Carousel"
             />
-          </div>
+          </Link>
 
-          <div className="category-card-container mg-6x mg-top-6x">
-            <CategoryCardHorizontal
-              img="https://i.pinimg.com/736x/f3/17/c0/f317c046fc27f52bd4398d9fcc0a0272.jpg"
-              title="Popular"
-              description=" NFT that are popular this year, which will lead you in
-                    discovering cool nfts."
-            />
-            <CategoryCardHorizontal
-              img="https://i.pinimg.com/originals/1a/72/88/1a72888549a53fc0726a4dfc5eef6626.gif"
-              title="Trending"
-              description="NFT that are trending this year, which will lead you in
-                    discovering cool nfts."
-            />
+          <div className="category-card-container mg-1x mg-top-6x">
+            {TrendingStatusData.map(({ img, status, description }) => (
+              <div
+                onClick={() => {
+                  navigateTo("products", { status: status });
+                }}
+                key={status}
+              >
+                <CategoryCardHorizontal
+                  img={img}
+                  title={status}
+                  description={description}
+                />
+              </div>
+            ))}
           </div>
         </main>
       </div>

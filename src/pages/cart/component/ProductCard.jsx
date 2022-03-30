@@ -6,21 +6,29 @@ import {
   IoRemoveCircle,
   IoAddCircle,
 } from "react-icons/io5";
+import { removeFromCart } from "../../products/helper/CartHelper";
+import { useCart } from "../../../context/provider/CartProvider";
 
 const ProductCard = ({
   data: {
-    title,
-    creator,
-    price,
-    categoryName,
-    topBid,
-    minBid,
-    rank,
-    img,
-    ratings,
-    ratingsCount,
+    quantity,
+    cartItem: {
+      title,
+      creator,
+      price,
+      categoryName,
+      topBid,
+      minBid,
+      rank,
+      img,
+      ratings,
+      ratingsCount,
+    },
   },
+  data,
 }) => {
+  const { cartDispatch } = useCart();
+
   return (
     <>
       <div className="card card-horizontal">
@@ -53,12 +61,19 @@ const ProductCard = ({
             <div className="quantity mg-top-2x">
               <p className="quantity-title">Quantity :</p>
               <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
-              <p className="quantity-value mg-left-1x text-center">1</p>
+              <p className="quantity-value mg-left-1x text-center">
+                {quantity}
+              </p>
               <IoAddCircle className="quantity-btn mg-left-1x pointer" />
             </div>
           </div>
           <div className="card-btn-container">
-            <button className="btn btn-primary btn-sm wd-full">
+            <button
+              className="btn btn-primary btn-sm wd-full"
+              onClick={() => {
+                removeFromCart(data, cartDispatch);
+              }}
+            >
               REMOVE FROM CART
             </button>
             <button className="btn btn-secondary btn-sm wd-full">

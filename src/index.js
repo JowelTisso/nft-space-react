@@ -11,14 +11,12 @@ import { CartProvider } from "./context/provider/CartProvider";
 makeServer();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <CartProvider>
-        <FilterProvider>
-          <App />
-        </FilterProvider>
-      </CartProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <CartProvider>
+      <FilterProvider>
+        <App />
+      </FilterProvider>
+    </CartProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );

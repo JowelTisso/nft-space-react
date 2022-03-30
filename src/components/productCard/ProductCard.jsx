@@ -2,6 +2,8 @@ import React from "react";
 import { IoHeartOutline, IoStar, IoStarOutline } from "react-icons/io5";
 import "./ProductCard.css";
 import { ART } from "../../utils/Constant";
+import { useCart } from "../../context/provider/CartProvider";
+import { addToCart } from "../../pages/products/helper/CartHelper";
 
 const ProductCard = ({
   data: {
@@ -16,7 +18,14 @@ const ProductCard = ({
     ratings,
     ratingsCount,
   },
+  data,
 }) => {
+  const { cartDispatch } = useCart();
+
+  const addToCartHandler = () => {
+    addToCart(data, cartDispatch);
+  };
+
   return (
     <div className="card">
       <div className="card-badge">
@@ -46,7 +55,9 @@ const ProductCard = ({
         </div>
       </div>
       <div className="card-btn-container">
-        <button className="btn btn-primary">ADD TO CART</button>
+        <button className="btn btn-primary" onClick={addToCartHandler}>
+          ADD TO CART
+        </button>
       </div>
     </div>
   );

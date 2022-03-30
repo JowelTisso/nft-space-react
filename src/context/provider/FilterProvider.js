@@ -26,7 +26,9 @@ const FilterProvider = ({ children }) => {
   }, []);
 
   return (
-    <FilterContext.Provider value={{ state, dispatch, products }}>
+    <FilterContext.Provider
+      value={{ filterState: state, filterDispatch: dispatch, products }}
+    >
       {children}
     </FilterContext.Provider>
   );

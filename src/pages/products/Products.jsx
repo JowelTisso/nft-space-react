@@ -284,7 +284,7 @@ const Products = () => {
         <main className="product-content pd-2x">
           <div className="content-header">
             <p className="h4">Showing All NFT</p>
-            <p className="t4">(showing 8 products)</p>
+            <p className="t4">(showing {productData.length} products)</p>
           </div>
           <div className="product-content-card-section pd-bottom-4x">
             {productData.map((item) => (

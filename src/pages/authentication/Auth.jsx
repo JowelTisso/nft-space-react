@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import "./Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import { userLogIn } from "./helper/authHelper";
+import { userLogIn, userSignUp } from "./helper/authHelper";
 import { useAuth } from "../../context/provider/AuthProvider";
-import { LOG_IN } from "../../utils/Constant";
+import { LOG_IN, SIGN_UP } from "../../utils/Constant";
 
 const Auth = () => {
   const [credentials, setCredentials] = useState({
+    firstName: "Neog",
+    lastName: "camp",
     email: "test@gmail.com",
     password: "test123",
   });
 
   const [authTypeLogin, setAuthTypeLogin] = useState(true);
+
+  const [togglePassword, setTogglePassword] = useState(false);
 
   const { authDispatch } = useAuth();
   const navigate = useNavigate();
@@ -22,6 +26,10 @@ const Auth = () => {
   };
   const passwordChangeHandler = ({ target }) => {
     setCredentials((state) => ({ ...state, password: target.value }));
+  };
+
+  const nameChangeHandler = ({ target }, nameType) => {
+    setCredentials((state) => ({ ...state, [nameType]: target.value }));
   };
 
   const changeAuthType = () => {
@@ -37,8 +45,7 @@ const Auth = () => {
       email: credentials.email,
       password: credentials.password,
     });
-
-    if (res.status === 200) {
+    if (res?.status === 200) {
       authDispatch({
         type: LOG_IN,
         payload: {
@@ -50,6 +57,29 @@ const Auth = () => {
     }
   };
 
+  const signupHandler = async () => {
+    const res = await userSignUp({
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
+      email: credentials.email,
+      password: credentials.password,
+    });
+    if (res?.status === 200) {
+      authDispatch({
+        type: SIGN_UP,
+        payload: {
+          token: res?.data?.encodedToken,
+          user: res?.data?.createdUser,
+        },
+      });
+      navigate("/");
+    }
+  };
+
+  const showPassword = () => {
+    setTogglePassword((state) => !state);
+  };
+
   return (
     <>
       <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
@@ -57,6 +87,33 @@ const Auth = () => {
           <p className="h3 text-center mg-top-2x mg-bottom-4x">
             {authTypeLogin ? "Login" : "Signup"}
           </p>
+
+          {!authTypeLogin && (
+            <>
+              <div className="input-container mg-top-2x wd-4x">
+                <label className="input-label">First Name</label>
+                <input
+                  type="text"
+                  className="input-simple"
+                  placeholder="Neog"
+                  value={credentials.firstName}
+                  onChange={(e) => nameChangeHandler(e, "firstName")}
+                />
+                {/* <p className="input-val val-warn">Input email</p> */}
+              </div>
+              <div className="input-container mg-top-2x wd-4x">
+                <label className="input-label">Last Name</label>
+                <input
+                  type="text"
+                  className="input-simple"
+                  placeholder="camp"
+                  value={credentials.lastName}
+                  onChange={(e) => nameChangeHandler(e, "lastName")}
+                />
+                {/* <p className="input-val val-warn">Input email</p> */}
+              </div>
+            </>
+          )}
 
           <div className="input-container mg-top-2x wd-4x">
             <label className="input-label">Email address</label>
@@ -67,22 +124,24 @@ const Auth = () => {
               value={credentials.email}
               onChange={emailChangeHandler}
             />
-            <p className="input-val val-warn">Input email</p>
+            {/* <p className="input-val val-warn">Input email</p> */}
           </div>
 
-          <div className="input-container mg-top-3x wd-4x">
+          <div className="input-container mg-top-2x wd-4x">
             <label className="input-label">Password</label>
             <div className="toggle-icon-container">
               <input
-                type="password"
+                type={togglePassword ? "text" : "password"}
                 className="input-simple"
                 placeholder="test123"
                 value={credentials.password}
                 onChange={passwordChangeHandler}
               />
-              <IoEyeOff className="toggle-icon pointer" />
+              <div onClick={showPassword}>
+                <IoEyeOff className="toggle-icon pointer" />
+              </div>
             </div>
-            <p className="input-val val-warn">Input password</p>
+            {/* <p className="input-val val-warn">Input password</p> */}
           </div>
 
           <div className="info-container flex-center mg-2x wd-4x">
@@ -103,18 +162,20 @@ const Auth = () => {
 
           <button
             className="btn btn-primary wd-full mg-top-2x"
-            onClick={loginHandler}
+            onClick={() => {
+              authTypeLogin ? loginHandler() : signupHandler();
+            }}
           >
-            {authTypeLogin ? "Login" : "Signup"}
+            {authTypeLogin ? "Login" : "Create New Account"}
           </button>
 
           <div className="bottom-nav-container mg-top-2x ">
-            <buton
+            <button
               className="t4 text-center pointer no-deco btn-link"
               onClick={changeAuthType}
             >
               {authTypeLogin ? "Create New Account" : "Already have an account"}
-            </buton>
+            </button>
             <IoChevronForward className="goto-icon mg-left-1x" />
           </div>
         </div>

@@ -7,12 +7,6 @@ const Cart = () => {
   const { cartState, cartDispatch } = useCart();
   const { totalItems, totalPrice } = cartState;
 
-  const [cartItems, setCartItems] = useState(cartState.cartItems);
-
-  useEffect(() => {
-    setCartItems([...cartState.cartItems]);
-  }, [cartState]);
-
   return (
     <>
       <div className="content-wrapper">
@@ -23,7 +17,7 @@ const Cart = () => {
               <p className="t4">(You have {totalItems} items in your cart)</p>
             </div>
             <div className="content-card-section pd-bottom-4x pd-left-1x">
-              {cartItems.map((item) => (
+              {cartState.cartItems.map((item) => (
                 <ProductCard data={item} key={item.cartItem._id} />
               ))}
             </div>

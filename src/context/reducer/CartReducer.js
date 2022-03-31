@@ -1,5 +1,10 @@
 import { useReducer } from "react";
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../../utils/Constant";
+import {
+  ADD_TO_CART,
+  DECREASE_QUANTITY,
+  INCREASE_QUANTITY,
+  REMOVE_FROM_CART,
+} from "../../utils/Constant";
 
 export const cartReducer = () => {
   const addToCart = (state, action) => {
@@ -20,8 +25,9 @@ export const cartReducer = () => {
   };
 
   const decreaseQuantity = (state, action) => {
+    console.log(state);
     const itemIndex = state.cartItems.findIndex(
-      (item) => item.cartItem._id === action.payload._id
+      (item) => item.cartItem._id === action.payload.cartItem._id
     );
     if (itemIndex > -1) {
       if (state.cartItems[itemIndex].quantity > 1) {
@@ -30,20 +36,32 @@ export const cartReducer = () => {
         return {
           ...state,
           totalItems: state.totalItems - 1,
-          totalPrice: state.totalPrice - parseFloat(action.payload.price),
+          totalPrice:
+            state.totalPrice - parseFloat(action.payload.cartItem.price),
           cartItems: [...state.cartItems],
         };
-      } else {
-        return {
-          ...state,
-          totalItems: state.totalItems - 1,
-          totalPrice: state.totalPrice - parseFloat(action.payload.price),
-          cartItems: [...state.cartItems].filter(
-            (item) => item.cartItem._id != action.payload._id
-          ),
-        };
       }
+      return { ...state };
     }
+    return { ...state };
+  };
+
+  const increaseQuantity = (state, action) => {
+    const itemIndex = state.cartItems.findIndex(
+      (item) => item.cartItem._id === action.payload.cartItem._id
+    );
+    if (itemIndex > -1) {
+      state.cartItems[itemIndex].quantity =
+        state.cartItems[itemIndex].quantity + 1;
+      return {
+        ...state,
+        totalItems: state.totalItems + 1,
+        totalPrice:
+          state.totalPrice + parseFloat(action.payload.cartItem.price),
+        cartItems: [...state.cartItems],
+      };
+    }
+    return { ...state };
   };
 
   const reducer = (state, action) => {
@@ -56,6 +74,14 @@ export const cartReducer = () => {
           cartItems: addToCart(state, action),
         };
       case REMOVE_FROM_CART:
+        console.log(state.totalItems + "-" + action.payload.quantity);
+        console.log(
+          state.totalPrice +
+            "-" +
+            parseFloat(action.payload.cartItem.price) +
+            "*" +
+            action.payload.quantity
+        );
         return {
           ...state,
           totalItems: state.totalItems - action.payload.quantity,
@@ -66,6 +92,10 @@ export const cartReducer = () => {
             (item) => item.cartItem._id != action.payload.cartItem._id
           ),
         };
+      case INCREASE_QUANTITY:
+        return increaseQuantity(state, action);
+      case DECREASE_QUANTITY:
+        return decreaseQuantity(state, action);
       default:
         return state;
     }

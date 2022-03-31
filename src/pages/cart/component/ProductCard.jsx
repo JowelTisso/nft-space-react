@@ -6,7 +6,11 @@ import {
   IoRemoveCircle,
   IoAddCircle,
 } from "react-icons/io5";
-import { removeFromCart } from "../../products/helper/CartHelper";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../../products/helper/CartHelper";
 import { useCart } from "../../../context/provider/CartProvider";
 
 const ProductCard = ({
@@ -60,11 +64,23 @@ const ProductCard = ({
             </div>
             <div className="quantity mg-top-2x">
               <p className="quantity-title">Quantity :</p>
-              <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
+              <span
+                onClick={() => {
+                  decreaseQuantity(data, cartDispatch);
+                }}
+              >
+                <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
+              </span>
               <p className="quantity-value mg-left-1x text-center">
                 {quantity}
               </p>
-              <IoAddCircle className="quantity-btn mg-left-1x pointer" />
+              <span
+                onClick={() => {
+                  increaseQuantity(data, cartDispatch);
+                }}
+              >
+                <IoAddCircle className="quantity-btn mg-left-1x pointer" />
+              </span>
             </div>
           </div>
           <div className="card-btn-container">

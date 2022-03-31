@@ -11,6 +11,7 @@ import { CartProvider } from "./context/provider/CartProvider";
 makeServer();
 
 ReactDOM.render(
+  // <React.StrictMode>
   <BrowserRouter>
     <CartProvider>
       <FilterProvider>
@@ -18,5 +19,6 @@ ReactDOM.render(
       </FilterProvider>
     </CartProvider>
   </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById("root")
 );

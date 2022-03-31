@@ -4,7 +4,7 @@ import "./Cart.css";
 import { ProductCard } from "./component/ProductCard";
 
 const Cart = () => {
-  const { cartState, cartDispatch } = useCart();
+  const { cartState } = useCart();
   const { totalItems, totalPrice } = cartState;
 
   return (

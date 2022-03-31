@@ -1,9 +1,19 @@
 import React from "react";
-import { IoHeartOutline, IoStar, IoStarOutline } from "react-icons/io5";
+import {
+  IoHeartOutline,
+  IoStar,
+  IoStarOutline,
+  IoHeart,
+} from "react-icons/io5";
 import "./ProductCard.css";
 import { ART } from "../../utils/Constant";
 import { useCart } from "../../context/provider/CartProvider";
 import { addToCart } from "../../pages/products/helper/CartHelper";
+import { useWishlist } from "../../context/provider/WishlistProvider";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../pages/products/helper/WishlistHelper";
 
 const ProductCard = ({
   data: {
@@ -22,14 +32,30 @@ const ProductCard = ({
 }) => {
   const { cartDispatch } = useCart();
 
+  const { wishlistState, wishlistDispatch } = useWishlist();
+
+  const inWishlist = wishlistState?.wishlistItems.some(
+    (item) => item._id === data._id
+  );
+
+  const wishlistHandler = () => {
+    !inWishlist
+      ? addToWishlist(data, wishlistDispatch)
+      : removeFromWishlist(data, wishlistDispatch);
+  };
+
   const addToCartHandler = () => {
     addToCart(data, cartDispatch);
   };
 
   return (
     <div className="card">
-      <div className="card-badge">
-        <IoHeartOutline className="ic-normal " />
+      <div className="card-badge " onClick={wishlistHandler}>
+        {inWishlist ? (
+          <IoHeart className="badge-active t3" />
+        ) : (
+          <IoHeartOutline className="ic-normal" />
+        )}
       </div>
       <img
         className="card-img"

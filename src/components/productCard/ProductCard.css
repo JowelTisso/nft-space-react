@@ -24,6 +24,11 @@
   overflow: hidden;
 }
 
+.ic-normal {
+  font-size: 2.4rem;
+  color: var(--txt-color);
+}
+
 .badge-active {
   color: var(--cta-color);
 }

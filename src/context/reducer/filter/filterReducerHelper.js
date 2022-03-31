@@ -6,7 +6,7 @@ import {
   PRICE_RANGE,
   PRODUCT_DATA,
   SORT_PRICE,
-} from "../../utils/Constant";
+} from "../../../utils/Constant";
 
 const defaultData = {
   productData: [],

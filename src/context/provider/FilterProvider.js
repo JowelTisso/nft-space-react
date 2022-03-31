@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { PRODUCT_DATA } from "../../utils/Constant";
-import { filterReducer } from "../reducer/FilterReducer";
+import { filterReducer } from "../reducer/filter/FilterReducer";
 
 const FilterContext = createContext({ state: {}, dispatch: () => {} });
 

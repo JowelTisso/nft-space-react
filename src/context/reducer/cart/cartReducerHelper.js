@@ -3,7 +3,7 @@ import {
   DECREASE_QUANTITY,
   INCREASE_QUANTITY,
   REMOVE_FROM_CART,
-} from "../../utils/Constant";
+} from "../../../utils/Constant";
 
 const addToCart = (state, action) => {
   const itemIndex = state.cartItems.findIndex(
@@ -23,7 +23,6 @@ const addToCart = (state, action) => {
 };
 
 const decreaseQuantity = (state, action) => {
-  // console.log(state);
   const itemIndex = state.cartItems.findIndex(
     (item) => item.cartItem._id === action.payload.cartItem._id
   );
@@ -62,7 +61,6 @@ const increaseQuantity = (state, action) => {
 };
 
 export const reducer = (state, action) => {
-  console.log("reducer");
   switch (action.type) {
     case ADD_TO_CART:
       return {
@@ -72,14 +70,6 @@ export const reducer = (state, action) => {
         cartItems: addToCart(state, action),
       };
     case REMOVE_FROM_CART:
-      console.log(state.totalItems + "-" + action.payload.quantity);
-      console.log(
-        state.totalPrice +
-          "-" +
-          parseFloat(action.payload.cartItem.price) +
-          "*" +
-          action.payload.quantity
-      );
       return {
         ...state,
         totalItems: state.totalItems - action.payload.quantity,

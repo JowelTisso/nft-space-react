@@ -1,21 +1,10 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductCard from "../../components/productCard/ProductCard";
+import { useWishlist } from "../../context/provider/WishlistProvider";
 import "./Wishlist.css";
 
 const Wishlist = () => {
-  const [wishlist, setWishlist] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { status, data } = await axios.get("/api/products");
-        status === 200 && setWishlist(data.products);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
+  const { wishlistState } = useWishlist();
 
   return (
     <>
@@ -23,10 +12,12 @@ const Wishlist = () => {
         <main className="wishlist-content pd-4x pd-top-2x">
           <div className="content-header mg-left-2x">
             <p className="h4">Wishlist</p>
-            <p className="t4">(You have wishlist 8 items)</p>
+            <p className="t4">
+              (You have wishlist {wishlistState?.wishlistItems?.length} items)
+            </p>
           </div>
           <div className="wishlist-content-card-section pd-bottom-4x pd-left-1x">
-            {wishlist.map((item) => (
+            {wishlistState?.wishlistItems?.map((item) => (
               <ProductCard data={item} key={item._id} />
             ))}
           </div>

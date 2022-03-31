@@ -1,10 +1,4 @@
 import { useReducer } from "react";
-import {
-  ADD_TO_CART,
-  DECREASE_QUANTITY,
-  INCREASE_QUANTITY,
-  REMOVE_FROM_CART,
-} from "../../utils/Constant";
 import { reducer } from "./cartReducerHelper";
 
 export const cartReducer = () => {

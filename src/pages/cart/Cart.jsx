@@ -30,12 +30,14 @@ const Cart = () => {
 
               <div className="grid-2">
                 <p className="t4">Price ({totalItems} items)</p>
-                <p className="t4 text-right">₹{totalPrice}</p>
+                <p className="t4 text-right">₹{totalPrice.toFixed(2)}</p>
               </div>
 
               <div className="grid-2 mg-top-3x">
                 <p className="t4">Discount</p>
-                <p className="t4 text-right">-₹{400 * totalItems}</p>
+                <p className="t4 text-right">
+                  -₹{(400 * totalItems).toFixed(2)}
+                </p>
               </div>
 
               <hr className="hr mg-top-3x mg-bottom-3x" />
@@ -43,14 +45,16 @@ const Cart = () => {
               <div className="grid-2 mg-top-2x">
                 <p className="t4">Total Amount</p>
                 <p className="t4 text-right">
-                  ₹{totalPrice - 400 * totalItems}
+                  ₹{(totalPrice - 400 * totalItems).toFixed(2)}
                 </p>
               </div>
 
               <hr className="hr mg-top-3x mg-bottom-3x" />
 
               <div className="mg-top-2x">
-                <p className="t4">You will save ₹{400 * totalItems}</p>
+                <p className="t4">
+                  You will save ₹{(400 * totalItems).toFixed(2)}
+                </p>
               </div>
 
               <button className="btn btn-primary btn-sm mg-top-3x wd-full btn-place-order">

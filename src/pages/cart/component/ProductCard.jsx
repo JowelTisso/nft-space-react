@@ -12,6 +12,7 @@ import {
   removeFromCart,
 } from "../../products/helper/CartHelper";
 import { useCart } from "../../../context/provider/CartProvider";
+import { ART } from "../../../utils/Constant";
 
 const ProductCard = ({
   data: {
@@ -37,7 +38,14 @@ const ProductCard = ({
     <>
       <div className="card card-horizontal">
         <div>
-          <img className="card-img-horizontal" src={img} alt="card image" />
+          <img
+            className="card-img-horizontal"
+            src={img}
+            alt="card image"
+            style={{
+              objectFit: categoryName === ART ? "cover" : "contain",
+            }}
+          />
         </div>
         <div className="card-content-horizontal pd-bottom-2x">
           <div className="card-content">

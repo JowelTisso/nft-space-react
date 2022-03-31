@@ -5,6 +5,7 @@ export const authReducer = () => {
   const defaultData = {
     token: "",
     user: {},
+    loggedIn: false,
   };
   const [state, dispatch] = useReducer(reducer, defaultData);
 

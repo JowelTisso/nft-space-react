@@ -102,6 +102,7 @@
 .btn-secondary {
   color: var(--secondary-color);
   border: 2px solid var(--secondary-color);
+  background-color: var(--bg-color);
 }
 
 .btn-secondary:hover {

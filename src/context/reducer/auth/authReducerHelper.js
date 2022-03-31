@@ -5,20 +5,23 @@ export const reducer = (state, action) => {
     case LOG_IN:
       return {
         ...state,
-        token: "",
-        user: {},
+        token: action.payload.token,
+        user: action.payload.user,
+        loggedIn: true,
       };
     case LOG_OUT:
       return {
         ...state,
         token: "",
         user: {},
+        loggedIn: false,
       };
     case SIGN_UP:
       return {
         ...state,
-        token: "",
-        user: {},
+        token: action.payload.token,
+        user: action.payload.user,
+        loggedIn: true,
       };
     default:
       return state;

@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import "./Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { userLogIn } from "./helper/loginHelper";
+import { Link, useNavigate } from "react-router-dom";
+import { userLogIn } from "./helper/authHelper";
+import { useAuth } from "../../context/provider/AuthProvider";
+import { LOG_IN } from "../../utils/Constant";
 
 const Auth = () => {
   const [credentials, setCredentials] = useState({
     email: "test@gmail.com",
     password: "test123",
   });
+
+  const [authTypeLogin, setAuthTypeLogin] = useState(true);
+
+  const { authDispatch } = useAuth();
+  const navigate = useNavigate();
 
   const emailChangeHandler = ({ target }) => {
     setCredentials((state) => ({ ...state, email: target.value }));
@@ -17,26 +24,46 @@ const Auth = () => {
     setCredentials((state) => ({ ...state, password: target.value }));
   };
 
+  const changeAuthType = () => {
+    setAuthTypeLogin((state) => !state);
+    setCredentials({
+      email: "",
+      password: "",
+    });
+  };
+
   const loginHandler = async () => {
     const res = await userLogIn({
       email: credentials.email,
       password: credentials.password,
     });
-    console.log(res);
+
+    if (res.status === 200) {
+      authDispatch({
+        type: LOG_IN,
+        payload: {
+          token: res?.data?.encodedToken,
+          user: res?.data?.foundUser,
+        },
+      });
+      navigate("/");
+    }
   };
 
   return (
     <>
       <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
         <div className="login-card wd-5x flex-center pd-5x">
-          <p className="h3 text-center mg-top-2x mg-bottom-4x">Login</p>
+          <p className="h3 text-center mg-top-2x mg-bottom-4x">
+            {authTypeLogin ? "Login" : "Signup"}
+          </p>
 
           <div className="input-container mg-top-2x wd-4x">
             <label className="input-label">Email address</label>
             <input
               type="email"
               className="input-simple"
-              placeholder="neog@gmail.com"
+              placeholder="test@gmail.com"
               value={credentials.email}
               onChange={emailChangeHandler}
             />
@@ -49,7 +76,7 @@ const Auth = () => {
               <input
                 type="password"
                 className="input-simple"
-                placeholder="*******"
+                placeholder="test123"
                 value={credentials.password}
                 onChange={passwordChangeHandler}
               />
@@ -61,24 +88,33 @@ const Auth = () => {
           <div className="info-container flex-center mg-2x wd-4x">
             <div>
               <input type="checkbox" className="checkbox" />
-              <label className="t4 mg-left-1x">Remember me</label>
+              <label className="t4 mg-left-1x">
+                {authTypeLogin
+                  ? "Remember me"
+                  : "I accept all Terms and Conditions"}
+              </label>
             </div>
-            <button className="btn-link btn-link-secondary t4">
-              Forgot your password?
-            </button>
+            {authTypeLogin && (
+              <button className="btn-link btn-link-secondary t4">
+                Forgot your password?
+              </button>
+            )}
           </div>
 
           <button
             className="btn btn-primary wd-full mg-top-2x"
             onClick={loginHandler}
           >
-            Login
+            {authTypeLogin ? "Login" : "Signup"}
           </button>
 
           <div className="bottom-nav-container mg-top-2x ">
-            <Link to={"/"} className="t4 text-center pointer no-deco btn-link">
-              Create New Account
-            </Link>
+            <buton
+              className="t4 text-center pointer no-deco btn-link"
+              onClick={changeAuthType}
+            >
+              {authTypeLogin ? "Create New Account" : "Already have an account"}
+            </buton>
             <IoChevronForward className="goto-icon mg-left-1x" />
           </div>
         </div>

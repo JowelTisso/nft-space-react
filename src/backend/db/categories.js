@@ -21,19 +21,19 @@ export const categories = [
   {
     _id: uuid(),
     categoryName: "Wearable",
-    description: "Music",
+    description: "Wearable",
     img: "https://user-images.githubusercontent.com/52632590/158345040-d279e25b-6fb4-4729-b4f4-1e28bb0d3d01.jpg",
   },
   {
     _id: uuid(),
     categoryName: "Equipment",
-    description: "Photography",
+    description: "Equipment",
     img: "https://user-images.githubusercontent.com/52632590/158345311-99114d30-f3b6-426c-b770-ad773e8fd8e7.png",
   },
   {
     _id: uuid(),
     categoryName: "Entities",
-    description: "Sports",
+    description: "Entities",
     img: "https://user-images.githubusercontent.com/52632590/158345411-17604753-74ec-4d0b-a0fc-19f1f4ed5290.jpg",
   },
 ];

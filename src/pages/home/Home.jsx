@@ -5,14 +5,28 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import CategoryCardHorizontal from "./component/CategoryCardHorizontal";
 import { TrendingStatusData } from "../../utils/HomeTrendingStatusData";
+import { FILTER_CATEGORY } from "../../utils/Constant";
+import { useFilter } from "../../context/provider/FilterProvider";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
+  const {
+    filterState: { settings },
+    filterDispatch,
+  } = useFilter();
+
   const navigateTo = (to, payload) => {
     navigate(`/${to}`, { state: payload });
+  };
+
+  const onCategoryChange = (categoryName, checked) => {
+    filterDispatch({
+      type: FILTER_CATEGORY,
+      payload: { ...settings.category, [categoryName]: checked },
+    });
   };
 
   useEffect(() => {
@@ -37,7 +51,8 @@ const Home = () => {
                   to={"/products"}
                   className="basic-link"
                   onClick={() => {
-                    navigateTo("products", { category: data.categoryName });
+                    navigateTo("products");
+                    onCategoryChange(data.categoryName, true);
                   }}
                   key={i}
                 >

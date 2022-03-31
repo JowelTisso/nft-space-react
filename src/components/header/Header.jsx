@@ -7,8 +7,10 @@ import {
 } from "react-icons/io5";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/provider/CartProvider";
 
 const Header = () => {
+  const { cartState } = useCart();
   return (
     <header className="header-container pd-1x pd-right-4x pd-left-4x">
       <div className="logo-container">
@@ -46,7 +48,9 @@ const Header = () => {
           <Link to={"/cart"}>
             <IoCartOutline className="ic-normal" />
           </Link>
-          <p className="badge bdg-s bdg-ic bdg-ic-t">0</p>
+          <p className="badge bdg-s bdg-ic bdg-ic-t">
+            {cartState?.cartItems?.length}
+          </p>
         </div>
         {/* <div className="pointer login-icon">
           <Link to={"/logout"}>

@@ -48,16 +48,6 @@ const Products = () => {
   // For selected category identification
   const { state } = useLocation();
 
-  const { cartState, cartDispatch } = useCart();
-
-  console.log(cartState);
-
-  const setInitialCategory = () => {
-    if (state && state.hasOwnProperty("category")) {
-      onCategoryChange(state.category, true);
-    }
-  };
-
   const setInitialStatus = () => {
     if (state && state.hasOwnProperty("status")) {
       const filteredStatus = filterTrendingStatus(state.status, products);
@@ -174,7 +164,6 @@ const Products = () => {
 
   useEffect(() => {
     getCategories();
-    setInitialCategory();
     setInitialStatus();
     return () => {
       clearFilter();

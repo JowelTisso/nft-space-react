@@ -6,21 +6,33 @@ import {
   IoRemoveCircle,
   IoAddCircle,
 } from "react-icons/io5";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../../products/helper/CartHelper";
+import { useCart } from "../../../context/provider/CartProvider";
 
 const ProductCard = ({
   data: {
-    title,
-    creator,
-    price,
-    categoryName,
-    topBid,
-    minBid,
-    rank,
-    img,
-    ratings,
-    ratingsCount,
+    quantity,
+    cartItem: {
+      title,
+      creator,
+      price,
+      categoryName,
+      topBid,
+      minBid,
+      rank,
+      img,
+      ratings,
+      ratingsCount,
+    },
   },
+  data,
 }) => {
+  const { cartDispatch } = useCart();
+
   return (
     <>
       <div className="card card-horizontal">
@@ -30,7 +42,7 @@ const ProductCard = ({
         <div className="card-content-horizontal pd-bottom-2x">
           <div className="card-content">
             <p className="card-title hide-ovrflw">{title}</p>
-            <p className="card-sub-title hide-ovrflw">{categoryName}</p>
+            <p className="card-sub-title hide-ovrflw">{creator}</p>
             <div className="price-container">
               <p className="card-description hide-ovrflw fw-4x">₹{price}</p>
               <p className="card-description hide-ovrflw text-gray strike">
@@ -52,13 +64,32 @@ const ProductCard = ({
             </div>
             <div className="quantity mg-top-2x">
               <p className="quantity-title">Quantity :</p>
-              <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
-              <p className="quantity-value mg-left-1x text-center">1</p>
-              <IoAddCircle className="quantity-btn mg-left-1x pointer" />
+              <span
+                onClick={() => {
+                  decreaseQuantity(data, cartDispatch);
+                }}
+              >
+                <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
+              </span>
+              <p className="quantity-value mg-left-1x text-center">
+                {quantity}
+              </p>
+              <span
+                onClick={() => {
+                  increaseQuantity(data, cartDispatch);
+                }}
+              >
+                <IoAddCircle className="quantity-btn mg-left-1x pointer" />
+              </span>
             </div>
           </div>
           <div className="card-btn-container">
-            <button className="btn btn-primary btn-sm wd-full">
+            <button
+              className="btn btn-primary btn-sm wd-full"
+              onClick={() => {
+                removeFromCart(data, cartDispatch);
+              }}
+            >
               REMOVE FROM CART
             </button>
             <button className="btn btn-secondary btn-sm wd-full">

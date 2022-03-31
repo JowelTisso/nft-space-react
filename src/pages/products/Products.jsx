@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Header from "../../components/header/Header";
 import ProductCard from "../../components/productCard/ProductCard";
 import { priceSortMenu, ratingsMenu } from "../../utils/FilterData";
 import "./Products.css";
@@ -32,31 +31,27 @@ import {
   sortPrice,
 } from "./helper/FilterHelper";
 import { useLocation } from "react-router-dom";
+import { useCart } from "../../context/provider/CartProvider";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
 
-  // Context
+  // Filter Context
   const {
-    state: { productData, settings },
-    dispatch,
+    filterState: { productData, settings },
+    filterDispatch,
     products,
   } = useFilter();
 
   const { priceRange } = settings;
 
+  // For selected category identification
   const { state } = useLocation();
-
-  const setInitialCategory = () => {
-    if (state && state.hasOwnProperty("category")) {
-      onCategoryChange(state.category, true);
-    }
-  };
 
   const setInitialStatus = () => {
     if (state && state.hasOwnProperty("status")) {
       const filteredStatus = filterTrendingStatus(state.status, products);
-      dispatch({ type: PRODUCT_DATA, payload: filteredStatus });
+      filterDispatch({ type: PRODUCT_DATA, payload: filteredStatus });
     }
   };
 
@@ -70,7 +65,7 @@ const Products = () => {
   };
 
   const sliderOnChange = ({ target }) => {
-    dispatch({ type: PRICE_RANGE, payload: target.value });
+    filterDispatch({ type: PRICE_RANGE, payload: target.value });
   };
 
   const filterAllCategory = (list) => {
@@ -114,7 +109,7 @@ const Products = () => {
       settings.priceRange,
       filteredRatings
     );
-    dispatch({ type: PRODUCT_DATA, payload: filteredPriceRange });
+    filterDispatch({ type: PRODUCT_DATA, payload: filteredPriceRange });
   };
 
   const ratingPayload = (type) => {
@@ -133,34 +128,34 @@ const Products = () => {
   };
 
   const onRatingsChange = (type) => {
-    dispatch({
+    filterDispatch({
       type: FILTER_RATING,
       payload: ratingPayload(type),
     });
   };
 
   const onPriceSortChange = (i) => {
-    dispatch({
+    filterDispatch({
       type: SORT_PRICE,
       payload: i === 0 ? LOW_TO_HIGH : HIGH_TO_LOW,
     });
   };
 
   const onCategoryChange = (categoryName, checked) => {
-    dispatch({
+    filterDispatch({
       type: FILTER_CATEGORY,
       payload: { ...settings.category, [categoryName]: checked },
     });
   };
 
   const clearFilter = () => {
-    dispatch({ type: CLEAR, payload: {} });
+    filterDispatch({ type: CLEAR, payload: {} });
   };
 
   const priceSliderStyle = {
     background: `linear-gradient(to right, var(--primary-color) ${
-      priceRange / 30
-    }%, var(--border-color) ${priceRange / 30}%`,
+      priceRange / 40
+    }%, var(--border-color) ${priceRange / 40}%`,
   };
 
   useEffect(() => {
@@ -169,7 +164,6 @@ const Products = () => {
 
   useEffect(() => {
     getCategories();
-    setInitialCategory();
     setInitialStatus();
     return () => {
       clearFilter();
@@ -178,7 +172,6 @@ const Products = () => {
 
   return (
     <>
-      <Header />
       <div className="content-wrapper">
         <aside
           id="drawer"

@@ -5,17 +5,20 @@ import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { FilterProvider } from "./context/provider/FilterProvider";
+import { CartProvider } from "./context/provider/CartProvider";
 
 // Call make Server
 makeServer();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <CartProvider>
       <FilterProvider>
         <App />
       </FilterProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </CartProvider>
+  </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById("root")
 );

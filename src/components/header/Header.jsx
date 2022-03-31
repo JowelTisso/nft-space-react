@@ -29,10 +29,7 @@ const Header = () => {
       </div>
 
       <nav className="nav-container">
-        <Link
-          to={"/login"}
-          className="btn btn-primary btn-sm no-deco btn-login"
-        >
+        <Link to={"/auth"} className="btn btn-primary btn-sm no-deco btn-login">
           Login
         </Link>
         <div className="pointer search-icon">

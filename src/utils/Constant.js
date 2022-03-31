@@ -40,3 +40,9 @@ export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 // Wishlist
 export const ADD_TO_WISHLIST = "ADD_TO_WISHLIST";
 export const REMOVE_FROM_WISHLIST = "REMOVE_FROM_WISHLIST";
+
+// Auth
+export const LOG_IN = "LOG_IN";
+export const LOG_OUT = "LOG_OUT";
+export const SIGN_UP = "SIGN_UP";
+export const USER_TOKEN = "userToken";

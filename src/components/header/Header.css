@@ -121,11 +121,6 @@
   color: var(--txt-color-2);
   z-index: 1;
 }
-/* 
-.ic-normal {
-  font-size: 2.4rem;
-  color: var(--txt-color);
-} */
 
 .ic-normal:hover {
   color: var(--txt-color-light-2);

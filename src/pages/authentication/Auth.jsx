@@ -1,9 +1,30 @@
-import React from "react";
-import "../Auth.css";
+import React, { useState } from "react";
+import "./Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { userLogIn } from "./helper/loginHelper";
 
-const Login = () => {
+const Auth = () => {
+  const [credentials, setCredentials] = useState({
+    email: "test@gmail.com",
+    password: "test123",
+  });
+
+  const emailChangeHandler = ({ target }) => {
+    setCredentials((state) => ({ ...state, email: target.value }));
+  };
+  const passwordChangeHandler = ({ target }) => {
+    setCredentials((state) => ({ ...state, password: target.value }));
+  };
+
+  const loginHandler = async () => {
+    const res = await userLogIn({
+      email: credentials.email,
+      password: credentials.password,
+    });
+    console.log(res);
+  };
+
   return (
     <>
       <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
@@ -16,6 +37,8 @@ const Login = () => {
               type="email"
               className="input-simple"
               placeholder="neog@gmail.com"
+              value={credentials.email}
+              onChange={emailChangeHandler}
             />
             <p className="input-val val-warn">Input email</p>
           </div>
@@ -27,6 +50,8 @@ const Login = () => {
                 type="password"
                 className="input-simple"
                 placeholder="*******"
+                value={credentials.password}
+                onChange={passwordChangeHandler}
               />
               <IoEyeOff className="toggle-icon pointer" />
             </div>
@@ -43,7 +68,12 @@ const Login = () => {
             </button>
           </div>
 
-          <button className="btn btn-primary wd-full mg-top-2x">Login</button>
+          <button
+            className="btn btn-primary wd-full mg-top-2x"
+            onClick={loginHandler}
+          >
+            Login
+          </button>
 
           <div className="bottom-nav-container mg-top-2x ">
             <Link to={"/"} className="t4 text-center pointer no-deco btn-link">
@@ -57,4 +87,4 @@ const Login = () => {
   );
 };
 
-export { Login };
+export { Auth };

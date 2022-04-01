@@ -17,6 +17,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../../pages/products/helper/WishlistHelper";
+import { useAuth } from "../../context/provider/AuthProvider";
 
 const ProductCard = ({
   data: {
@@ -33,30 +34,39 @@ const ProductCard = ({
     _id,
   },
   data,
+  navigate,
 }) => {
   const { cartState, cartDispatch } = useCart();
-
   const { wishlistState, wishlistDispatch } = useWishlist();
+  const { authState } = useAuth();
 
   const inWishlist = wishlistState?.wishlistItems.some(
     (item) => item._id === data._id
   );
 
   const wishlistHandler = () => {
-    !inWishlist
-      ? addToWishlist(data, wishlistDispatch)
-      : removeFromWishlist(data, wishlistDispatch);
+    if (authState.loggedIn) {
+      !inWishlist
+        ? addToWishlist(data, wishlistDispatch)
+        : removeFromWishlist(data, wishlistDispatch);
+    } else {
+      navigate("/auth");
+    }
   };
 
   const addToCartHandler = () => {
     try {
-      const itemIndex = cartState?.cartItems?.findIndex(
-        (item) => item._id === _id
-      );
-      if (itemIndex > -1) {
-        changeQuantity(data, cartDispatch, INCREMENT);
+      if (authState.loggedIn) {
+        const itemIndex = cartState?.cartItems?.findIndex(
+          (item) => item._id === _id
+        );
+        if (itemIndex > -1) {
+          changeQuantity(data, cartDispatch, INCREMENT);
+        } else {
+          addToCart(data, cartDispatch);
+        }
       } else {
-        addToCart(data, cartDispatch);
+        navigate("/auth");
       }
     } catch (err) {
       console.log(err);

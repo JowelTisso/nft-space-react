@@ -74,7 +74,7 @@ const ProductCard = ({
   };
 
   return (
-    <div className="card">
+    <div className="product-card">
       <div className="card-badge " onClick={wishlistHandler}>
         {inWishlist ? (
           <IoHeart className="badge-active t3" />

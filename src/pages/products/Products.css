@@ -1,7 +1,6 @@
 /* Header */
 .header-menu-mb {
   display: none;
-  padding: 0.5rem 1.5rem;
 }
 
 /* Side nav */
@@ -74,6 +73,7 @@
   /* Header */
   .header-menu-mb {
     display: block;
+    padding: 0.5rem;
   }
 
   /* Sidenav */
@@ -92,11 +92,15 @@
   }
 
   /* Content */
-  .content {
+  .product-content {
     margin-left: 1rem;
+    padding: 0;
   }
 
   .content-card-section {
+    gap: 0;
+  }
+  .product-content-card-section {
     gap: 0;
   }
 }

@@ -3,28 +3,45 @@ import logo from "../../assets/logo.png";
 import {
   IoHeartOutline,
   IoCartOutline,
-  IoSearchOutline,
+  IoMenu,
+  IoLogOutOutline,
 } from "react-icons/io5";
 import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../../context/provider/CartProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { userLogout } from "../../pages/authentication/helper/authHelper";
+import { useSidenav } from "../../context/provider/SidenavProvider";
+import { TOGGLE_NAV } from "../../utils/Constant";
 
 const Header = () => {
   const { cartState, cartDispatch } = useCart();
   const { wishlistState, wishlistDispatch } = useWishlist();
   const { authState, authDispatch } = useAuth();
   const navigate = useNavigate();
+  const { sidenavDispatch } = useSidenav();
+  const location = useLocation();
+
+  const currentRoute = location?.pathname;
+  const productRoute = "/products";
 
   const logoutHandler = () => {
     userLogout(authDispatch, cartDispatch, wishlistDispatch);
     navigate("/");
   };
 
+  const toggleSidenav = () => {
+    sidenavDispatch({ type: TOGGLE_NAV });
+  };
+
   return (
     <header className="header-container pd-1x pd-right-4x pd-left-4x">
+      {currentRoute === productRoute && (
+        <div className="header-menu-mb" onClick={toggleSidenav}>
+          <IoMenu className="ic-normal" />
+        </div>
+      )}
       <div className="logo-container">
         <img className="logo" src={logo} alt="logo" />
         <Link to={"/"} className="h3 mg-left-1x pointer logo-title no-deco">
@@ -54,11 +71,7 @@ const Header = () => {
             Login
           </Link>
         )}
-        <div className="pointer search-icon">
-          <a>
-            <IoSearchOutline className="ic-normal" />
-          </a>
-        </div>
+
         <div className="badge-container pointer mg-left-4x">
           <Link to={authState.loggedIn ? "/wishlist" : "/auth"}>
             <IoHeartOutline className="ic-normal" />
@@ -75,6 +88,11 @@ const Header = () => {
             {cartState?.cartItems?.length}
           </p>
         </div>
+        {authState.loggedIn && (
+          <div className="pointer login-icon" onClick={logoutHandler}>
+            <IoLogOutOutline className="ic-normal" />
+          </div>
+        )}
       </nav>
     </header>
   );

@@ -16,3 +16,9 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 700px) {
+  .wishlist-content {
+    padding: 0;
+  }
+}

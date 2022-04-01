@@ -9,7 +9,7 @@ const Wishlist = () => {
 
   return (
     <>
-      <div className="content-wrapper mg-top-6x">
+      <div className="content-wrapper">
         <main className="wishlist-content pd-4x pd-top-2x">
           <div className="content-header mg-left-2x">
             <p className="h4">Wishlist</p>

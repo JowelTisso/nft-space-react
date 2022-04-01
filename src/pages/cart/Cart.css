@@ -1,6 +1,6 @@
 /***********/
 /* Content */
-.content {
+.cart-content {
   margin-top: 6rem;
   background-color: var(--bg-color-3);
   display: grid;
@@ -17,6 +17,10 @@
   border-top: 1px solid var(--bg-color-3);
 }
 
+.checkout-container {
+  width: 40rem;
+}
+
 /* Utils */
 
 .hide-ovrflw {
@@ -28,7 +32,7 @@
 }
 
 @media screen and (max-width: 850px) {
-  .content {
+  .cart-content {
     padding-left: 0;
   }
 
@@ -46,10 +50,11 @@
 }
 
 @media screen and (max-width: 700px) {
-  .content {
+  .cart-content {
     display: flex;
     flex-direction: column;
     padding-bottom: 5rem;
+    padding-right: 0;
   }
 
   .content-header {
@@ -63,18 +68,6 @@
 
   .card {
     padding-bottom: 2rem;
-  }
-
-  .card-horizontal {
-    min-width: 95%;
-  }
-
-  .card-content-horizontal .card-btn-container {
-    flex-direction: row;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
   }
 
   .card-btn-container .btn {

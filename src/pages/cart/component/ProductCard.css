@@ -67,3 +67,17 @@
 .quantity-btn:hover {
   background-color: var(--secondary-color-light);
 }
+
+@media screen and (max-width: 700px) {
+  .card-horizontal {
+    min-width: 95%;
+  }
+
+  .card-content-horizontal .card-btn-container {
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

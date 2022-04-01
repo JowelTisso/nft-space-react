@@ -32,6 +32,7 @@ import {
 } from "./helper/FilterHelper";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSidenav } from "../../context/provider/SidenavProvider";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
@@ -48,6 +49,9 @@ const Products = () => {
   // For selected category identification
   const { state } = useLocation();
   const navigate = useNavigate();
+
+  // Side nav toggle
+  const { sidenavState } = useSidenav();
 
   const setInitialStatus = () => {
     if (state && state.hasOwnProperty("status")) {
@@ -176,7 +180,9 @@ const Products = () => {
       <div className="content-wrapper">
         <aside
           id="drawer"
-          className="sidenav pd-left-4x pd-top-2x pd-right-2x pd-bottom-3x hide-nav"
+          className={`sidenav pd-left-4x pd-top-2x pd-right-2x pd-bottom-3x ${
+            sidenavState.visible ? "show=nav" : "hide-nav"
+          } `}
         >
           <nav>
             <ul className="no-bullet">
@@ -277,7 +283,7 @@ const Products = () => {
         </aside>
         <main className="product-content pd-2x">
           <div className="content-header">
-            <p className="h4">Showing All NFT</p>
+            <p className="h4 mg-left-1x">Showing All NFT</p>
             <p className="t4">(showing {productData.length} products)</p>
           </div>
           <div className="product-content-card-section pd-bottom-4x">

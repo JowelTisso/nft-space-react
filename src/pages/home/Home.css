@@ -114,7 +114,7 @@
 
 @media screen and (max-width: 700px) {
   /* Content container */
-  .content {
+  .home-content {
     padding: 0;
   }
 
@@ -145,7 +145,7 @@
     margin: 2rem 0;
   }
 
-  .card-horizontal {
+  .category-card-horizontal {
     height: 16rem;
     min-width: 95%;
     overflow: hidden;

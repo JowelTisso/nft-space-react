@@ -102,6 +102,7 @@
 .btn-secondary {
   color: var(--secondary-color);
   border: 2px solid var(--secondary-color);
+  background-color: var(--bg-color);
 }
 
 .btn-secondary:hover {
@@ -121,11 +122,6 @@
   color: var(--txt-color-2);
   z-index: 1;
 }
-/* 
-.ic-normal {
-  font-size: 2.4rem;
-  color: var(--txt-color);
-} */
 
 .ic-normal:hover {
   color: var(--txt-color-light-2);

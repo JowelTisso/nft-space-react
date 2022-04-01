@@ -2,4 +2,4 @@ export { Home } from "./home/Home";
 export { Products } from "./products/Products";
 export { Wishlist } from "./wishlist/Wishlist";
 export { Cart } from "./cart/Cart";
-export { Login } from "./authentication/login/Login";
+export { Auth } from "./authentication/Auth";

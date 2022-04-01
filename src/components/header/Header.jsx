@@ -6,13 +6,23 @@ import {
   IoSearchOutline,
 } from "react-icons/io5";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/provider/CartProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
+import { useAuth } from "../../context/provider/AuthProvider";
+import { userLogout } from "../../pages/authentication/helper/authHelper";
 
 const Header = () => {
   const { cartState } = useCart();
   const { wishlistState } = useWishlist();
+  const { authState, authDispatch } = useAuth();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    userLogout(authDispatch);
+    navigate("/");
+  };
+
   return (
     <header className="header-container pd-1x pd-right-4x pd-left-4x">
       <div className="logo-container">
@@ -29,19 +39,28 @@ const Header = () => {
       </div>
 
       <nav className="nav-container">
-        <Link
-          to={"/login"}
-          className="btn btn-primary btn-sm no-deco btn-login"
-        >
-          Login
-        </Link>
+        {authState.loggedIn ? (
+          <button
+            className="btn btn-secondary btn-sm no-deco btn-login"
+            onClick={logoutHandler}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to={"/auth"}
+            className="btn btn-primary btn-sm no-deco btn-login"
+          >
+            Login
+          </Link>
+        )}
         <div className="pointer search-icon">
           <a>
             <IoSearchOutline className="ic-normal" />
           </a>
         </div>
         <div className="badge-container pointer mg-left-4x">
-          <Link to={"/wishlist"}>
+          <Link to={authState.loggedIn ? "/wishlist" : "/auth"}>
             <IoHeartOutline className="ic-normal" />
           </Link>
           <p className="badge bdg-s bdg-ic bdg-ic-t">
@@ -49,18 +68,13 @@ const Header = () => {
           </p>
         </div>
         <div className="badge-container pointer mg-left-4x">
-          <Link to={"/cart"}>
+          <Link to={authState.loggedIn ? "/cart" : "/auth"}>
             <IoCartOutline className="ic-normal" />
           </Link>
           <p className="badge bdg-s bdg-ic bdg-ic-t">
             {cartState?.cartItems?.length}
           </p>
         </div>
-        {/* <div className="pointer login-icon">
-          <Link to={"/logout"}>
-            <IoLogInOutline className="ic-normal" />
-          </Link>
-        </div> */}
       </nav>
     </header>
   );

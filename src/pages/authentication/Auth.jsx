@@ -80,8 +80,6 @@ const Auth = () => {
     setTogglePassword((state) => !state);
   };
 
-  console.log(process.env);
-
   return (
     <>
       <div className="content-wrapper mg-top-6x pd-top-1x flex-center">

@@ -1,13 +1,40 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useReducer,
+} from "react";
 import { PRODUCT_DATA } from "../../utils/Constant";
-import { filterReducer } from "../reducer/filter/FilterReducer";
+import { reducer } from "../reducer/filter/filterReducerHelper";
 
 const FilterContext = createContext({ state: {}, dispatch: () => {} });
 
 const FilterProvider = ({ children }) => {
-  const { state, dispatch } = filterReducer();
   const [products, setProducts] = useState([]);
+
+  const defaultData = {
+    productData: [],
+    settings: {
+      sort: "",
+      filter: {
+        includeOutOfStock: false,
+        fastDeliveryOnly: false,
+      },
+      priceRange: 4000,
+      rating: "",
+      category: {
+        Art: false,
+        Collectibles: false,
+        Wearable: false,
+        Equipment: false,
+        Entities: false,
+      },
+    },
+  };
+
+  const [state, dispatch] = useReducer(reducer, defaultData);
 
   const getProductData = async () => {
     try {

@@ -1,4 +1,9 @@
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } from "../../../utils/Constant";
+import { Action } from "history";
+import {
+  ADD_TO_WISHLIST,
+  GET_WISHLIST_DATA,
+  REMOVE_FROM_WISHLIST,
+} from "../../../utils/Constant";
 
 const addToWishlist = (state, action) => {
   const itemIndex = state.wishlistItems.findIndex(
@@ -24,6 +29,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         wishlistItems: removeFromWishlist(state, action),
+      };
+    case GET_WISHLIST_DATA:
+      return {
+        ...state,
+        wishlistItems: action.payload,
       };
     default:
       return state;

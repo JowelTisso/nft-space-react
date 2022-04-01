@@ -13,18 +13,22 @@ import { formatDate, requiresAuth } from "../utils/authUtils";
  * */
 
 export const getWishlistItemsHandler = function (schema, request) {
-  const userId = requiresAuth.call(this, request);
-  if (!userId) {
-    new Response(
-      404,
-      {},
-      {
-        errors: ["The email you entered is not Registered. Not Found error"],
-      }
-    );
+  try {
+    const userId = requiresAuth.call(this, request);
+    if (!userId) {
+      new Response(
+        404,
+        {},
+        {
+          errors: ["The email you entered is not Registered. Not Found error"],
+        }
+      );
+    }
+    const userWishlist = schema.users.findBy({ _id: userId }).wishlist;
+    return new Response(200, {}, { wishlist: userWishlist });
+  } catch (err) {
+    console.log(err);
   }
-  const userWishlist = schema.users.findBy({ _id: userId }).wishlist;
-  return new Response(200, {}, { wishlist: userWishlist });
 };
 
 /**

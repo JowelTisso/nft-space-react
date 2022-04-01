@@ -6,9 +6,12 @@ import {
   IoHeart,
 } from "react-icons/io5";
 import "./ProductCard.css";
-import { ART } from "../../utils/Constant";
+import { ART, INCREMENT } from "../../utils/Constant";
 import { useCart } from "../../context/provider/CartProvider";
-import { addToCart } from "../../pages/products/helper/CartHelper";
+import {
+  addToCart,
+  changeQuantity,
+} from "../../pages/products/helper/CartHelper";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import {
   addToWishlist,
@@ -27,10 +30,11 @@ const ProductCard = ({
     img,
     ratings,
     ratingsCount,
+    _id,
   },
   data,
 }) => {
-  const { cartDispatch } = useCart();
+  const { cartState, cartDispatch } = useCart();
 
   const { wishlistState, wishlistDispatch } = useWishlist();
 
@@ -45,7 +49,18 @@ const ProductCard = ({
   };
 
   const addToCartHandler = () => {
-    addToCart(data, cartDispatch);
+    try {
+      const itemIndex = cartState?.cartItems?.findIndex(
+        (item) => item._id === _id
+      );
+      if (itemIndex > -1) {
+        changeQuantity(data, cartDispatch, INCREMENT);
+      } else {
+        addToCart(data, cartDispatch);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

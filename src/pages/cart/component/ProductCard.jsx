@@ -7,32 +7,33 @@ import {
   IoAddCircle,
 } from "react-icons/io5";
 import {
-  decreaseQuantity,
-  increaseQuantity,
   removeFromCart,
+  changeQuantity,
+  moveToWishlist,
 } from "../../products/helper/CartHelper";
 import { useCart } from "../../../context/provider/CartProvider";
-import { ART } from "../../../utils/Constant";
+import { ART, DECREMENT, INCREMENT } from "../../../utils/Constant";
+import { useWishlist } from "../../../context/provider/WishlistProvider";
 
 const ProductCard = ({
   data: {
-    quantity,
-    cartItem: {
-      title,
-      creator,
-      price,
-      categoryName,
-      topBid,
-      minBid,
-      rank,
-      img,
-      ratings,
-      ratingsCount,
-    },
+    title,
+    creator,
+    price,
+    categoryName,
+    topBid,
+    minBid,
+    rank,
+    img,
+    ratings,
+    ratingsCount,
+    qty,
   },
   data,
 }) => {
   const { cartDispatch } = useCart();
+
+  const { wishlistDispatch } = useWishlist();
 
   return (
     <>
@@ -74,17 +75,15 @@ const ProductCard = ({
               <p className="quantity-title">Quantity :</p>
               <span
                 onClick={() => {
-                  decreaseQuantity(data, cartDispatch);
+                  changeQuantity(data, cartDispatch, DECREMENT);
                 }}
               >
                 <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
               </span>
-              <p className="quantity-value mg-left-1x text-center">
-                {quantity}
-              </p>
+              <p className="quantity-value mg-left-1x text-center">{qty}</p>
               <span
                 onClick={() => {
-                  increaseQuantity(data, cartDispatch);
+                  changeQuantity(data, cartDispatch, INCREMENT);
                 }}
               >
                 <IoAddCircle className="quantity-btn mg-left-1x pointer" />
@@ -100,7 +99,12 @@ const ProductCard = ({
             >
               REMOVE FROM CART
             </button>
-            <button className="btn btn-secondary btn-sm wd-full">
+            <button
+              className="btn btn-secondary btn-sm wd-full"
+              onClick={() => {
+                moveToWishlist(data, cartDispatch, wishlistDispatch);
+              }}
+            >
               MOVE TO WISHLIST
             </button>
           </div>

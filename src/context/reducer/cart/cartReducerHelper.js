@@ -1,4 +1,4 @@
-import { UPDATE_CART_DATA } from "../../../utils/Constant";
+import { CLEAR_CART, UPDATE_CART_DATA } from "../../../utils/Constant";
 
 const getTotalItems = (cartList) => {
   let totalItems = 0;
@@ -24,6 +24,13 @@ export const reducer = (state, action) => {
         totalItems: getTotalItems(action.payload),
         totalPrice: getTotalPrice(action.payload),
         cartItems: [...action.payload],
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        totalItems: 0,
+        totalPrice: 0,
+        cartItems: [],
       };
     default:
       return state;

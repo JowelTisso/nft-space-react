@@ -7,6 +7,8 @@ const Cart = () => {
   const { cartState } = useCart();
   const { totalItems, totalPrice } = cartState;
 
+  console.log(cartState);
+
   return (
     <>
       <div className="content-wrapper">
@@ -17,8 +19,8 @@ const Cart = () => {
               <p className="t4">(You have {totalItems} items in your cart)</p>
             </div>
             <div className="content-card-section pd-bottom-4x pd-left-1x">
-              {cartState.cartItems.map((item) => (
-                <ProductCard data={item} key={item.cartItem._id} />
+              {cartState?.cartItems?.map((item) => (
+                <ProductCard data={item} key={item?._id} />
               ))}
             </div>
           </section>

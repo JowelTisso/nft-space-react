@@ -36,12 +36,17 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
+export const UPDATE_CART_DATA = "UPDATE_CART_DATA";
+export const INCREMENT = "increment";
+export const DECREMENT = "decrement";
+export const CLEAR_CART = "CLEAR_CART";
 
 // Wishlist
 export const ADD_TO_WISHLIST = "ADD_TO_WISHLIST";
 export const REMOVE_FROM_WISHLIST = "REMOVE_FROM_WISHLIST";
 export const GET_WISHLIST_DATA = "GET_WISHLIST_DATA";
 export const UPDATE_WISHLIST_DATA = "UPDATE_WISHLIST_DATA";
+export const CLEAR_WISHLIST = "CLEAR_WISHLIST";
 
 // Auth
 export const LOG_IN = "LOG_IN";

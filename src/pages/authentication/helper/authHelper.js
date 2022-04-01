@@ -1,5 +1,13 @@
 import axios from "axios";
-import { LOG_OUT, USER_TOKEN } from "../../../utils/Constant";
+import {
+  CLEAR_CART,
+  CLEAR_WISHLIST,
+  LOG_OUT,
+  UPDATE_CART_DATA,
+  UPDATE_WISHLIST_DATA,
+  USER_TOKEN,
+} from "../../../utils/Constant";
+import { getUserToken } from "../../../utils/TokenHelper";
 
 export const userLogIn = async (payload) => {
   try {
@@ -13,10 +21,12 @@ export const userLogIn = async (payload) => {
   }
 };
 
-export const userLogout = (dispatch) => {
+export const userLogout = (authDispatch, cartDispatch, wishlistDispatch) => {
   try {
     localStorage.removeItem(USER_TOKEN);
-    dispatch({ type: LOG_OUT });
+    authDispatch({ type: LOG_OUT });
+    cartDispatch({ type: CLEAR_CART });
+    wishlistDispatch({ type: CLEAR_WISHLIST });
   } catch (err) {
     console.log(err);
   }
@@ -30,6 +40,46 @@ export const userSignUp = async (payload) => {
       return res;
     } else {
       console.log(res);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Wishlist
+export const getWishlistDataFromServer = async (dispatch) => {
+  try {
+    const token = getUserToken();
+    if (token) {
+      const { status, data } = await axios.get("/api/user/wishlist", {
+        headers: { authorization: token },
+      });
+      if (status === 200 || 201) {
+        dispatch({
+          type: UPDATE_WISHLIST_DATA,
+          payload: data?.wishlist,
+        });
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Cart
+export const getCartDataFromServer = async (dispatch) => {
+  try {
+    const token = getUserToken();
+    if (token) {
+      const { status, data } = await axios.get("/api/user/cart", {
+        headers: { authorization: token },
+      });
+      if (status === 200 || 201) {
+        dispatch({
+          type: UPDATE_CART_DATA,
+          payload: data?.cart,
+        });
+      }
     }
   } catch (err) {
     console.log(err);

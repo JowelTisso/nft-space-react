@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import "./Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import { userLogIn, userSignUp } from "./helper/authHelper";
+import {
+  getCartDataFromServer,
+  getWishlistDataFromServer,
+  userLogIn,
+  userSignUp,
+} from "./helper/authHelper";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { LOG_IN, SIGN_UP } from "../../utils/Constant";
+import { useWishlist } from "../../context/provider/WishlistProvider";
+import { useCart } from "../../context/provider/CartProvider";
 
 const Auth = () => {
   const [credentials, setCredentials] = useState({
@@ -20,6 +27,8 @@ const Auth = () => {
 
   const { authDispatch } = useAuth();
   const navigate = useNavigate();
+  const { wishlistDispatch } = useWishlist();
+  const { cartDispatch } = useCart();
 
   const emailChangeHandler = ({ target }) => {
     setCredentials((state) => ({ ...state, email: target.value }));
@@ -53,6 +62,8 @@ const Auth = () => {
           user: res?.data?.foundUser,
         },
       });
+      getWishlistDataFromServer(wishlistDispatch);
+      getCartDataFromServer(cartDispatch);
       navigate("/");
     }
   };

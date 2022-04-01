@@ -13,13 +13,13 @@ import { useAuth } from "../../context/provider/AuthProvider";
 import { userLogout } from "../../pages/authentication/helper/authHelper";
 
 const Header = () => {
-  const { cartState } = useCart();
-  const { wishlistState } = useWishlist();
+  const { cartState, cartDispatch } = useCart();
+  const { wishlistState, wishlistDispatch } = useWishlist();
   const { authState, authDispatch } = useAuth();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    userLogout(authDispatch);
+    userLogout(authDispatch, cartDispatch, wishlistDispatch);
     navigate("/");
   };
 

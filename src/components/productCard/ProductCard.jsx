@@ -6,14 +6,18 @@ import {
   IoHeart,
 } from "react-icons/io5";
 import "./ProductCard.css";
-import { ART } from "../../utils/Constant";
+import { ART, INCREMENT } from "../../utils/Constant";
 import { useCart } from "../../context/provider/CartProvider";
-import { addToCart } from "../../pages/products/helper/CartHelper";
+import {
+  addToCart,
+  changeQuantity,
+} from "../../pages/products/helper/CartHelper";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import {
   addToWishlist,
   removeFromWishlist,
 } from "../../pages/products/helper/WishlistHelper";
+import { useAuth } from "../../context/provider/AuthProvider";
 
 const ProductCard = ({
   data: {
@@ -27,25 +31,46 @@ const ProductCard = ({
     img,
     ratings,
     ratingsCount,
+    _id,
   },
   data,
+  navigate,
 }) => {
-  const { cartDispatch } = useCart();
-
+  const { cartState, cartDispatch } = useCart();
   const { wishlistState, wishlistDispatch } = useWishlist();
+  const { authState } = useAuth();
 
   const inWishlist = wishlistState?.wishlistItems.some(
     (item) => item._id === data._id
   );
 
   const wishlistHandler = () => {
-    !inWishlist
-      ? addToWishlist(data, wishlistDispatch)
-      : removeFromWishlist(data, wishlistDispatch);
+    if (authState.loggedIn) {
+      !inWishlist
+        ? addToWishlist(data, wishlistDispatch)
+        : removeFromWishlist(data, wishlistDispatch);
+    } else {
+      navigate("/auth");
+    }
   };
 
   const addToCartHandler = () => {
-    addToCart(data, cartDispatch);
+    try {
+      if (authState.loggedIn) {
+        const itemIndex = cartState?.cartItems?.findIndex(
+          (item) => item._id === _id
+        );
+        if (itemIndex > -1) {
+          changeQuantity(data, cartDispatch, INCREMENT);
+        } else {
+          addToCart(data, cartDispatch);
+        }
+      } else {
+        navigate("/auth");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

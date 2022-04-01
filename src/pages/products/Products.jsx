@@ -31,7 +31,7 @@ import {
   sortPrice,
 } from "./helper/FilterHelper";
 import { useLocation } from "react-router-dom";
-import { useCart } from "../../context/provider/CartProvider";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
@@ -47,6 +47,7 @@ const Products = () => {
 
   // For selected category identification
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const setInitialStatus = () => {
     if (state && state.hasOwnProperty("status")) {
@@ -281,7 +282,7 @@ const Products = () => {
           </div>
           <div className="product-content-card-section pd-bottom-4x">
             {productData.map((item) => (
-              <ProductCard data={item} key={item._id} />
+              <ProductCard data={item} key={item._id} navigate={navigate} />
             ))}
           </div>
         </main>

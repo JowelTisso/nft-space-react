@@ -1,0 +1,76 @@
+button {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
+
+.address-wrapper {
+  background-color: var(--bg-color-2);
+  color: var(--txt-color);
+  min-height: 100vh;
+  font-family: "Roboto", Arial, sans-serif;
+  letter-spacing: 0;
+  padding: 1rem;
+  margin-top: 5rem;
+}
+
+/* Container */
+.addressContainer {
+  box-shadow: 0px 1px 2px 1px var(--border-color);
+  background-color: var(--bg-color);
+  min-height: 90vh;
+  min-width: 80vw;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+.addAddressContainer {
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  background-color: var(--bg-color);
+  width: 100%;
+  text-align: left;
+  color: var(--primary-color);
+}
+
+.modal-btn-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-content {
+  border-radius: 5px;
+  padding: 3rem 4rem;
+}
+
+/* Utils */
+
+.t5 {
+  font-size: 1.4rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.address-wrapper .btn {
+  margin-top: 1rem;
+  min-width: 13rem;
+  min-height: 2rem;
+}
+
+.border {
+  border: 1px solid var(--border-color);
+}
+
+.modal {
+  position: fixed;
+}

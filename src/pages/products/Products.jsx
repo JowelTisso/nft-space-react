@@ -286,13 +286,9 @@ const Products = () => {
         </div>
         <div className="product-content-card-section pd-bottom-4x">
           {productData.map((item) => (
-            <Link
-              to={`/product/${item._id}`}
-              className="no-deco product-card"
-              key={item._id}
-            >
+            <div className="product-card" key={item._id}>
               <ProductCard data={item} navigate={navigate} />
-            </Link>
+            </div>
           ))}
         </div>
       </main>

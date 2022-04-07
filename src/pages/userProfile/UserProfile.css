@@ -1,4 +1,5 @@
-@media screen and (max-width: 700px) {
+.user .input-simple {
+  height: 100%;
 }
 
 @media screen and (max-width: 800px) {

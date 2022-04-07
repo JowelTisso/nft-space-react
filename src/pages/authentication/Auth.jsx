@@ -94,102 +94,100 @@ const Auth = () => {
   };
 
   return (
-    <>
-      <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
-        <div className="login-card wd-5x flex-center pd-5x">
-          <p className="h3 text-center mg-top-2x mg-bottom-4x">
-            {authTypeLogin ? "Login" : "Signup"}
-          </p>
+    <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
+      <div className="login-card wd-5x flex-center pd-5x">
+        <p className="h3 text-center mg-top-2x mg-bottom-4x">
+          {authTypeLogin ? "Login" : "Signup"}
+        </p>
 
-          {!authTypeLogin && (
-            <>
-              <div className="input-container mg-top-2x wd-4x">
-                <label className="input-label">First Name</label>
-                <input
-                  type="text"
-                  className="input-simple"
-                  placeholder="Neog"
-                  value={credentials.firstName}
-                  onChange={(e) => nameChangeHandler(e, "firstName")}
-                />
-              </div>
-              <div className="input-container mg-top-2x wd-4x">
-                <label className="input-label">Last Name</label>
-                <input
-                  type="text"
-                  className="input-simple"
-                  placeholder="camp"
-                  value={credentials.lastName}
-                  onChange={(e) => nameChangeHandler(e, "lastName")}
-                />
-              </div>
-            </>
-          )}
-
-          <div className="input-container mg-top-2x wd-4x">
-            <label className="input-label">Email address</label>
-            <input
-              type="email"
-              className="input-simple"
-              placeholder="test@gmail.com"
-              value={credentials.email}
-              onChange={emailChangeHandler}
-            />
-          </div>
-
-          <div className="input-container mg-top-2x wd-4x">
-            <label className="input-label">Password</label>
-            <div className="toggle-icon-container">
+        {!authTypeLogin && (
+          <>
+            <div className="input-container mg-top-2x wd-4x">
+              <label className="input-label">First Name</label>
               <input
-                type={togglePassword ? "text" : "password"}
+                type="text"
                 className="input-simple"
-                placeholder="test123"
-                value={credentials.password}
-                onChange={passwordChangeHandler}
+                placeholder="Neog"
+                value={credentials.firstName}
+                onChange={(e) => nameChangeHandler(e, "firstName")}
               />
-              <div onClick={showPassword}>
-                <IoEyeOff className="toggle-icon pointer" />
-              </div>
             </div>
-          </div>
-
-          <div className="info-container flex-center mg-2x wd-4x">
-            <div>
-              <input type="checkbox" className="checkbox" />
-              <label className="t4 mg-left-1x">
-                {authTypeLogin
-                  ? "Remember me"
-                  : "I accept all Terms and Conditions"}
-              </label>
+            <div className="input-container mg-top-2x wd-4x">
+              <label className="input-label">Last Name</label>
+              <input
+                type="text"
+                className="input-simple"
+                placeholder="camp"
+                value={credentials.lastName}
+                onChange={(e) => nameChangeHandler(e, "lastName")}
+              />
             </div>
-            {authTypeLogin && (
-              <button className="btn-link btn-link-secondary t4">
-                Forgot your password?
-              </button>
-            )}
-          </div>
+          </>
+        )}
 
-          <button
-            className="btn btn-primary wd-full mg-top-2x"
-            onClick={() => {
-              authTypeLogin ? loginHandler() : signupHandler();
-            }}
-          >
-            {authTypeLogin ? "Login" : "Create New Account"}
-          </button>
+        <div className="input-container mg-top-2x wd-4x">
+          <label className="input-label">Email address</label>
+          <input
+            type="email"
+            className="input-simple"
+            placeholder="test@gmail.com"
+            value={credentials.email}
+            onChange={emailChangeHandler}
+          />
+        </div>
 
-          <div className="bottom-nav-container mg-top-2x ">
-            <button
-              className="t4 text-center pointer no-deco btn-link"
-              onClick={changeAuthType}
-            >
-              {authTypeLogin ? "Create New Account" : "Already have an account"}
-            </button>
-            <IoChevronForward className="goto-icon mg-left-1x" />
+        <div className="input-container mg-top-2x wd-4x">
+          <label className="input-label">Password</label>
+          <div className="toggle-icon-container">
+            <input
+              type={togglePassword ? "text" : "password"}
+              className="input-simple"
+              placeholder="test123"
+              value={credentials.password}
+              onChange={passwordChangeHandler}
+            />
+            <div onClick={showPassword}>
+              <IoEyeOff className="toggle-icon pointer" />
+            </div>
           </div>
         </div>
+
+        <div className="info-container flex-center mg-2x wd-4x">
+          <div>
+            <input type="checkbox" className="checkbox" />
+            <label className="t4 mg-left-1x">
+              {authTypeLogin
+                ? "Remember me"
+                : "I accept all Terms and Conditions"}
+            </label>
+          </div>
+          {authTypeLogin && (
+            <button className="btn-link btn-link-secondary t4">
+              Forgot your password?
+            </button>
+          )}
+        </div>
+
+        <button
+          className="btn btn-primary wd-full mg-top-2x"
+          onClick={() => {
+            authTypeLogin ? loginHandler() : signupHandler();
+          }}
+        >
+          {authTypeLogin ? "Login" : "Create New Account"}
+        </button>
+
+        <div className="bottom-nav-container mg-top-2x ">
+          <button
+            className="t4 text-center pointer no-deco btn-link"
+            onClick={changeAuthType}
+          >
+            {authTypeLogin ? "Create New Account" : "Already have an account"}
+          </button>
+          <IoChevronForward className="goto-icon mg-left-1x" />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

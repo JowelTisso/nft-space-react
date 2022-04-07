@@ -1,9 +1,8 @@
 /* Container */
 .login-card {
   flex-direction: column;
-}
-.login-card:hover {
-  box-shadow: 0px 0px 3px 1px rgb(226, 218, 218);
+  border: 1px solid rgb(226, 218, 218);
+  border-radius: 5px;
 }
 
 .content-wrapper {
@@ -57,6 +56,7 @@
 @media screen and (max-width: 600px) {
   .login-card {
     width: 100%;
+    border: none;
   }
 
   .wd-4x {

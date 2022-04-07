@@ -1,8 +1,9 @@
 import React from "react";
+import "./CategoryCardHorizontal.css";
 
 const CategoryCardHorizontal = ({ img, title, description }) => {
   return (
-    <div className="card card-horizontal pointer">
+    <div className="card card-horizontal category-card-horizontal pointer">
       <img className="card-img-horizontal" src={img} alt="card image" />
       <div className="card-content-horizontal">
         <div className="card-content">

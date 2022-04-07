@@ -10,7 +10,7 @@ const Cart = () => {
   return (
     <>
       <div className="content-wrapper">
-        <main className="content pd-4x pd-top-2x">
+        <main className="cart-content pd-4x pd-top-2x">
           <section className="product-section mg-left-5x">
             <div className="content-header mg-left-2x">
               <p className="h4">Cart</p>
@@ -23,7 +23,7 @@ const Cart = () => {
             </div>
           </section>
           <section className="checkout-section pd-top-5x">
-            <div className="checkout-container wd-4x">
+            <div className="checkout-container">
               <p className="h4">PRICE DETAILS</p>
 
               <hr className="hr mg-top-2x mg-bottom-3x" />

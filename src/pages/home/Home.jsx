@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <>
       <div className="wrapper mg-top-6x">
-        <main className="pd-5x pd-top-2x">
+        <main className="home-content pd-5x pd-top-2x">
           <div className="row-category-container hide-scroll">
             <div className="scroll pd-1x">
               {categories.map((data, i) => (

@@ -75,7 +75,7 @@ const ProductCard = ({
               <p className="quantity-title">Quantity :</p>
               <span
                 onClick={() => {
-                  changeQuantity(data, cartDispatch, DECREMENT);
+                  qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
                 }}
               >
                 <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />

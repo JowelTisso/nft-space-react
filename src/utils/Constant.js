@@ -52,4 +52,7 @@ export const CLEAR_WISHLIST = "CLEAR_WISHLIST";
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const SIGN_UP = "SIGN_UP";
-export const USER_TOKEN = "nftToken";
+export const USER_TOKEN = "userToken";
+
+// Sidenav
+export const TOGGLE_NAV = "TOGGLE_NAV";

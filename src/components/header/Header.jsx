@@ -6,6 +6,7 @@ import {
   IoMenu,
   IoLogOutOutline,
   IoSearchOutline,
+  IoPersonCircleOutline,
 } from "react-icons/io5";
 import "./Header.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -31,6 +32,7 @@ const Header = () => {
 
   const currentRoute = location?.pathname;
   const productRoute = "/products";
+  const userRoute = "/user-profile";
 
   const logoutHandler = () => {
     userLogout(authDispatch, cartDispatch, wishlistDispatch);
@@ -74,20 +76,24 @@ const Header = () => {
         )}
       </div>
       <nav className="nav-container">
-        {authState.loggedIn ? (
-          <button
-            className="btn btn-secondary btn-sm no-deco btn-login"
-            onClick={logoutHandler}
-          >
-            Logout
-          </button>
-        ) : (
-          <Link
-            to={"/auth"}
-            className="btn btn-primary btn-sm no-deco btn-login"
-          >
-            Login
-          </Link>
+        {currentRoute !== userRoute && (
+          <>
+            {authState.loggedIn ? (
+              <button
+                className="btn btn-secondary btn-sm no-deco btn-login"
+                onClick={logoutHandler}
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to={"/auth"}
+                className="btn btn-primary btn-sm no-deco btn-login"
+              >
+                Login
+              </Link>
+            )}
+          </>
         )}
 
         <div className="badge-container pointer mg-left-4x">
@@ -112,11 +118,9 @@ const Header = () => {
             {cartState?.cartItems?.length}
           </p>
         </div>
-        {authState.loggedIn && (
-          <div className="pointer login-icon" onClick={logoutHandler}>
-            <IoLogOutOutline className="ic-normal" />
-          </div>
-        )}
+        <Link to={"/user-profile"} className="user-icon-container">
+          <IoPersonCircleOutline className="ic-normal" />
+        </Link>
       </nav>
     </header>
   );

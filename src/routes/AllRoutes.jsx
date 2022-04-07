@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, Products, Wishlist, Cart, Auth } from "../pages";
+import { Home, Products, Wishlist, Cart, Auth, UserProfile } from "../pages";
 import PrivateRoutes from "./PrivateRoutes";
 import Mockman from "mockman-js";
 
@@ -22,6 +22,14 @@ const AllRoutes = () => {
         element={
           <PrivateRoutes>
             <Cart />
+          </PrivateRoutes>
+        }
+      />
+      <Route
+        path="/user-profile"
+        element={
+          <PrivateRoutes>
+            <UserProfile />
           </PrivateRoutes>
         }
       />

@@ -91,10 +91,12 @@ const Header = () => {
         )}
 
         <div className="badge-container pointer mg-left-4x">
-          <IoSearchOutline
-            className="ic-normal search-icon-mb"
-            onClick={toggleSearchInput}
-          />
+          {currentRoute === productRoute && (
+            <IoSearchOutline
+              className="ic-normal search-icon-mb"
+              onClick={toggleSearchInput}
+            />
+          )}
           <Link to={"/wishlist"}>
             <IoHeartOutline className="ic-normal" />
           </Link>

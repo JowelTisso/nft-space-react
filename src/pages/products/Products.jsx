@@ -30,7 +30,7 @@ import {
   filterTrendingStatus,
   sortPrice,
 } from "./helper/FilterHelper";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSidenav } from "../../context/provider/SidenavProvider";
 
@@ -39,7 +39,7 @@ const Products = () => {
 
   // Filter Context
   const {
-    filterState: { productData, settings, search },
+    filterState: { productData, settings },
     filterDispatch,
     products,
   } = useFilter();
@@ -176,124 +176,127 @@ const Products = () => {
   }, []);
 
   return (
-    <>
-      <div className="content-wrapper">
-        <aside
-          id="drawer"
-          className={`sidenav pd-left-4x pd-top-2x pd-right-2x pd-bottom-3x ${
-            sidenavState.visible ? "show=nav" : "hide-nav"
-          } `}
-        >
-          <nav>
-            <ul className="no-bullet">
-              <li className="sidenav-header">
-                <p className="t4 mg-bottom-2x fw-4x">Filters</p>
-                <p
-                  className="t4 mg-bottom-2x fw-4x pointer clear-btn"
-                  onClick={clearFilter}
-                >
-                  Clear
-                </p>
-              </li>
+    <div className="content-wrapper">
+      <aside
+        id="drawer"
+        className={`sidenav pd-left-4x pd-top-2x pd-right-2x pd-bottom-3x ${
+          sidenavState.visible ? "show=nav" : "hide-nav"
+        } `}
+      >
+        <nav>
+          <ul className="no-bullet">
+            <li className="sidenav-header">
+              <p className="t4 mg-bottom-2x fw-4x">Filters</p>
+              <p
+                className="t4 mg-bottom-2x fw-4x pointer clear-btn"
+                onClick={clearFilter}
+              >
+                Clear
+              </p>
+            </li>
 
-              <li>
-                <p className="t4 fw-4x mg-top-1x">Price</p>
-              </li>
+            <li>
+              <p className="t4 fw-4x mg-top-1x">Price</p>
+            </li>
 
-              <div id="slide" className="slider-container mg-top-2x">
-                <div className="range-label">
-                  <label className="t4">₹0</label>
-                  <label id="slider-value" className="t4 mg-left-2x">
-                    {priceRange}
-                  </label>
-                  <label className="t4">₹4000</label>
-                </div>
-                <input
-                  type="range"
-                  min={0}
-                  max={4000}
-                  step={100}
-                  value={priceRange}
-                  className="slider mg-top-2x"
-                  onChange={sliderOnChange}
-                  style={priceSliderStyle}
-                />
+            <div id="slide" className="slider-container mg-top-2x">
+              <div className="range-label">
+                <label className="t4">₹0</label>
+                <label id="slider-value" className="t4 mg-left-2x">
+                  {priceRange}
+                </label>
+                <label className="t4">₹4000</label>
               </div>
+              <input
+                type="range"
+                min={0}
+                max={4000}
+                step={100}
+                value={priceRange}
+                className="slider mg-top-2x"
+                onChange={sliderOnChange}
+                style={priceSliderStyle}
+              />
+            </div>
 
-              <li className="mg-top-2x">
-                <p className="t4 fw-4x mg-top-1x">Category</p>
+            <li className="mg-top-2x">
+              <p className="t4 fw-4x mg-top-1x">Category</p>
+            </li>
+
+            {categories.map(({ categoryName }) => (
+              <li className="category-item mg-top-1x" key={categoryName}>
+                <input
+                  type="checkbox"
+                  name="category"
+                  checked={
+                    categoryName === ART
+                      ? settings.category.Art
+                      : categoryName === COLLECTIBLES
+                      ? settings.category.Collectibles
+                      : categoryName === WEARABLE
+                      ? settings.category.Wearable
+                      : categoryName === EQUIPMENT
+                      ? settings.category.Equipment
+                      : categoryName === ENTITIES && settings.category.Entities
+                  }
+                  onChange={({ target: { checked } }) => {
+                    onCategoryChange(categoryName, checked);
+                  }}
+                />
+                <label className="t4">{categoryName}</label>
               </li>
-
-              {categories.map(({ categoryName }) => (
-                <li className="category-item mg-top-1x" key={categoryName}>
-                  <input
-                    type="checkbox"
-                    name="category"
-                    checked={
-                      categoryName === ART
-                        ? settings.category.Art
-                        : categoryName === COLLECTIBLES
-                        ? settings.category.Collectibles
-                        : categoryName === WEARABLE
-                        ? settings.category.Wearable
-                        : categoryName === EQUIPMENT
-                        ? settings.category.Equipment
-                        : categoryName === ENTITIES &&
-                          settings.category.Entities
-                    }
-                    onChange={({ target: { checked } }) => {
-                      onCategoryChange(categoryName, checked);
-                    }}
-                  />
-                  <label className="t4">{categoryName}</label>
-                </li>
-              ))}
-
-              <li className="mg-top-2x">
-                <p className="t4 fw-4x mg-top-1x">Ratings</p>
-              </li>
-
-              {ratingsMenu.map((item) => (
-                <li className="category-item mg-top-1x" key={item}>
-                  <input
-                    type="radio"
-                    name="ratings"
-                    onChange={() => onRatingsChange(item)}
-                  />
-                  <label className="t4">{item}</label>
-                </li>
-              ))}
-
-              <li className="mg-top-2x">
-                <p className="t4 fw-4x mg-top-1x">Sort by</p>
-              </li>
-
-              {priceSortMenu.map((item, i) => (
-                <li className="category-item mg-top-1x" key={item}>
-                  <input
-                    type="radio"
-                    name="price"
-                    onChange={() => onPriceSortChange(i)}
-                  />
-                  <label className="t4">{item}</label>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </aside>
-        <main className="product-content pd-2x">
-          <div className="content-header">
-            <p className="h4 mg-left-1x">Showing All NFT</p>
-            <p className="t4">(showing {productData.length} products)</p>
-          </div>
-          <div className="product-content-card-section pd-bottom-4x">
-            {productData.map((item) => (
-              <ProductCard data={item} key={item._id} navigate={navigate} />
             ))}
-          </div>
-        </main>
-      </div>
-    </>
+
+            <li className="mg-top-2x">
+              <p className="t4 fw-4x mg-top-1x">Ratings</p>
+            </li>
+
+            {ratingsMenu.map((item) => (
+              <li className="category-item mg-top-1x" key={item}>
+                <input
+                  type="radio"
+                  name="ratings"
+                  onChange={() => onRatingsChange(item)}
+                />
+                <label className="t4">{item}</label>
+              </li>
+            ))}
+
+            <li className="mg-top-2x">
+              <p className="t4 fw-4x mg-top-1x">Sort by</p>
+            </li>
+
+            {priceSortMenu.map((item, i) => (
+              <li className="category-item mg-top-1x" key={item}>
+                <input
+                  type="radio"
+                  name="price"
+                  onChange={() => onPriceSortChange(i)}
+                />
+                <label className="t4">{item}</label>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+      <main className="product-content pd-2x">
+        <div className="content-header">
+          <p className="h4 mg-left-1x">Showing All NFT</p>
+          <p className="t4">(showing {productData.length} products)</p>
+        </div>
+        <div className="product-content-card-section pd-bottom-4x">
+          {productData.map((item) => (
+            <Link
+              to={`/product/${item._id}`}
+              className="no-deco product-card"
+              key={item._id}
+            >
+              <ProductCard data={item} navigate={navigate} />
+            </Link>
+          ))}
+        </div>
+      </main>
+    </div>
   );
 };
 

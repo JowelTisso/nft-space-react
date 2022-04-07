@@ -1,0 +1,193 @@
+.single-product-wrapper {
+  margin-top: 10rem;
+}
+
+.single-product-wrapper .card-horizontal {
+  box-shadow: none;
+  width: 80%;
+}
+
+.single-product-wrapper .card-img-horizontal {
+  width: 30rem;
+  height: 30rem;
+  border-radius: 5px;
+}
+
+.single-product-wrapper .card-content-horizontal {
+  flex: 1;
+  margin-left: 10rem;
+}
+
+.single-product-wrapper .card-content {
+  padding: 0;
+}
+
+.single-product-wrapper .card-title {
+  font-size: 3rem;
+  height: auto;
+}
+
+.single-product-wrapper .card-sub-title {
+  font-size: 2rem;
+  height: auto;
+}
+
+.single-product-wrapper .card-description {
+  font-size: 1.5rem;
+  height: auto;
+}
+
+.single-product-wrapper .card-btn-container {
+  flex-direction: row;
+  position: relative;
+  justify-content: flex-start;
+}
+
+.single-product-wrapper .btn {
+  height: 5rem;
+  width: 20rem;
+}
+
+/* Badge */
+.single-product-wrapper .badge-container {
+  margin: 0;
+}
+
+.single-product-wrapper .badge {
+  height: 2rem;
+  width: 10rem;
+  border-radius: 3px;
+  background-color: var(--primary-color);
+}
+
+.single-product-wrapper .bdg-rank {
+  height: 3rem;
+  width: 12rem;
+  font-size: 2rem;
+  background: none;
+  color: var(--secondary-color);
+}
+
+.single-product-wrapper .card-description {
+  font-size: 1.7rem;
+  width: 80%;
+}
+
+/* Rating */
+.single-product-wrapper .rating {
+  font-size: 2rem;
+}
+
+.single-product-wrapper .txt-rating {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+@media screen and (max-width: 800px) {
+  .single-product-wrapper .card-horizontal {
+    flex-direction: column;
+  }
+
+  .single-product-wrapper .card-content-horizontal {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+
+  .single-product-wrapper .card-img-horizontal {
+    width: 80%;
+    height: 50rem;
+    border-radius: 5px;
+    align-self: center;
+  }
+
+  .single-product-wrapper .card-btn-container {
+    margin-top: 5rem;
+  }
+
+  .single-product-wrapper .btn {
+    height: 5rem;
+    width: 50%;
+  }
+
+  /* Badge */
+  .single-product-wrapper .badge {
+    height: 3rem;
+    width: 12rem;
+    font-size: 1.7rem;
+  }
+
+  .single-product-wrapper .bdg-rank {
+    font-size: 2.4rem;
+  }
+
+  .single-product-wrapper .card-sub-title {
+    margin-top: 0.5rem;
+  }
+
+  .single-product-wrapper .card-description {
+    margin-top: 1rem;
+    font-size: 1.9rem;
+    width: 100%;
+  }
+
+  .single-product-wrapper .card-category-name {
+    margin-top: 2rem;
+  }
+
+  .single-product-wrapper .card-category-price {
+    margin-top: 5px;
+  }
+
+  .single-product-wrapper .rating-container {
+    margin-top: 3rem;
+  }
+
+  /* Rating */
+  .single-product-wrapper .rating {
+    font-size: 2.5rem;
+  }
+
+  .single-product-wrapper .txt-rating {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .single-product-wrapper {
+    margin-top: 8rem;
+  }
+
+  .single-product-wrapper .card-horizontal {
+    flex-direction: column;
+  }
+
+  .single-product-wrapper .card-content-horizontal {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+
+  .single-product-wrapper .card-img-horizontal {
+    width: 100%;
+    height: 30rem;
+    border-radius: 5px;
+  }
+
+  /* Badge */
+  .single-product-wrapper .badge {
+    height: 2.5rem;
+    width: 10rem;
+    font-size: 1.5rem;
+  }
+
+  .single-product-wrapper .card-description {
+    font-size: 1.7rem;
+  }
+
+  .single-product-wrapper .bdg-rank {
+    font-size: 1.8rem;
+  }
+
+  .single-product-wrapper .txt-rating {
+    font-size: 1.7rem;
+  }
+}

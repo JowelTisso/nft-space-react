@@ -67,6 +67,10 @@
   outline: none;
 }
 
+.search-icon-mb {
+  display: none;
+}
+
 /* Nav */
 
 .nav-container .nav-link {
@@ -158,5 +162,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .search-icon-mb {
+    display: block;
+    margin-right: 2rem;
+    margin-bottom: 2px;
+  }
+
+  .show-in-mb {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0;
+  }
+
+  .show-in-mb .input-container {
+    width: 100%;
+  }
+
+  .show-in-mb input {
+    height: 6rem;
+    z-index: 2;
+  }
+
+  .search-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100%;
   }
 }

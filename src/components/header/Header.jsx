@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import {
   IoHeartOutline,
@@ -17,8 +17,10 @@ import { useSidenav } from "../../context/provider/SidenavProvider";
 import { PRODUCT_DATA, TOGGLE_NAV } from "../../utils/Constant";
 import { useFilter } from "../../context/provider/FilterProvider";
 import { filterByTitle } from "./headerHelper";
+import SearchInput from "./components/SearchInput";
 
 const Header = () => {
+  const [isSearchVisivle, setIsSearchVisivle] = useState(false);
   const { cartState, cartDispatch } = useCart();
   const { wishlistState, wishlistDispatch } = useWishlist();
   const { authState, authDispatch } = useAuth();
@@ -46,6 +48,10 @@ const Header = () => {
     }
   };
 
+  const toggleSearchInput = () => {
+    setIsSearchVisivle((isVisible) => !isVisible);
+  };
+
   return (
     <header className="header-container pd-1x pd-right-4x pd-left-4x">
       {currentRoute === productRoute && (
@@ -59,16 +65,13 @@ const Header = () => {
           SPACE
         </Link>
       </div>
-      <div className="header-middle">
-        <div className="input-container search-icon-container">
-          <IoSearchOutline className="search-icon" />
-          <input
-            type="text"
-            className="input-simple"
-            placeholder="Search"
-            onKeyUp={applySearch}
-          />
-        </div>
+      <div className={`header-middle ${isSearchVisivle && "show-in-mb"} `}>
+        {currentRoute === productRoute && (
+          <>
+            <SearchInput applySearch={applySearch} />
+            <div className="search-backdrop" onClick={toggleSearchInput}></div>
+          </>
+        )}
       </div>
       <nav className="nav-container">
         {authState.loggedIn ? (
@@ -88,6 +91,10 @@ const Header = () => {
         )}
 
         <div className="badge-container pointer mg-left-4x">
+          <IoSearchOutline
+            className="ic-normal search-icon-mb"
+            onClick={toggleSearchInput}
+          />
           <Link to={"/wishlist"}>
             <IoHeartOutline className="ic-normal" />
           </Link>

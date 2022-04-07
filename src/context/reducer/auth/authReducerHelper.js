@@ -1,4 +1,9 @@
-import { LOG_IN, LOG_OUT, SIGN_UP } from "../../../utils/Constant";
+import {
+  LOG_IN,
+  LOG_OUT,
+  SET_ACTIVE_ADDRESS,
+  SIGN_UP,
+} from "../../../utils/Constant";
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -22,6 +27,11 @@ export const reducer = (state, action) => {
         token: action.payload.token,
         user: action.payload.user,
         loggedIn: true,
+      };
+    case SET_ACTIVE_ADDRESS:
+      return {
+        ...state,
+        activeAddress: action.payload.address,
       };
     default:
       return state;

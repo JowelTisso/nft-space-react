@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useCart } from "../../context/provider/CartProvider";
 import "./Cart.css";
 import { ProductCard } from "./component/ProductCard";

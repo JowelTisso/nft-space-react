@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Auth.css";
 import { IoEyeOff, IoChevronForward } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   getCartDataFromServer,
   getWishlistDataFromServer,
@@ -29,6 +29,8 @@ const Auth = () => {
   const navigate = useNavigate();
   const { wishlistDispatch } = useWishlist();
   const { cartDispatch } = useCart();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const emailChangeHandler = ({ target }) => {
     setCredentials((state) => ({ ...state, email: target.value }));
@@ -64,7 +66,7 @@ const Auth = () => {
       });
       getWishlistDataFromServer(wishlistDispatch);
       getCartDataFromServer(cartDispatch);
-      navigate("/");
+      navigate(from, { replace: true });
     }
   };
 
@@ -110,7 +112,6 @@ const Auth = () => {
                   value={credentials.firstName}
                   onChange={(e) => nameChangeHandler(e, "firstName")}
                 />
-                {/* <p className="input-val val-warn">Input email</p> */}
               </div>
               <div className="input-container mg-top-2x wd-4x">
                 <label className="input-label">Last Name</label>
@@ -121,7 +122,6 @@ const Auth = () => {
                   value={credentials.lastName}
                   onChange={(e) => nameChangeHandler(e, "lastName")}
                 />
-                {/* <p className="input-val val-warn">Input email</p> */}
               </div>
             </>
           )}
@@ -135,7 +135,6 @@ const Auth = () => {
               value={credentials.email}
               onChange={emailChangeHandler}
             />
-            {/* <p className="input-val val-warn">Input email</p> */}
           </div>
 
           <div className="input-container mg-top-2x wd-4x">
@@ -152,7 +151,6 @@ const Auth = () => {
                 <IoEyeOff className="toggle-icon pointer" />
               </div>
             </div>
-            {/* <p className="input-val val-warn">Input password</p> */}
           </div>
 
           <div className="info-container flex-center mg-2x wd-4x">

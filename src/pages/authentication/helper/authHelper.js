@@ -13,7 +13,7 @@ export const userLogIn = async (payload) => {
   try {
     const res = await axios.post("/api/auth/login", payload);
     if (res?.status === 200) {
-      localStorage.setItem(USER_TOKEN, res.data.encodedToken);
+      localStorage.setItem(USER_TOKEN, res?.data.encodedToken);
       return res;
     }
   } catch (err) {

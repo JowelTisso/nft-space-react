@@ -7,8 +7,6 @@ const Cart = () => {
   const { cartState } = useCart();
   const { totalItems, totalPrice } = cartState;
 
-  console.log(cartState);
-
   return (
     <>
       <div className="content-wrapper">

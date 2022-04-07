@@ -60,7 +60,7 @@ const Header = () => {
           </a>
         </div>
         <div className="badge-container pointer mg-left-4x">
-          <Link to={authState.loggedIn ? "/wishlist" : "/auth"}>
+          <Link to={"/wishlist"}>
             <IoHeartOutline className="ic-normal" />
           </Link>
           <p className="badge bdg-s bdg-ic bdg-ic-t">
@@ -68,7 +68,7 @@ const Header = () => {
           </p>
         </div>
         <div className="badge-container pointer mg-left-4x">
-          <Link to={authState.loggedIn ? "/cart" : "/auth"}>
+          <Link to={"/cart"}>
             <IoCartOutline className="ic-normal" />
           </Link>
           <p className="badge bdg-s bdg-ic bdg-ic-t">

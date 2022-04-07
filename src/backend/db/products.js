@@ -260,7 +260,7 @@ const wearable = [
     topBid: "321",
     minBid: "200",
     rank: "#117",
-    img: "https://api.sandbox.game/assets/public/86c22cd5-86bf-4a12-a707-4e532bc6b435/preview?bafkreigp6rtarwdfwlujxafzjfv5a6ligddnc3bqce5yrjkjqydr3il45i?bafkreigp6rtarwdfwlujxafzjfv5a6ligddnc3bqce5yrjkjqydr3il45i",
+    img: "https://api.sandbox.game/assets/public/2e19ffd4-a7ac-4258-b185-4c5173fb1177/preview?bafkreiho6xhipgezsnwf7grqglnlpvqvdsnjlholsih67zgscdd6337swy?bafkreiho6xhipgezsnwf7grqglnlpvqvdsnjlholsih67zgscdd6337swy",
     ratings: 1,
     ratingsCount: 4,
     status: "Trending",

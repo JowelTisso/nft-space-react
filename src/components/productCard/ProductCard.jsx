@@ -74,7 +74,7 @@ const ProductCard = ({
   };
 
   return (
-    <div className="product-card">
+    <>
       <div className="card-badge " onClick={wishlistHandler}>
         {inWishlist ? (
           <IoHeart className="badge-active t3" />
@@ -110,7 +110,7 @@ const ProductCard = ({
           ADD TO CART
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

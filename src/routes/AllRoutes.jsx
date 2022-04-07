@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home, Products, Wishlist, Cart, Auth, UserProfile } from "../pages";
 import PrivateRoutes from "./PrivateRoutes";
 import Mockman from "mockman-js";
+import SingleProduct from "../pages/singleProduct/SingleProduct";
 
 const AllRoutes = () => {
   return (
@@ -30,6 +31,14 @@ const AllRoutes = () => {
         element={
           <PrivateRoutes>
             <UserProfile />
+          </PrivateRoutes>
+        }
+      />
+      <Route
+        path="/product/:productId"
+        element={
+          <PrivateRoutes>
+            <SingleProduct />
           </PrivateRoutes>
         }
       />

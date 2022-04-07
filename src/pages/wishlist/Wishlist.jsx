@@ -19,7 +19,9 @@ const Wishlist = () => {
           </div>
           <div className="wishlist-content-card-section pd-bottom-4x pd-left-1x">
             {wishlistState?.wishlistItems?.map((item) => (
-              <ProductCard data={item} key={item._id} />
+              <div className="product-card" key={item._id}>
+                <ProductCard data={item} />
+              </div>
             ))}
           </div>
         </main>

@@ -178,7 +178,6 @@ const Products = () => {
   return (
     <div className="content-wrapper">
       <aside
-        id="drawer"
         className={`sidenav pd-left-4x pd-top-2x pd-right-2x pd-bottom-3x ${
           sidenavState.visible ? "show=nav" : "hide-nav"
         } `}

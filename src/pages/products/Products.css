@@ -11,6 +11,7 @@
   bottom: 0;
   overflow-y: auto;
   width: 28rem;
+  z-index: 4;
 }
 
 .sidenav::-webkit-scrollbar {

@@ -1,0 +1,24 @@
+.savedAddressContainer {
+  padding: 2rem;
+  position: relative;
+}
+
+.name-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.address {
+  width: 50%;
+  line-height: 2.5rem;
+}
+
+.menu-container {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+ion-icon {
+  font-size: 2rem;
+}

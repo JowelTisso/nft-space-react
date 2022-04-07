@@ -18,6 +18,7 @@ import {
   removeFromWishlist,
 } from "../../pages/products/helper/WishlistHelper";
 import { useAuth } from "../../context/provider/AuthProvider";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({
   data: {
@@ -82,29 +83,31 @@ const ProductCard = ({
           <IoHeartOutline className="ic-normal" />
         )}
       </div>
-      <img
-        className="card-img"
-        src={img}
-        alt="card image"
-        style={{
-          objectFit: categoryName === ART ? "cover" : "contain",
-        }}
-      />
-      <div className="card-content">
-        <p className="card-title">{title}</p>
-        <p className="card-sub-title">{creator}</p>
-        <p className="card-description">₹{price}</p>
-        <div className="rating-container">
-          {[...Array(5)].map((_, i) =>
-            i + 1 <= ratings ? (
-              <IoStar className="rating" key={i} />
-            ) : (
-              <IoStarOutline className="rating" key={i} />
-            )
-          )}
-          <span className="txt-rating"> | ({ratingsCount})</span>
+      <Link to={`/product/${_id}`} className="no-deco card-btn-link">
+        <img
+          className="card-img"
+          src={img}
+          alt="card image"
+          style={{
+            objectFit: categoryName === ART ? "cover" : "contain",
+          }}
+        />
+        <div className="card-content">
+          <p className="card-title">{title}</p>
+          <p className="card-sub-title">{creator}</p>
+          <p className="card-description">₹{price}</p>
+          <div className="rating-container">
+            {[...Array(5)].map((_, i) =>
+              i + 1 <= ratings ? (
+                <IoStar className="rating" key={i} />
+              ) : (
+                <IoStarOutline className="rating" key={i} />
+              )
+            )}
+            <span className="txt-rating"> | ({ratingsCount})</span>
+          </div>
         </div>
-      </div>
+      </Link>
       <div className="card-btn-container">
         <button className="btn btn-primary" onClick={addToCartHandler}>
           ADD TO CART

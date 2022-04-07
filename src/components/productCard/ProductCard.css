@@ -37,6 +37,14 @@
   color: var(--cta-color);
 }
 
+.card-badge {
+  z-index: 2;
+}
+
+.card-btn-link {
+  color: var(--txt-color);
+}
+
 @media screen and (max-width: 500px) {
   .product-card {
     width: 42%;

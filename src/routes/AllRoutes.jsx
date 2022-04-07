@@ -1,6 +1,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, Products, Wishlist, Cart, Auth, UserProfile } from "../pages";
+import {
+  Home,
+  Products,
+  Wishlist,
+  Cart,
+  Auth,
+  UserProfile,
+  Address,
+} from "../pages";
 import PrivateRoutes from "./PrivateRoutes";
 import Mockman from "mockman-js";
 import SingleProduct from "../pages/singleProduct/SingleProduct";
@@ -39,6 +47,14 @@ const AllRoutes = () => {
         element={
           <PrivateRoutes>
             <SingleProduct />
+          </PrivateRoutes>
+        }
+      />
+      <Route
+        path="/address"
+        element={
+          <PrivateRoutes>
+            <Address />
           </PrivateRoutes>
         }
       />

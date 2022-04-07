@@ -58,7 +58,11 @@ export const reducer = (state, action) => {
         settings: { ...state.settings, category: action.payload },
       };
     case CLEAR:
-      return defaultData;
+      return {
+        ...state,
+        productData: action.payload,
+        settings: defaultData.settings,
+      };
     default:
       return state;
   }

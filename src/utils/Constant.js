@@ -12,6 +12,7 @@ export const FILTER_PRODUCT = "FILTER_PRODUCT";
 export const PRICE_RANGE = "PRICE_RANGE";
 export const FILTER_RATING = "FILTER_RATING";
 export const FILTER_CATEGORY = "FILTER_CATEGORY";
+export const UPDATE_SEARCH = "UPDATE_SEARCH";
 export const CLEAR = "CLEAR";
 
 // Rating

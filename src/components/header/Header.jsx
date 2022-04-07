@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import {
   IoHeartOutline,
   IoCartOutline,
   IoMenu,
   IoLogOutOutline,
+  IoSearchOutline,
 } from "react-icons/io5";
 import "./Header.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -13,15 +14,20 @@ import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { userLogout } from "../../pages/authentication/helper/authHelper";
 import { useSidenav } from "../../context/provider/SidenavProvider";
-import { TOGGLE_NAV } from "../../utils/Constant";
+import { PRODUCT_DATA, TOGGLE_NAV } from "../../utils/Constant";
+import { useFilter } from "../../context/provider/FilterProvider";
+import { filterByTitle } from "./headerHelper";
+import SearchInput from "./components/SearchInput";
 
 const Header = () => {
+  const [isSearchVisivle, setIsSearchVisivle] = useState(false);
   const { cartState, cartDispatch } = useCart();
   const { wishlistState, wishlistDispatch } = useWishlist();
   const { authState, authDispatch } = useAuth();
   const navigate = useNavigate();
   const { sidenavDispatch } = useSidenav();
   const location = useLocation();
+  const { filterDispatch, products } = useFilter();
 
   const currentRoute = location?.pathname;
   const productRoute = "/products";
@@ -33,6 +39,17 @@ const Header = () => {
 
   const toggleSidenav = () => {
     sidenavDispatch({ type: TOGGLE_NAV });
+  };
+
+  const applySearch = ({ key, target }) => {
+    if (key === "Enter") {
+      const filteredBySearch = filterByTitle(target.value, products);
+      filterDispatch({ type: PRODUCT_DATA, payload: filteredBySearch });
+    }
+  };
+
+  const toggleSearchInput = () => {
+    setIsSearchVisivle((isVisible) => !isVisible);
   };
 
   return (
@@ -48,13 +65,14 @@ const Header = () => {
           SPACE
         </Link>
       </div>
-      <div className="header-middle">
-        <div className="input-container search-icon">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <input type="text" className="input-simple" placeholder="Search" />
-        </div>
+      <div className={`header-middle ${isSearchVisivle && "show-in-mb"} `}>
+        {currentRoute === productRoute && (
+          <>
+            <SearchInput applySearch={applySearch} />
+            <div className="search-backdrop" onClick={toggleSearchInput}></div>
+          </>
+        )}
       </div>
-
       <nav className="nav-container">
         {authState.loggedIn ? (
           <button
@@ -73,6 +91,12 @@ const Header = () => {
         )}
 
         <div className="badge-container pointer mg-left-4x">
+          {currentRoute === productRoute && (
+            <IoSearchOutline
+              className="ic-normal search-icon-mb"
+              onClick={toggleSearchInput}
+            />
+          )}
           <Link to={"/wishlist"}>
             <IoHeartOutline className="ic-normal" />
           </Link>

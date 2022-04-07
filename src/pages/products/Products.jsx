@@ -39,7 +39,7 @@ const Products = () => {
 
   // Filter Context
   const {
-    filterState: { productData, settings },
+    filterState: { productData, settings, search },
     filterDispatch,
     products,
   } = useFilter();
@@ -154,7 +154,7 @@ const Products = () => {
   };
 
   const clearFilter = () => {
-    filterDispatch({ type: CLEAR, payload: {} });
+    filterDispatch({ type: CLEAR, payload: products });
   };
 
   const priceSliderStyle = {

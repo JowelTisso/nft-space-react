@@ -5,6 +5,7 @@ import {
   IoCartOutline,
   IoMenu,
   IoLogOutOutline,
+  IoSearchOutline,
 } from "react-icons/io5";
 import "./Header.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -13,7 +14,9 @@ import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { userLogout } from "../../pages/authentication/helper/authHelper";
 import { useSidenav } from "../../context/provider/SidenavProvider";
-import { TOGGLE_NAV } from "../../utils/Constant";
+import { PRODUCT_DATA, TOGGLE_NAV } from "../../utils/Constant";
+import { useFilter } from "../../context/provider/FilterProvider";
+import { filterByTitle } from "./headerHelper";
 
 const Header = () => {
   const { cartState, cartDispatch } = useCart();
@@ -22,6 +25,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { sidenavDispatch } = useSidenav();
   const location = useLocation();
+  const { filterDispatch, products } = useFilter();
 
   const currentRoute = location?.pathname;
   const productRoute = "/products";
@@ -33,6 +37,13 @@ const Header = () => {
 
   const toggleSidenav = () => {
     sidenavDispatch({ type: TOGGLE_NAV });
+  };
+
+  const applySearch = ({ key, target }) => {
+    if (key === "Enter") {
+      const filteredBySearch = filterByTitle(target.value, products);
+      filterDispatch({ type: PRODUCT_DATA, payload: filteredBySearch });
+    }
   };
 
   return (
@@ -49,12 +60,16 @@ const Header = () => {
         </Link>
       </div>
       <div className="header-middle">
-        <div className="input-container search-icon">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <input type="text" className="input-simple" placeholder="Search" />
+        <div className="input-container search-icon-container">
+          <IoSearchOutline className="search-icon" />
+          <input
+            type="text"
+            className="input-simple"
+            placeholder="Search"
+            onKeyUp={applySearch}
+          />
         </div>
       </div>
-
       <nav className="nav-container">
         {authState.loggedIn ? (
           <button

@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { reducer } from "../reducer/wishlist/wishlistReducerHelper";
+import { reducer } from "../reducer/wishlist/wishlistReducer";
 
 const WishlistContext = createContext({ state: {}, dispatch: () => {} });
 

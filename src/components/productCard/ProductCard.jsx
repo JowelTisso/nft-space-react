@@ -8,15 +8,12 @@ import {
 import "./ProductCard.css";
 import { ART, INCREMENT } from "../../utils/Constant";
 import { useCart } from "../../context/provider/CartProvider";
-import {
-  addToCart,
-  changeQuantity,
-} from "../../pages/products/helper/CartHelper";
+import { addToCart, changeQuantity } from "../../pages/products/helper/Cart";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import {
   addToWishlist,
   removeFromWishlist,
-} from "../../pages/products/helper/WishlistHelper";
+} from "../../pages/products/helper/Wishlist";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { Link } from "react-router-dom";
 

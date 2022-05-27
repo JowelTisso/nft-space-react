@@ -7,7 +7,7 @@ import {
   useReducer,
 } from "react";
 import { PRODUCT_DATA } from "../../utils/Constant";
-import { reducer } from "../reducer/filter/filterReducerHelper";
+import { reducer } from "../reducer/filter/filterReducer";
 
 const FilterContext = createContext({ state: {}, dispatch: () => {} });
 

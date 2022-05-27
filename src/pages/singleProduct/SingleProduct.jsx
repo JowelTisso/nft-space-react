@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFilter } from "../../context/provider/FilterProvider";
 import "./SingleProduct.css";
-import { findByProductId } from "./singleProductHelper";
 import { IoStar, IoStarOutline } from "react-icons/io5";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useCart } from "../../context/provider/CartProvider";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "../products/helper/WishlistHelper";
+import { addToWishlist, removeFromWishlist } from "../products/helper/Wishlist";
 import { ART, INCREMENT } from "../../utils/Constant";
-import { addToCart, changeQuantity } from "../products/helper/CartHelper";
+import { addToCart, changeQuantity } from "../products/helper/Cart";
 
 const SingleProduct = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -54,6 +50,10 @@ const SingleProduct = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const findByProductId = (productId, list) => {
+    return list.find((item) => item._id.includes(productId));
   };
 
   useEffect(() => {

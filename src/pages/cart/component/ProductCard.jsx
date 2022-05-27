@@ -10,7 +10,7 @@ import {
   removeFromCart,
   changeQuantity,
   moveToWishlist,
-} from "../../products/helper/CartHelper";
+} from "../../products/helper/Cart";
 import { useCart } from "../../../context/provider/CartProvider";
 import { ART, DECREMENT, INCREMENT } from "../../../utils/Constant";
 import { useWishlist } from "../../../context/provider/WishlistProvider";

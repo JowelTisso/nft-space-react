@@ -4,7 +4,7 @@ import { useCart } from "../../context/provider/CartProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
-import { userLogout } from "../authentication/helper/authHelper";
+import { userLogout } from "../authentication/helper/auth";
 import axios from "axios";
 import { getUserToken } from "../../utils/TokenHelper";
 import { SET_ACTIVE_ADDRESS } from "../../utils/Constant";
@@ -17,8 +17,6 @@ const UserProfile = () => {
     authDispatch,
   } = useAuth();
   const navigate = useNavigate();
-
-  // console.log(activeAddress);
 
   // const { id, name, mobile, address, pin, city, state, landmark } =
   //   activeAddress;

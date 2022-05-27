@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { reducer } from "../reducer/sidenav/sidenavReducerHelper";
+import { reducer } from "../reducer/sidenav/sidenavReducer";
 
 const SidenavContext = createContext({ state: {}, dispatch: () => {} });
 

@@ -35,11 +35,9 @@ export const userLogout = (authDispatch, cartDispatch, wishlistDispatch) => {
 export const userSignUp = async (payload) => {
   try {
     const res = await axios.post("/api/auth/signup", payload);
-    if (res?.status === 200) {
+    if (res?.status === 200 || res?.status === 201) {
       localStorage.setItem(USER_TOKEN, res.data.encodedToken);
       return res;
-    } else {
-      console.log(res);
     }
   } catch (err) {
     console.log(err);
@@ -54,7 +52,7 @@ export const getWishlistDataFromServer = async (dispatch) => {
       const { status, data } = await axios.get("/api/user/wishlist", {
         headers: { authorization: token },
       });
-      if (status === 200 || 201) {
+      if (status === 200 || status === 201) {
         dispatch({
           type: UPDATE_WISHLIST_DATA,
           payload: data?.wishlist,

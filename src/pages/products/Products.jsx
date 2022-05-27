@@ -29,7 +29,7 @@ import {
   filterRatings,
   filterTrendingStatus,
   sortPrice,
-} from "./helper/FilterHelper";
+} from "./helper/Filter";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSidenav } from "../../context/provider/SidenavProvider";

@@ -7,7 +7,7 @@ import {
   getWishlistDataFromServer,
   userLogIn,
   userSignUp,
-} from "./helper/authHelper";
+} from "./helper/auth";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { LOG_IN, SIGN_UP } from "../../utils/Constant";
 import { useWishlist } from "../../context/provider/WishlistProvider";

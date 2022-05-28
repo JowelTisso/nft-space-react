@@ -34,11 +34,7 @@ export const userLogout = (authDispatch, cartDispatch, wishlistDispatch) => {
 
 export const userSignUp = async (payload) => {
   try {
-    const res = await axios.post("/api/auth/signup", payload);
-    if (res?.status === 200 || res?.status === 201) {
-      localStorage.setItem(USER_TOKEN, res.data.encodedToken);
-      return res;
-    }
+    return await axios.post("/api/auth/signup", payload);
   } catch (err) {
     console.log(err);
   }

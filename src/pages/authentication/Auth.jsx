@@ -12,6 +12,7 @@ import { useAuth } from "../../context/provider/AuthProvider";
 import { LOG_IN, SIGN_UP } from "../../utils/Constant";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useCart } from "../../context/provider/CartProvider";
+import { callToast } from "../../components/toast/Toast";
 
 const Auth = () => {
   const [credentials, setCredentials] = useState({
@@ -71,21 +72,25 @@ const Auth = () => {
   };
 
   const signupHandler = async () => {
-    const res = await userSignUp({
-      firstName: credentials.firstName,
-      lastName: credentials.lastName,
-      email: credentials.email,
-      password: credentials.password,
-    });
-    if (res?.status === 200) {
-      authDispatch({
-        type: SIGN_UP,
-        payload: {
-          token: res?.data?.encodedToken,
-          user: res?.data?.createdUser,
-        },
+    try {
+      const res = await userSignUp({
+        firstName: credentials.firstName,
+        lastName: credentials.lastName,
+        email: credentials.email,
+        password: credentials.password,
       });
-      navigate("/");
+      if (res?.status === 200 || res?.status === 201) {
+        setCredentials({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
+
+        callToast("Sign up successfull! Login to continue!");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

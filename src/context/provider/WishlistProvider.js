@@ -6,6 +6,7 @@ const WishlistContext = createContext({ state: {}, dispatch: () => {} });
 const WishlistProvider = ({ children }) => {
   const defaultData = {
     wishlistItems: [],
+    isLoading: false,
   };
   const [state, dispatch] = useReducer(reducer, defaultData);
 

@@ -12,6 +12,7 @@ import {
 import PrivateRoutes from "./PrivateRoutes";
 import Mockman from "mockman-js";
 import SingleProduct from "../pages/singleProduct/SingleProduct";
+import NotFound from "../pages/notfound/NotFound";
 
 const AllRoutes = () => {
   return (
@@ -60,6 +61,7 @@ const AllRoutes = () => {
       />
       <Route path="/auth" element={<Auth />} />
       <Route path="/mockman" element={<Mockman />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

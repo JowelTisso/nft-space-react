@@ -34,7 +34,7 @@ const UserProfile = () => {
       ) {
         authDispatch({
           type: SET_ACTIVE_ADDRESS,
-          payload: { address: res?.data.addresses[0] || {} },
+          payload: { address: res?.data?.addresses[0] || {} },
         });
       }
     })();

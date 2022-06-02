@@ -23,6 +23,8 @@ const SingleProduct = () => {
     (item) => item._id === selectedProduct._id
   );
 
+  const inCart = cartState.cartItems.some((item) => item._id === productId);
+
   const wishlistHandler = () => {
     if (authState.loggedIn) {
       !inWishlist
@@ -36,11 +38,8 @@ const SingleProduct = () => {
   const addToCartHandler = () => {
     try {
       if (authState.loggedIn) {
-        const itemIndex = cartState?.cartItems?.findIndex(
-          (item) => item._id === selectedProduct._id
-        );
-        if (itemIndex > -1) {
-          changeQuantity(selectedProduct, cartDispatch, INCREMENT);
+        if (inCart) {
+          navigate("/cart");
         } else {
           addToCart(selectedProduct, cartDispatch);
         }
@@ -112,7 +111,7 @@ const SingleProduct = () => {
           </div>
           <div className="card-btn-container">
             <button className="btn btn-primary" onClick={addToCartHandler}>
-              ADD TO CART
+              {inCart ? " GO TO CART" : "ADD TO CART"}
             </button>
             <button className="btn btn-secondary" onClick={wishlistHandler}>
               {inWishlist ? "REMOVE" : "ADD TO WISHLIST"}

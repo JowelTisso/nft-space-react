@@ -13,7 +13,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../../context/provider/CartProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useAuth } from "../../context/provider/AuthProvider";
-import { userLogout } from "../../pages/authentication/helper/authHelper";
+import { userLogout } from "../../pages/authentication/helper/auth";
 import { useSidenav } from "../../context/provider/SidenavProvider";
 import { PRODUCT_DATA, TOGGLE_NAV } from "../../utils/Constant";
 import { useFilter } from "../../context/provider/FilterProvider";

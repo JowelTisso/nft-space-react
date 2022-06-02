@@ -45,6 +45,10 @@
   color: var(--txt-color);
 }
 
+.cursor-disabled {
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 500px) {
   .product-card {
     width: 42%;

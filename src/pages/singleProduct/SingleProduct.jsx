@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFilter } from "../../context/provider/FilterProvider";
 import "./SingleProduct.css";
-import { findByProductId } from "./singleProductHelper";
 import { IoStar, IoStarOutline } from "react-icons/io5";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useCart } from "../../context/provider/CartProvider";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "../products/helper/WishlistHelper";
+import { addToWishlist, removeFromWishlist } from "../products/helper/Wishlist";
 import { ART, INCREMENT } from "../../utils/Constant";
-import { addToCart, changeQuantity } from "../products/helper/CartHelper";
+import { addToCart, changeQuantity } from "../products/helper/Cart";
 
 const SingleProduct = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -27,6 +23,8 @@ const SingleProduct = () => {
     (item) => item._id === selectedProduct._id
   );
 
+  const inCart = cartState.cartItems.some((item) => item._id === productId);
+
   const wishlistHandler = () => {
     if (authState.loggedIn) {
       !inWishlist
@@ -40,11 +38,8 @@ const SingleProduct = () => {
   const addToCartHandler = () => {
     try {
       if (authState.loggedIn) {
-        const itemIndex = cartState?.cartItems?.findIndex(
-          (item) => item._id === selectedProduct._id
-        );
-        if (itemIndex > -1) {
-          changeQuantity(selectedProduct, cartDispatch, INCREMENT);
+        if (inCart) {
+          navigate("/cart");
         } else {
           addToCart(selectedProduct, cartDispatch);
         }
@@ -54,6 +49,10 @@ const SingleProduct = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const findByProductId = (productId, list) => {
+    return list.find((item) => item._id.includes(productId));
   };
 
   useEffect(() => {
@@ -112,7 +111,7 @@ const SingleProduct = () => {
           </div>
           <div className="card-btn-container">
             <button className="btn btn-primary" onClick={addToCartHandler}>
-              ADD TO CART
+              {inCart ? " GO TO CART" : "ADD TO CART"}
             </button>
             <button className="btn btn-secondary" onClick={wishlistHandler}>
               {inWishlist ? "REMOVE" : "ADD TO WISHLIST"}

@@ -1,11 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
-import { reducer } from "../reducer/wishlist/wishlistReducerHelper";
+import { reducer } from "../reducer/wishlist/wishlistReducer";
 
 const WishlistContext = createContext({ state: {}, dispatch: () => {} });
 
 const WishlistProvider = ({ children }) => {
   const defaultData = {
     wishlistItems: [],
+    isLoading: false,
   };
   const [state, dispatch] = useReducer(reducer, defaultData);
 

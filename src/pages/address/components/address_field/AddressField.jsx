@@ -113,7 +113,6 @@ const AddressField = ({ toggleAddressField }) => {
               headers: { authorization: getUserToken() },
             }
           );
-          console.log(res);
           if (res?.status === 200) {
             removeFromAddressList(selectedAddress._id);
             addToAddressList({ ...addressData, _id: selectedAddress._id }); // To make _id consistent through out updates

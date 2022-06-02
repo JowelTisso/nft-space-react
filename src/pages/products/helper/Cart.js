@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UPDATE_CART_DATA } from "../../../utils/Constant";
 import { getUserToken } from "../../../utils/TokenHelper";
-import { addToWishlist } from "./WishlistHelper";
+import { addToWishlist } from "./Wishlist";
 
 export const addToCart = async (item, dispatch) => {
   try {

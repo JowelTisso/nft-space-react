@@ -6,17 +6,14 @@ import {
   IoHeart,
 } from "react-icons/io5";
 import "./ProductCard.css";
-import { ART, INCREMENT } from "../../utils/Constant";
+import { ART } from "../../utils/Constant";
 import { useCart } from "../../context/provider/CartProvider";
-import {
-  addToCart,
-  changeQuantity,
-} from "../../pages/products/helper/CartHelper";
+import { addToCart } from "../../pages/products/helper/Cart";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import {
   addToWishlist,
   removeFromWishlist,
-} from "../../pages/products/helper/WishlistHelper";
+} from "../../pages/products/helper/Wishlist";
 import { useAuth } from "../../context/provider/AuthProvider";
 import { Link } from "react-router-dom";
 
@@ -42,8 +39,10 @@ const ProductCard = ({
   const { authState } = useAuth();
 
   const inWishlist = wishlistState?.wishlistItems.some(
-    (item) => item._id === data._id
+    (item) => item._id === _id
   );
+
+  const inCart = cartState.cartItems.some((item) => item._id === _id);
 
   const wishlistHandler = () => {
     if (authState.loggedIn) {
@@ -58,11 +57,8 @@ const ProductCard = ({
   const addToCartHandler = () => {
     try {
       if (authState.loggedIn) {
-        const itemIndex = cartState?.cartItems?.findIndex(
-          (item) => item._id === _id
-        );
-        if (itemIndex > -1) {
-          changeQuantity(data, cartDispatch, INCREMENT);
+        if (inCart) {
+          navigate("/cart");
         } else {
           addToCart(data, cartDispatch);
         }
@@ -76,13 +72,17 @@ const ProductCard = ({
 
   return (
     <>
-      <div className="card-badge " onClick={wishlistHandler}>
+      <button
+        className="card-badge "
+        onClick={wishlistHandler}
+        disabled={wishlistState.isLoading}
+      >
         {inWishlist ? (
           <IoHeart className="badge-active t3" />
         ) : (
           <IoHeartOutline className="ic-normal" />
         )}
-      </div>
+      </button>
       <Link to={`/product/${_id}`} className="no-deco card-btn-link">
         <img
           className="card-img"
@@ -110,7 +110,7 @@ const ProductCard = ({
       </Link>
       <div className="card-btn-container">
         <button className="btn btn-primary" onClick={addToCartHandler}>
-          ADD TO CART
+          {inCart ? " GO TO CART" : "ADD TO CART"}
         </button>
       </div>
     </>

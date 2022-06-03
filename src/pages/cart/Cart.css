@@ -16,8 +16,11 @@
 /* Checkout */
 .checkout-section {
   position: sticky;
-  top: 7rem;
+  top: 11rem;
   height: min-content;
+  background-color: var(--bg-color);
+  padding: 2rem;
+  border-radius: 5px;
 }
 
 .hr {

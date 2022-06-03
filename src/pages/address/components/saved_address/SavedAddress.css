@@ -1,6 +1,7 @@
 .savedAddressContainer {
   padding: 2rem;
   position: relative;
+  border-radius: 5px;
 }
 
 .name-container {

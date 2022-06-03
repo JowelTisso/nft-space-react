@@ -33,6 +33,7 @@ button {
   width: 100%;
   text-align: left;
   color: var(--primary-color);
+  border-radius: 5px;
 }
 
 .modal-btn-container {
@@ -53,12 +54,6 @@ button {
 
 .pointer {
   cursor: pointer;
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .address-wrapper .btn {

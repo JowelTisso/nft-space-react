@@ -1,0 +1,11 @@
+.checkout-info-section {
+  background-color: var(--bg-color);
+  width: 90%;
+}
+
+.checkout-address-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

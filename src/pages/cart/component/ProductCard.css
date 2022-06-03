@@ -27,6 +27,10 @@
   min-width: 60rem;
 }
 
+.cart-img .card-img-horizontal {
+  /* height: 29rem; */
+}
+
 .card-content-horizontal {
   width: 100%;
 }

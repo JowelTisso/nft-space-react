@@ -22,6 +22,7 @@ function Address() {
     removeFromAddressList,
     setSelectedAddress,
   } = useAddress();
+
   const { authState, authDispatch } = useAuth();
 
   const activeAddressId = authState.activeAddress._id;

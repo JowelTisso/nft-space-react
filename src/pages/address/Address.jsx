@@ -4,8 +4,10 @@ import axios from "axios";
 import { AddressField } from "./components/address_field/AddressField";
 import { Modal } from "./components/modal/Modal";
 import SavedAddress from "./components/saved_address/SavedAddress";
-import { useAddress } from "./context/address-context";
+import { useAddress } from "../../context/provider/AddressProvider";
 import { getUserToken } from "../../utils/TokenHelper";
+import { useAuth } from "../../context/provider/AuthProvider";
+import { SET_ACTIVE_ADDRESS } from "../../utils/Constant";
 
 function Address() {
   const [isAddingAddress, setIsAddingAddress] = useState(false);
@@ -20,6 +22,9 @@ function Address() {
     removeFromAddressList,
     setSelectedAddress,
   } = useAddress();
+  const { authState, authDispatch } = useAuth();
+
+  const activeAddressId = authState.activeAddress._id;
 
   const toggleModal = () => {
     setIsModalActive((state) => !state);
@@ -39,7 +44,7 @@ function Address() {
       const { status, data } = await axios.get("/api/user/addresses", {
         headers: { authorization: getUserToken() },
       });
-      if (status === 200) {
+      if (status === 200 || status === 201) {
         setAddressList(data.addresses);
       }
     } catch (err) {
@@ -61,8 +66,32 @@ function Address() {
             headers: { authorization: getUserToken() },
           }
         );
-        if (status === 204) {
+        if (status === 200) {
           removeFromAddressList(addressId);
+
+          // To set another active address if the same is deleted
+          if (addressId === activeAddressId && addressList.length > 1) {
+            authDispatch({
+              type: SET_ACTIVE_ADDRESS,
+              payload: { address: addressList[0] },
+            });
+          } else {
+            authDispatch({
+              type: SET_ACTIVE_ADDRESS,
+              payload: {
+                address: {
+                  _id: "",
+                  name: "",
+                  mobile: "",
+                  address: "",
+                  pin: "",
+                  city: "",
+                  state: "",
+                  landmark: "",
+                },
+              },
+            });
+          }
         }
       }
     } catch (err) {
@@ -92,7 +121,7 @@ function Address() {
 
   useEffect(() => {
     getInitialDataFromServer();
-  });
+  }, []);
 
   return (
     <div className="address-wrapper flex-center">

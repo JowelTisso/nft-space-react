@@ -8,6 +8,7 @@ import {
   Auth,
   UserProfile,
   Address,
+  Checkout,
 } from "../pages";
 import PrivateRoutes from "./PrivateRoutes";
 import Mockman from "mockman-js";
@@ -56,6 +57,14 @@ const AllRoutes = () => {
         element={
           <PrivateRoutes>
             <Address />
+          </PrivateRoutes>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <PrivateRoutes>
+            <Checkout />
           </PrivateRoutes>
         }
       />

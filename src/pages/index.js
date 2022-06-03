@@ -5,3 +5,4 @@ export { Cart } from "./cart/Cart";
 export { Auth } from "./authentication/Auth";
 export { UserProfile } from "./userProfile/UserProfile";
 export { Address } from "./address/Address";
+export { Checkout } from "./checkout/Checkout";

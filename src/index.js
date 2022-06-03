@@ -9,7 +9,7 @@ import { CartProvider } from "./context/provider/CartProvider";
 import { WishlistProvider } from "./context/provider/WishlistProvider";
 import { AuthProvider } from "./context/provider/AuthProvider";
 import { SidenavProvider } from "./context/provider/SidenavProvider";
-import { AddressProvider } from "./pages/address/context/address-context";
+import { AddressProvider } from "./context/provider/AddressProvider";
 
 // Call make Server
 makeServer();

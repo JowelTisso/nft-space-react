@@ -8,7 +8,16 @@ const AuthProvider = ({ children }) => {
     token: "",
     user: {},
     loggedIn: false,
-    activeAddress: {},
+    activeAddress: {
+      _id: "",
+      name: "",
+      mobile: "",
+      address: "",
+      pin: "",
+      city: "",
+      state: "",
+      landmark: "",
+    },
   };
   const [state, dispatch] = useReducer(reducer, defaultData);
 

@@ -1,13 +1,10 @@
 import "./UserProfile.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { useCart } from "../../context/provider/CartProvider";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useAuth } from "../../context/provider/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { userLogout } from "../authentication/helper/auth";
-import axios from "axios";
-import { getUserToken } from "../../utils/TokenHelper";
-import { SET_ACTIVE_ADDRESS } from "../../utils/Constant";
 
 const UserProfile = () => {
   const { cartDispatch } = useCart();
@@ -16,33 +13,18 @@ const UserProfile = () => {
     authState: { user, activeAddress },
     authDispatch,
   } = useAuth();
-  const navigate = useNavigate();
 
-  // const { id, name, mobile, address, pin, city, state, landmark } =
-  //   activeAddress;
+  const { _id, name, mobile, address, pin, city, state, landmark } =
+    activeAddress;
 
-  // const combinedAddress = `${activeAddress?.address || ""}, ${activeAddress?.landmark}, ${activeAddress?.city}, ${activeAddress?.state}, ${activeAddress?.pin}`;
-
-  useEffect(() => {
-    (async () => {
-      const res = await axios.get("/api/user/addresses", {
-        headers: { authorization: getUserToken() },
-      });
-      if (
-        res?.status === 200 ||
-        (res?.status === 201 && res?.data?.addresses.length > 0)
-      ) {
-        authDispatch({
-          type: SET_ACTIVE_ADDRESS,
-          payload: { address: res?.data?.addresses[0] || {} },
-        });
-      }
-    })();
-  }, []);
+  const combinedAddress = _id
+    ? `${address} ${landmark}, ${city}, ${state}, ${pin}`
+    : "No address added";
 
   const logoutHandler = () => {
     userLogout(authDispatch, cartDispatch, wishlistDispatch);
   };
+
   return (
     <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
       <div className="login-card wd-5x flex-center pd-5x">
@@ -59,11 +41,7 @@ const UserProfile = () => {
         <div className="input-container mg-top-4x wd-4x user">
           <label className="input-label">Address</label>
           <div className="toggle-icon-container">
-            <p className="input-simple">
-              {" "}
-              Ganesguri, near dispur college, Dispur college, Guwahati, Assam
-              781028
-            </p>
+            <p className="input-simple">{combinedAddress}</p>
           </div>
           <Link
             to={"/address"}

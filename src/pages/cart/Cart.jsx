@@ -12,8 +12,8 @@ const Cart = () => {
 
   const isEmpty = cartState?.cartItems?.length < 1;
 
-  const goToProduct = () => {
-    navigate("/products");
+  const goToCheckout = () => {
+    navigate("/checkout");
   };
 
   return (
@@ -66,7 +66,10 @@ const Cart = () => {
             <p className="t4">You will save ₹{(400 * totalItems).toFixed(2)}</p>
           </div>
 
-          <button className="btn btn-primary btn-sm mg-top-3x wd-full btn-place-order">
+          <button
+            className="btn btn-primary btn-sm mg-top-3x wd-full btn-place-order"
+            onClick={goToCheckout}
+          >
             PLACE ORDER
           </button>
         </div>

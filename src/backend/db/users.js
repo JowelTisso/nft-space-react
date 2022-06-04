@@ -34,5 +34,6 @@ export const users = [
     password: bcyrpt.hashSync("test1234", 5),
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    addresses: [],
   },
 ];

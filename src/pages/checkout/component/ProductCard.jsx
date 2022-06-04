@@ -1,19 +1,8 @@
 import React from "react";
+import "../../cart/component/ProductCard.css";
 import "./ProductCard.css";
-import {
-  IoStar,
-  IoStarOutline,
-  IoRemoveCircle,
-  IoAddCircle,
-} from "react-icons/io5";
-import {
-  removeFromCart,
-  changeQuantity,
-  moveToWishlist,
-} from "../../products/helper/Cart";
-import { useCart } from "../../../context/provider/CartProvider";
-import { ART, DECREMENT, INCREMENT } from "../../../utils/Constant";
-import { useWishlist } from "../../../context/provider/WishlistProvider";
+import { IoStar, IoStarOutline } from "react-icons/io5";
+import { ART } from "../../../utils/Constant";
 
 const ProductCard = ({
   data: {
@@ -29,15 +18,10 @@ const ProductCard = ({
     ratingsCount,
     qty,
   },
-  data,
 }) => {
-  const { cartDispatch } = useCart();
-
-  const { wishlistDispatch } = useWishlist();
-
   return (
     <div className="card card-horizontal">
-      <div className="cart-img">
+      <div className="checkout-img">
         <img
           className="card-img-horizontal"
           src={img}
@@ -47,7 +31,7 @@ const ProductCard = ({
           }}
         />
       </div>
-      <div className="card-content-horizontal pd-bottom-2x">
+      <div className="card-content-horizontal ">
         <div className="card-content">
           <p className="card-title hide-ovrflw">{title}</p>
           <p className="card-sub-title hide-ovrflw">{creator}</p>
@@ -72,40 +56,9 @@ const ProductCard = ({
           </div>
           <div className="quantity mg-top-2x">
             <p className="quantity-title">Quantity :</p>
-            <span
-              onClick={() => {
-                qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
-              }}
-            >
-              <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
-            </span>
+
             <p className="quantity-value mg-left-1x text-center">{qty}</p>
-            <span
-              onClick={() => {
-                changeQuantity(data, cartDispatch, INCREMENT);
-              }}
-            >
-              <IoAddCircle className="quantity-btn mg-left-1x pointer" />
-            </span>
           </div>
-        </div>
-        <div className="card-btn-container">
-          <button
-            className="btn btn-primary btn-sm wd-full"
-            onClick={() => {
-              removeFromCart(data, cartDispatch);
-            }}
-          >
-            REMOVE FROM CART
-          </button>
-          <button
-            className="btn btn-secondary btn-sm wd-full"
-            onClick={() => {
-              moveToWishlist(data, cartDispatch, wishlistDispatch);
-            }}
-          >
-            MOVE TO WISHLIST
-          </button>
         </div>
       </div>
     </div>

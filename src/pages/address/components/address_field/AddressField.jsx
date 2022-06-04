@@ -2,23 +2,31 @@ import "./AddressField.css";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import React, { useState } from "react";
-import { useAddress } from "../../context/address-context";
+import { useAddress } from "../../../../context/provider/AddressProvider";
 import { getUserToken } from "../../../../utils/TokenHelper";
+import { useAuth } from "../../../../context/provider/AuthProvider";
+import { SET_ACTIVE_ADDRESS } from "../../../../utils/Constant";
 
 const AddressField = ({ toggleAddressField }) => {
-  const { selectedAddress } = useAddress();
+  const {
+    selectedAddress,
+    addToAddressList,
+    removeFromAddressList,
+    addressList,
+  } = useAddress();
+  const { authDispatch } = useAuth();
 
-  const [formData, setFormData] = useState(
-    selectedAddress || {
-      name: "",
-      mobile: "",
-      address: "",
-      pin: "",
-      city: "",
-      state: "",
-      landmark: "",
-    }
-  );
+  const defaultFormData = {
+    name: "",
+    mobile: "",
+    address: "",
+    pin: "",
+    city: "",
+    state: "",
+    landmark: "",
+  };
+
+  const [formData, setFormData] = useState(selectedAddress || defaultFormData);
 
   const [formValidation, setFormValidation] = useState({
     name: true,
@@ -39,8 +47,6 @@ const AddressField = ({ toggleAddressField }) => {
     state: "",
     landmark: "",
   });
-
-  const { addToAddressList, removeFromAddressList } = useAddress();
 
   const { name, mobile, address, pin, city, state, landmark } = formData;
 
@@ -100,7 +106,14 @@ const AddressField = ({ toggleAddressField }) => {
           );
 
           if (res?.status === 201) {
+            if (addressList.length < 1) {
+              authDispatch({
+                type: SET_ACTIVE_ADDRESS,
+                payload: { address: addressData },
+              });
+            }
             addToAddressList(addressData);
+            setFormData(defaultFormData);
           }
         } else {
           // Update address

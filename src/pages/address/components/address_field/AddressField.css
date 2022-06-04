@@ -3,6 +3,7 @@
   padding: 2rem;
   background-color: var(--bg-color);
   text-align: left;
+  border-radius: 5px;
 }
 
 .input-simple {

@@ -6,6 +6,7 @@ const defaultValue = {
   addToAddressList: () => {},
   removeFromAddressList: () => {},
   selectedAddress: {
+    _id: "",
     name: "",
     mobile: "",
     address: "",
@@ -16,6 +17,7 @@ const defaultValue = {
   },
   setSelectedAddress: () => {},
 };
+
 const AddressContext = createContext(defaultValue);
 
 const AddressProvider = ({ children }) => {

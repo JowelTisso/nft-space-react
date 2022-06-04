@@ -50,7 +50,7 @@ const Checkout = () => {
     });
   };
 
-  const payViaRazorPay = async () => {
+  const paymentHandler = async () => {
     if (!_id) {
       return console.log("Please add address!");
     }
@@ -183,7 +183,7 @@ const Checkout = () => {
 
             <button
               className="btn btn-primary btn-sm mg-top-3x wd-full btn-place-order"
-              onClick={payViaRazorPay}
+              onClick={paymentHandler}
             >
               Proceed to payment
             </button>

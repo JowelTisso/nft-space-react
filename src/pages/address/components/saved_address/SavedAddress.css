@@ -15,10 +15,7 @@
 }
 
 .menu-container {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  gap: 1rem;
+  margin-left: auto;
 }
 
 ion-icon {

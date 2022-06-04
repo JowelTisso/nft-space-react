@@ -9,3 +9,13 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.success-msg {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.success-action {
+  width: 80%;
+}

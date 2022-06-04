@@ -2,3 +2,10 @@
   height: 18rem;
   width: 15rem;
 }
+
+@media screen and (max-width: 700px) {
+  .checkout-img .card-img-horizontal {
+    height: 16rem;
+    width: 10rem;
+  }
+}

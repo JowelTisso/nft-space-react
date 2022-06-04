@@ -19,22 +19,22 @@ const SavedAddress = ({ data }) => {
       <div className="name-container">
         <p className="t4">{name}</p>
         <p className="t4">{mobile}</p>
+        <div className="menu-container">
+          {_id === activeAddressId ? (
+            <p className="active-address-tag t5 mg-right-2x">Active</p>
+          ) : (
+            <button
+              className="active-address-tag t5 mg-right-2x btn-primary pointer"
+              onClick={onActiveAddressHandler}
+            >
+              Select
+            </button>
+          )}
+        </div>
       </div>
       <p className="address t5 mg-top-2x">
         {address}, {landmark}, {city}, {state} {pin}
       </p>
-      <div className="menu-container flex-center">
-        {_id === activeAddressId ? (
-          <p className="active-address-tag t5 mg-right-2x">Active</p>
-        ) : (
-          <button
-            className="active-address-tag t5 mg-right-2x btn-primary pointer"
-            onClick={onActiveAddressHandler}
-          >
-            Select
-          </button>
-        )}
-      </div>
     </div>
   );
 };

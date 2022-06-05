@@ -92,7 +92,6 @@ const AddressField = ({ toggleAddressField }) => {
         };
 
         // To check if its a new entry or and update
-
         if (selectedAddress.name === "" && selectedAddress.address === "") {
           // Add address
           const res = await axios.post(

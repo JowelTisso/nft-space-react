@@ -40,19 +40,6 @@ function Address() {
     setIsEditActive((state) => !state);
   };
 
-  const getInitialDataFromServer = async () => {
-    try {
-      const { status, data } = await axios.get("/api/user/addresses", {
-        headers: { authorization: getUserToken() },
-      });
-      if (status === 200 || status === 201) {
-        setAddressList(data.addresses);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const getSelectedAddressId = (_id) => {
     setAddressId(_id);
   };
@@ -121,7 +108,18 @@ function Address() {
   };
 
   useEffect(() => {
-    getInitialDataFromServer();
+    (async () => {
+      try {
+        const { status, data } = await axios.get("/api/user/addresses", {
+          headers: { authorization: getUserToken() },
+        });
+        if (status === 200 || status === 201) {
+          setAddressList(data.addresses);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   }, []);
 
   return (

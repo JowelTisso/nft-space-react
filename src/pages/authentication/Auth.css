@@ -32,6 +32,8 @@
 .bottom-nav-container {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .goto-icon {
@@ -51,6 +53,10 @@
 
 .btn-link {
   color: var(--txt-color);
+}
+
+.justify-space-between {
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 600px) {

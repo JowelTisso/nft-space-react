@@ -15,12 +15,13 @@ import { useCart } from "../../context/provider/CartProvider";
 import { callToast } from "../../components/toast/Toast";
 
 const Auth = () => {
-  const [credentials, setCredentials] = useState({
+  const defaultCredential = {
     firstName: "Neog",
     lastName: "camp",
     email: "test@gmail.com",
     password: "test123",
-  });
+  };
+  const [credentials, setCredentials] = useState(defaultCredential);
 
   const { firstName, lastName, email, password } = credentials;
 
@@ -109,6 +110,10 @@ const Auth = () => {
     setTogglePassword((state) => !state);
   };
 
+  const fillTestCredential = () => {
+    setCredentials(defaultCredential);
+  };
+
   return (
     <div className="content-wrapper mg-top-6x pd-top-1x flex-center">
       <div className="login-card wd-5x flex-center pd-5x">
@@ -193,14 +198,28 @@ const Auth = () => {
           {authTypeLogin ? "Login" : "Create New Account"}
         </button>
 
-        <div className="bottom-nav-container mg-top-2x ">
-          <button
-            className="t4 text-center pointer no-deco btn-link"
-            onClick={changeAuthType}
-          >
-            {authTypeLogin ? "Create New Account" : "Already have an account"}
-          </button>
-          <IoChevronForward className="goto-icon mg-left-1x" />
+        <div
+          className={`bottom-nav-container mg-top-2x ${
+            authTypeLogin && "justify-space-between"
+          }`}
+        >
+          {authTypeLogin && (
+            <button
+              className="t4 text-center pointer no-deco btn-link"
+              onClick={fillTestCredential}
+            >
+              Test credential
+            </button>
+          )}
+          <span className="bottom-right-btn flex-center">
+            <button
+              className="t4 text-center pointer no-deco btn-link"
+              onClick={changeAuthType}
+            >
+              {authTypeLogin ? "Create New Account" : "Already have an account"}
+            </button>
+            <IoChevronForward className="goto-icon" />
+          </span>
         </div>
       </div>
     </div>

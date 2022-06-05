@@ -22,6 +22,8 @@ const Auth = () => {
     password: "test123",
   });
 
+  const { firstName, lastName, email, password } = credentials;
+
   const [authTypeLogin, setAuthTypeLogin] = useState(true);
 
   const [togglePassword, setTogglePassword] = useState(false);
@@ -54,8 +56,8 @@ const Auth = () => {
 
   const loginHandler = async () => {
     const res = await userLogIn({
-      email: credentials.email,
-      password: credentials.password,
+      email: email,
+      password: password,
     });
     if (res?.status === 200) {
       authDispatch({
@@ -68,26 +70,35 @@ const Auth = () => {
       getWishlistDataFromServer(wishlistDispatch);
       getCartDataFromServer(cartDispatch);
       navigate(from, { replace: true });
+      callToast("Logged in successfully!");
     }
   };
 
   const signupHandler = async () => {
     try {
-      const res = await userSignUp({
-        firstName: credentials.firstName,
-        lastName: credentials.lastName,
-        email: credentials.email,
-        password: credentials.password,
-      });
-      if (res?.status === 200 || res?.status === 201) {
-        setCredentials({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-        });
+      if ((firstName, lastName, email, password)) {
+        if (email.includes("@")) {
+          const res = await userSignUp({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+          });
+          if (res?.status === 200 || res?.status === 201) {
+            setCredentials({
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+            });
 
-        callToast("Sign up successfull! Login to continue!");
+            callToast("Sign up successfull! Login to continue!");
+          }
+        } else {
+          callToast("Invalid email!");
+        }
+      } else {
+        callToast("All fields are required!");
       }
     } catch (err) {
       console.log(err);
@@ -113,7 +124,7 @@ const Auth = () => {
                 type="text"
                 className="input-simple"
                 placeholder="Neog"
-                value={credentials.firstName}
+                value={firstName}
                 onChange={(e) => nameChangeHandler(e, "firstName")}
               />
             </div>
@@ -123,7 +134,7 @@ const Auth = () => {
                 type="text"
                 className="input-simple"
                 placeholder="camp"
-                value={credentials.lastName}
+                value={lastName}
                 onChange={(e) => nameChangeHandler(e, "lastName")}
               />
             </div>
@@ -136,7 +147,7 @@ const Auth = () => {
             type="email"
             className="input-simple"
             placeholder="test@gmail.com"
-            value={credentials.email}
+            value={email}
             onChange={emailChangeHandler}
           />
         </div>
@@ -148,7 +159,7 @@ const Auth = () => {
               type={togglePassword ? "text" : "password"}
               className="input-simple"
               placeholder="test123"
-              value={credentials.password}
+              value={password}
               onChange={passwordChangeHandler}
             />
             <div onClick={showPassword}>

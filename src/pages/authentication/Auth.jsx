@@ -15,12 +15,15 @@ import { useCart } from "../../context/provider/CartProvider";
 import { callToast } from "../../components/toast/Toast";
 
 const Auth = () => {
-  const [credentials, setCredentials] = useState({
+  const defaultCredential = {
     firstName: "Neog",
     lastName: "camp",
     email: "test@gmail.com",
     password: "test123",
-  });
+  };
+  const [credentials, setCredentials] = useState(defaultCredential);
+
+  const { firstName, lastName, email, password } = credentials;
 
   const [authTypeLogin, setAuthTypeLogin] = useState(true);
 
@@ -54,8 +57,8 @@ const Auth = () => {
 
   const loginHandler = async () => {
     const res = await userLogIn({
-      email: credentials.email,
-      password: credentials.password,
+      email: email,
+      password: password,
     });
     if (res?.status === 200) {
       authDispatch({
@@ -68,26 +71,35 @@ const Auth = () => {
       getWishlistDataFromServer(wishlistDispatch);
       getCartDataFromServer(cartDispatch);
       navigate(from, { replace: true });
+      callToast("Logged in successfully!");
     }
   };
 
   const signupHandler = async () => {
     try {
-      const res = await userSignUp({
-        firstName: credentials.firstName,
-        lastName: credentials.lastName,
-        email: credentials.email,
-        password: credentials.password,
-      });
-      if (res?.status === 200 || res?.status === 201) {
-        setCredentials({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-        });
+      if ((firstName, lastName, email, password)) {
+        if (email.includes("@")) {
+          const res = await userSignUp({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+          });
+          if (res?.status === 200 || res?.status === 201) {
+            setCredentials({
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+            });
 
-        callToast("Sign up successfull! Login to continue!");
+            callToast("Sign up successfull! Login to continue!");
+          }
+        } else {
+          callToast("Invalid email!");
+        }
+      } else {
+        callToast("All fields are required!");
       }
     } catch (err) {
       console.log(err);
@@ -96,6 +108,10 @@ const Auth = () => {
 
   const showPassword = () => {
     setTogglePassword((state) => !state);
+  };
+
+  const fillTestCredential = () => {
+    setCredentials(defaultCredential);
   };
 
   return (
@@ -113,7 +129,7 @@ const Auth = () => {
                 type="text"
                 className="input-simple"
                 placeholder="Neog"
-                value={credentials.firstName}
+                value={firstName}
                 onChange={(e) => nameChangeHandler(e, "firstName")}
               />
             </div>
@@ -123,7 +139,7 @@ const Auth = () => {
                 type="text"
                 className="input-simple"
                 placeholder="camp"
-                value={credentials.lastName}
+                value={lastName}
                 onChange={(e) => nameChangeHandler(e, "lastName")}
               />
             </div>
@@ -136,7 +152,7 @@ const Auth = () => {
             type="email"
             className="input-simple"
             placeholder="test@gmail.com"
-            value={credentials.email}
+            value={email}
             onChange={emailChangeHandler}
           />
         </div>
@@ -148,7 +164,7 @@ const Auth = () => {
               type={togglePassword ? "text" : "password"}
               className="input-simple"
               placeholder="test123"
-              value={credentials.password}
+              value={password}
               onChange={passwordChangeHandler}
             />
             <div onClick={showPassword}>
@@ -182,14 +198,28 @@ const Auth = () => {
           {authTypeLogin ? "Login" : "Create New Account"}
         </button>
 
-        <div className="bottom-nav-container mg-top-2x ">
-          <button
-            className="t4 text-center pointer no-deco btn-link"
-            onClick={changeAuthType}
-          >
-            {authTypeLogin ? "Create New Account" : "Already have an account"}
-          </button>
-          <IoChevronForward className="goto-icon mg-left-1x" />
+        <div
+          className={`bottom-nav-container mg-top-2x ${
+            authTypeLogin && "justify-space-between"
+          }`}
+        >
+          {authTypeLogin && (
+            <button
+              className="t4 text-center pointer no-deco btn-link"
+              onClick={fillTestCredential}
+            >
+              Test credential
+            </button>
+          )}
+          <span className="bottom-right-btn flex-center">
+            <button
+              className="t4 text-center pointer no-deco btn-link"
+              onClick={changeAuthType}
+            >
+              {authTypeLogin ? "Create New Account" : "Already have an account"}
+            </button>
+            <IoChevronForward className="goto-icon" />
+          </span>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import {
   userSignUp,
 } from "./helper/auth";
 import { useAuth } from "../../context/provider/AuthProvider";
-import { LOG_IN, SIGN_UP } from "../../utils/Constant";
+import { LOG_IN } from "../../utils/Constant";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useCart } from "../../context/provider/CartProvider";
 import { callToast } from "../../components/toast/Toast";

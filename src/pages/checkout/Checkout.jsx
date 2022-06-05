@@ -19,7 +19,7 @@ const Checkout = () => {
   const { addressList } = useAddress();
   const { cartState, cartDispatch } = useCart();
   const navigate = useNavigate();
-  const { totalPrice } = cartState;
+  const { totalItems, totalPrice } = cartState;
 
   const { _id, name, mobile, address, pin, city, state, landmark } =
     activeAddress;
@@ -151,7 +151,7 @@ const Checkout = () => {
           </div>
         )}
       </section>
-      {!isPaymentSuccessfull && (
+      {!isPaymentSuccessfull && cartState?.cartItems?.length > 0 && (
         <section className={`checkout-section pd-top-5x `}>
           <div className="checkout-container">
             <p className="h4">PRICE DETAILS</p>
@@ -159,26 +159,30 @@ const Checkout = () => {
             <hr className="hr mg-top-2x mg-bottom-3x" />
 
             <div className="grid-2">
-              <p className="t4">Price 3 items</p>
-              <p className="t4 text-right">₹2000</p>
+              <p className="t4">Price {totalItems} items</p>
+              <p className="t4 text-right">₹{totalPrice.toFixed(2)}</p>
             </div>
 
             <div className="grid-2 mg-top-3x">
               <p className="t4">Discount</p>
-              <p className="t4 text-right">-₹1500</p>
+              <p className="t4 text-right">-₹{(400 * totalItems).toFixed(2)}</p>
             </div>
 
             <hr className="hr mg-top-3x mg-bottom-3x" />
 
             <div className="grid-2 mg-top-2x">
               <p className="t4">Total Amount</p>
-              <p className="t4 text-right">₹2000</p>
+              <p className="t4 text-right">
+                ₹{(totalPrice - 400 * totalItems).toFixed(2)}
+              </p>
             </div>
 
             <hr className="hr mg-top-3x mg-bottom-3x" />
 
             <div className="mg-top-2x">
-              <p className="t4">You will save ₹1500</p>
+              <p className="t4">
+                You will save ₹{(400 * totalItems).toFixed(2)}
+              </p>
             </div>
 
             <button

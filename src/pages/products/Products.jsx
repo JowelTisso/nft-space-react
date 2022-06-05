@@ -255,6 +255,7 @@ const Products = () => {
                 <input
                   type="radio"
                   name="ratings"
+                  checked={settings.rating === item ? true : false}
                   onChange={() => onRatingsChange(item)}
                 />
                 <label className="t4">{item}</label>

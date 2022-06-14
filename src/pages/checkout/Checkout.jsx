@@ -8,6 +8,7 @@ import { ProductCard } from "./component/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { removeFromCart } from "../products/helper/Cart";
 import { FcOk } from "react-icons/fc";
+import { callToast } from "../../components/toast/Toast";
 
 const Checkout = () => {
   const [addressChangeMode, setAddressChangeMode] = useState(false);
@@ -52,7 +53,7 @@ const Checkout = () => {
 
   const paymentHandler = async () => {
     if (!_id) {
-      return console.log("Please add address!");
+      return callToast("Please add address!", false);
     }
     const response = await loadRazorPay();
     if (!response) return console.error("Error in loading razorpay sdk");

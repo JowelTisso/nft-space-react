@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Address.css";
 import axios from "axios";
 import { AddressField } from "./components/address_field/AddressField";
@@ -16,12 +16,8 @@ function Address() {
   const [addressId, setAddressId] = useState("");
 
   // custom address hook
-  const {
-    addressList,
-    setAddressList,
-    removeFromAddressList,
-    setSelectedAddress,
-  } = useAddress();
+  const { addressList, removeFromAddressList, setSelectedAddress } =
+    useAddress();
 
   const { authState, authDispatch } = useAuth();
 
@@ -106,21 +102,6 @@ function Address() {
   const closeNewAddressField = () => {
     setIsAddingAddress(false);
   };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { status, data } = await axios.get("/api/user/addresses", {
-          headers: { authorization: getUserToken() },
-        });
-        if (status === 200 || status === 201) {
-          setAddressList(data.addresses);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
 
   return (
     <div className="address-wrapper flex-center">

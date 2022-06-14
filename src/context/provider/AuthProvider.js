@@ -3,22 +3,24 @@ import { reducer } from "../reducer/auth/authReducer";
 
 const AuthContext = createContext({ state: {}, dispatch: () => {} });
 
+const emptyAddress = {
+  _id: "",
+  name: "",
+  mobile: "",
+  address: "",
+  pin: "",
+  city: "",
+  state: "",
+  landmark: "",
+};
 const AuthProvider = ({ children }) => {
   const defaultData = {
     token: "",
     user: {},
     loggedIn: false,
-    activeAddress: {
-      _id: "",
-      name: "",
-      mobile: "",
-      address: "",
-      pin: "",
-      city: "",
-      state: "",
-      landmark: "",
-    },
+    activeAddress: emptyAddress,
   };
+
   const [state, dispatch] = useReducer(reducer, defaultData);
 
   return (
@@ -30,4 +32,4 @@ const AuthProvider = ({ children }) => {
 
 const useAuth = () => useContext(AuthContext);
 
-export { AuthProvider, useAuth };
+export { AuthProvider, useAuth, emptyAddress };

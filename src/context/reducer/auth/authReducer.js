@@ -13,6 +13,7 @@ export const reducer = (state, action) => {
         token: action.payload.token,
         user: action.payload.user,
         loggedIn: true,
+        activeAddress: action.payload.activeAddress,
       };
     case LOG_OUT:
       return {
@@ -20,13 +21,6 @@ export const reducer = (state, action) => {
         token: "",
         user: {},
         loggedIn: false,
-      };
-    case SIGN_UP:
-      return {
-        ...state,
-        token: action.payload.token,
-        user: action.payload.user,
-        loggedIn: true,
       };
     case SET_ACTIVE_ADDRESS:
       return {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { IoEyeOff, IoChevronForward } from "react-icons/io5";
+import { IoEyeOff, IoChevronForward, IoEye } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   getCartDataFromServer,
@@ -8,11 +8,12 @@ import {
   userLogIn,
   userSignUp,
 } from "./helper/auth";
-import { useAuth } from "../../context/provider/AuthProvider";
+import { emptyAddress, useAuth } from "../../context/provider/AuthProvider";
 import { LOG_IN } from "../../utils/Constant";
 import { useWishlist } from "../../context/provider/WishlistProvider";
 import { useCart } from "../../context/provider/CartProvider";
 import { callToast } from "../../components/toast/Toast";
+import { useAddress } from "../../context/provider/AddressProvider";
 
 const Auth = () => {
   const defaultCredential = {
@@ -29,10 +30,11 @@ const Auth = () => {
 
   const [togglePassword, setTogglePassword] = useState(false);
 
-  const { authDispatch } = useAuth();
+  const { authState, authDispatch } = useAuth();
   const navigate = useNavigate();
   const { wishlistDispatch } = useWishlist();
   const { cartDispatch } = useCart();
+  const { setAddressList } = useAddress();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
@@ -61,15 +63,23 @@ const Auth = () => {
       password: password,
     });
     if (res?.status === 200) {
+      const user = res?.data?.foundUser;
       authDispatch({
         type: LOG_IN,
         payload: {
           token: res?.data?.encodedToken,
-          user: res?.data?.foundUser,
+          user: user,
+          activeAddress:
+            user?.addresses?.length > 0 ? user?.addresses[0] : emptyAddress,
         },
       });
       getWishlistDataFromServer(wishlistDispatch);
       getCartDataFromServer(cartDispatch);
+      if (user?.addresses.length > 0) {
+        setAddressList(user?.addresses);
+      } else {
+        setAddressList([]);
+      }
       navigate(from, { replace: true });
       callToast("Logged in successfully!");
     }
@@ -168,7 +178,11 @@ const Auth = () => {
               onChange={passwordChangeHandler}
             />
             <div onClick={showPassword}>
-              <IoEyeOff className="toggle-icon pointer" />
+              {togglePassword ? (
+                <IoEyeOff className="toggle-icon pointer" />
+              ) : (
+                <IoEye className="toggle-icon pointer" />
+              )}
             </div>
           </div>
         </div>

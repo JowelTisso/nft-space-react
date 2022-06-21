@@ -21,12 +21,14 @@ import {
 export const sortPrice = (type, list) => {
   switch (type) {
     case HIGH_TO_LOW:
-      return [...list].sort((a, b) =>
-        parseFloat(b.price) > parseFloat(a.price) ? 1 : -1
+      return [...list].sort(
+        (a, b) => parseInt(b.price) - parseInt(a.price)
+        // parseInt(b.price) > parseInt(a.price) ? 1 : -1
       );
     case LOW_TO_HIGH:
-      return [...list].sort((a, b) =>
-        parseFloat(a.price) > parseFloat(b.price) ? 1 : -1
+      return [...list].sort(
+        (a, b) => parseInt(a.price) - parseInt(b.price)
+        // parseInt(a.price) > parseInt(b.price) ? 1 : -1
       );
     default:
       return list;
@@ -83,7 +85,7 @@ export const filterRatings = (type, list) => {
 };
 
 export const filterPriceRange = (price, list) =>
-  list.filter((item) => parseFloat(item.price) <= price);
+  list.filter((item) => parseInt(item.price) <= price);
 
 export const filterTrendingStatus = (type, list) => {
   switch (type) {

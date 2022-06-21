@@ -104,17 +104,14 @@ const Products = () => {
   };
 
   const applySettingsAndRender = () => {
-    const sortedList = sortPrice(settings.sort, products);
-    const filteredAllCategories = filterAllCategory(sortedList);
+    const filteredPriceRange = filterPriceRange(settings.priceRange, products);
+    const filteredAllCategories = filterAllCategory(filteredPriceRange);
     const filteredRatings = filterRatings(
       settings.rating,
       filteredAllCategories
     );
-    const filteredPriceRange = filterPriceRange(
-      settings.priceRange,
-      filteredRatings
-    );
-    filterDispatch({ type: PRODUCT_DATA, payload: filteredPriceRange });
+    const sortedList = sortPrice(settings.sort, filteredRatings);
+    filterDispatch({ type: PRODUCT_DATA, payload: sortedList });
   };
 
   const ratingPayload = (type) => {

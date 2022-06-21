@@ -14,9 +14,12 @@ import {
 import { useCart } from "../../../context/provider/CartProvider";
 import { ART, DECREMENT, INCREMENT } from "../../../utils/Constant";
 import { useWishlist } from "../../../context/provider/WishlistProvider";
+import { debounce } from "../../../utils/debounce";
+import { removeFromWishlist } from "../../products/helper/Wishlist";
 
 const ProductCard = ({
   data: {
+    _id,
     title,
     creator,
     price,
@@ -33,7 +36,11 @@ const ProductCard = ({
 }) => {
   const { cartDispatch } = useCart();
 
-  const { wishlistDispatch } = useWishlist();
+  const { wishlistState, wishlistDispatch } = useWishlist();
+
+  const inWishlist = wishlistState?.wishlistItems.some(
+    (item) => item._id === _id
+  );
 
   return (
     <div className="card card-horizontal">
@@ -74,7 +81,9 @@ const ProductCard = ({
             <p className="quantity-title">Quantity :</p>
             <span
               onClick={() => {
-                qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
+                debounce(() => {
+                  qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
+                }, 500);
               }}
             >
               <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
@@ -82,7 +91,9 @@ const ProductCard = ({
             <p className="quantity-value mg-left-1x text-center">{qty}</p>
             <span
               onClick={() => {
-                changeQuantity(data, cartDispatch, INCREMENT);
+                debounce(() => {
+                  changeQuantity(data, cartDispatch, INCREMENT);
+                }, 500);
               }}
             >
               <IoAddCircle className="quantity-btn mg-left-1x pointer" />
@@ -101,10 +112,12 @@ const ProductCard = ({
           <button
             className="btn btn-secondary btn-sm wd-full"
             onClick={() => {
-              moveToWishlist(data, cartDispatch, wishlistDispatch);
+              inWishlist
+                ? removeFromWishlist(data, wishlistDispatch)
+                : moveToWishlist(data, cartDispatch, wishlistDispatch);
             }}
           >
-            MOVE TO WISHLIST
+            {inWishlist ? "REMOVE FROM WISHLIST" : "MOVE TO WISHLIST"}
           </button>
         </div>
       </div>

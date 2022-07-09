@@ -82,6 +82,8 @@ const Auth = () => {
       }
       navigate(from, { replace: true });
       callToast("Logged in successfully!");
+    } else {
+      callToast("All fields are required!");
     }
   };
 

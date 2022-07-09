@@ -1,7 +1,7 @@
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
-const SearchInput = ({ applySearch }) => {
+const SearchInput = ({ debounceSearch }) => {
   return (
     <div className="input-container search-icon-container">
       <IoSearchOutline className="search-icon" />
@@ -9,7 +9,7 @@ const SearchInput = ({ applySearch }) => {
         type="text"
         className="input-simple "
         placeholder="Search"
-        onKeyUp={applySearch}
+        onChange={debounceSearch}
       />
     </div>
   );

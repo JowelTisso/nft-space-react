@@ -19,6 +19,7 @@ import { PRODUCT_DATA, TOGGLE_NAV } from "../../utils/Constant";
 import { useFilter } from "../../context/provider/FilterProvider";
 import { filterByTitle } from "./headerHelper";
 import SearchInput from "./components/SearchInput";
+import { debounce } from "../../utils/debounce";
 
 const Header = () => {
   const [isSearchVisivle, setIsSearchVisivle] = useState(false);
@@ -43,12 +44,10 @@ const Header = () => {
     sidenavDispatch({ type: TOGGLE_NAV });
   };
 
-  const applySearch = ({ key, target }) => {
-    if (key === "Enter") {
-      const filteredBySearch = filterByTitle(target.value, products);
-      filterDispatch({ type: PRODUCT_DATA, payload: filteredBySearch });
-    }
-  };
+  const debounceSearch = debounce(({ target }) => {
+    const filteredBySearch = filterByTitle(target.value, products);
+    filterDispatch({ type: PRODUCT_DATA, payload: filteredBySearch });
+  }, 500);
 
   const toggleSearchInput = () => {
     setIsSearchVisivle((isVisible) => !isVisible);
@@ -70,7 +69,7 @@ const Header = () => {
       <div className={`header-middle ${isSearchVisivle && "show-in-mb"} `}>
         {currentRoute === productRoute && (
           <>
-            <SearchInput applySearch={applySearch} />
+            <SearchInput debounceSearch={debounceSearch} />
             <div className="search-backdrop" onClick={toggleSearchInput}></div>
           </>
         )}

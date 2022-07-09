@@ -19,3 +19,16 @@
 .success-action {
   width: 80%;
 }
+
+.checkout-content {
+  margin-top: 6rem;
+  background-color: var(--bg-color-3);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  min-height: 90vh;
+}
+
+.checkout-content .card-horizontal {
+  height: min-content;
+  min-width: 60rem;
+}

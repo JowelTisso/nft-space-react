@@ -22,8 +22,8 @@
   height: 3.5rem;
 }
 
-.card-horizontal {
-  height: fit-content;
+.cart-content .card-horizontal {
+  height: 28rem;
   min-width: 60rem;
 }
 
@@ -68,8 +68,13 @@
   background-color: var(--secondary-color-light);
 }
 
+.disable-btn {
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 700px) {
   .card-horizontal {
+    height: min-content;
     min-width: 95%;
   }
 

@@ -1,10 +1,11 @@
 .single-product-wrapper {
-  margin-top: 10rem;
+  margin-top: 12rem;
 }
 
 .single-product-wrapper .card-horizontal {
   box-shadow: none;
   width: 80%;
+  height: auto;
 }
 
 .single-product-wrapper .card-img-horizontal {
@@ -84,6 +85,10 @@
 }
 
 @media screen and (max-width: 800px) {
+  .single-product-wrapper {
+    margin-top: 8rem;
+  }
+
   .single-product-wrapper .card-horizontal {
     flex-direction: column;
   }
@@ -153,10 +158,6 @@
 }
 
 @media screen and (max-width: 700px) {
-  .single-product-wrapper {
-    margin-top: 8rem;
-  }
-
   .single-product-wrapper .card-horizontal {
     flex-direction: column;
   }

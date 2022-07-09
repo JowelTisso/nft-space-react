@@ -42,6 +42,14 @@ const ProductCard = ({
     (item) => item._id === _id
   );
 
+  const decrementQuantity = debounce(() => {
+    qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
+  }, 300);
+
+  const incrementQuantity = debounce(() => {
+    changeQuantity(data, cartDispatch, INCREMENT);
+  }, 300);
+
   return (
     <div className="card card-horizontal">
       <div className="cart-img">
@@ -79,25 +87,17 @@ const ProductCard = ({
           </div>
           <div className="quantity mg-top-2x">
             <p className="quantity-title">Quantity :</p>
-            <span
-              onClick={() => {
-                debounce(() => {
-                  qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
-                }, 500);
-              }}
-            >
-              <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
-            </span>
+            <button onClick={decrementQuantity} disabled={qty === 1}>
+              <IoRemoveCircle
+                className={`quantity-btn mg-left-2x ${
+                  qty > 1 ? "pointer" : "disable-btn"
+                }`}
+              />
+            </button>
             <p className="quantity-value mg-left-1x text-center">{qty}</p>
-            <span
-              onClick={() => {
-                debounce(() => {
-                  changeQuantity(data, cartDispatch, INCREMENT);
-                }, 500);
-              }}
-            >
+            <button onClick={incrementQuantity}>
               <IoAddCircle className="quantity-btn mg-left-1x pointer" />
-            </span>
+            </button>
           </div>
         </div>
         <div className="card-btn-container">

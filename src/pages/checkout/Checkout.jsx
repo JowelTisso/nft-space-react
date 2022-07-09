@@ -88,7 +88,7 @@ const Checkout = () => {
   };
 
   return (
-    <main className="cart-content pd-4x pd-top-2x">
+    <main className="checkout-content pd-4x pd-top-2x">
       <section className="product-section mg-left-5x">
         <div className="content-header mg-left-2x">
           <p className="h4">Checkout</p>
@@ -100,7 +100,11 @@ const Checkout = () => {
               className="btn btn-primary btn-sm"
               onClick={toggleAddressChangeMode}
             >
-              {addressList.length > 0 ? "Change" : "Add Address"}
+              {addressList.length > 0
+                ? addressChangeMode
+                  ? "Done"
+                  : "Change"
+                : "Add Address"}
             </button>
           </div>
           <hr className="hr mg-top-2x mg-bottom-3x" />

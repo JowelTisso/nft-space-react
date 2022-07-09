@@ -87,27 +87,17 @@ const ProductCard = ({
           </div>
           <div className="quantity mg-top-2x">
             <p className="quantity-title">Quantity :</p>
-            <span
-              onClick={decrementQuantity}
-              // onClick={() => {
-              //   debounce(() => {
-              //     qty > 1 && changeQuantity(data, cartDispatch, DECREMENT);
-              //   }, 500);
-              // }}
-            >
-              <IoRemoveCircle className="quantity-btn mg-left-2x pointer" />
-            </span>
+            <button onClick={decrementQuantity} disabled={qty === 1}>
+              <IoRemoveCircle
+                className={`quantity-btn mg-left-2x ${
+                  qty > 1 ? "pointer" : "disable-btn"
+                }`}
+              />
+            </button>
             <p className="quantity-value mg-left-1x text-center">{qty}</p>
-            <span
-              onClick={incrementQuantity}
-              // onClick={() => {
-              //   debounce(() => {
-              //     changeQuantity(data, cartDispatch, INCREMENT);
-              //   }, 500);
-              // }}
-            >
+            <button onClick={incrementQuantity}>
               <IoAddCircle className="quantity-btn mg-left-1x pointer" />
-            </span>
+            </button>
           </div>
         </div>
         <div className="card-btn-container">

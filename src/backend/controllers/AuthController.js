@@ -76,6 +76,7 @@ export const loginHandler = function (schema, request) {
         { errors: ["The email you entered is not Registered. Not Found error"] }
       );
     }
+
     if (bcrypt.compareSync(password, foundUser.password)) {
       const encodedToken = jwt.sign(
         { _id: foundUser._id, email },
@@ -83,16 +84,17 @@ export const loginHandler = function (schema, request) {
       );
       foundUser.password = undefined;
       return new Response(200, {}, { foundUser, encodedToken });
+    } else {
+      return new Response(
+        401,
+        {},
+        {
+          errors: [
+            "The credentials you entered are invalid. Unauthorized access error.",
+          ],
+        }
+      );
     }
-    new Response(
-      401,
-      {},
-      {
-        errors: [
-          "The credentials you entered are invalid. Unauthorized access error.",
-        ],
-      }
-    );
   } catch (error) {
     return new Response(
       500,

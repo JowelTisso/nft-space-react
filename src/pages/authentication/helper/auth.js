@@ -1,4 +1,5 @@
 import axios from "axios";
+import { callToast } from "../../../components/toast/Toast";
 import {
   CLEAR_CART,
   CLEAR_WISHLIST,
@@ -14,10 +15,15 @@ export const userLogIn = async (payload) => {
     const res = await axios.post("/api/auth/login", payload);
     if (res?.status === 200) {
       localStorage.setItem(USER_TOKEN, res?.data.encodedToken);
-      return res;
     }
+    return res;
   } catch (err) {
-    console.log(err);
+    if (err?.response?.status === 401) {
+      callToast(err?.response.data.errors[0]);
+    }
+    if (err?.response?.status === 404) {
+      callToast(err?.response.data.errors[0]);
+    }
   }
 };
 
@@ -36,7 +42,9 @@ export const userSignUp = async (payload) => {
   try {
     return await axios.post("/api/auth/signup", payload);
   } catch (err) {
-    console.log(err);
+    if (err?.response?.status === 422) {
+      callToast(err?.response.data.errors[0]);
+    }
   }
 };
 

@@ -17,10 +17,17 @@ import { useAddress } from "../../context/provider/AddressProvider";
 
 const Auth = () => {
   const defaultCredential = {
-    firstName: "Neog",
-    lastName: "camp",
-    email: "test@gmail.com",
-    password: "test123",
+    firstName: "Jowel",
+    lastName: "Tisso",
+    email: "jowel@gmail.com",
+    password: "jowel123",
+  };
+
+  const testSignUpCredential = {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john@gmail.com",
+    password: "john123",
   };
   const [credentials, setCredentials] = useState(defaultCredential);
 
@@ -58,30 +65,33 @@ const Auth = () => {
   };
 
   const loginHandler = async () => {
-    const res = await userLogIn({
-      email: email,
-      password: password,
-    });
-    if (res?.status === 200) {
-      const user = res?.data?.foundUser;
-      authDispatch({
-        type: LOG_IN,
-        payload: {
-          token: res?.data?.encodedToken,
-          user: user,
-          activeAddress:
-            user?.addresses?.length > 0 ? user?.addresses[0] : emptyAddress,
-        },
+    if ((email, password)) {
+      const res = await userLogIn({
+        email: email,
+        password: password,
       });
-      getWishlistDataFromServer(wishlistDispatch);
-      getCartDataFromServer(cartDispatch);
-      if (user?.addresses.length > 0) {
-        setAddressList(user?.addresses);
-      } else {
-        setAddressList([]);
+
+      if (res?.status === 200) {
+        const user = res?.data?.foundUser;
+        authDispatch({
+          type: LOG_IN,
+          payload: {
+            token: res?.data?.encodedToken,
+            user: user,
+            activeAddress:
+              user?.addresses?.length > 0 ? user?.addresses[0] : emptyAddress,
+          },
+        });
+        getWishlistDataFromServer(wishlistDispatch);
+        getCartDataFromServer(cartDispatch);
+        if (user?.addresses.length > 0) {
+          setAddressList(user?.addresses);
+        } else {
+          setAddressList([]);
+        }
+        navigate(from, { replace: true });
+        callToast("Logged in successfully!");
       }
-      navigate(from, { replace: true });
-      callToast("Logged in successfully!");
     } else {
       callToast("All fields are required!");
     }
@@ -98,6 +108,8 @@ const Auth = () => {
             password: password,
           });
           if (res?.status === 200 || res?.status === 201) {
+            console.log(email, password);
+            loginHandler();
             setCredentials({
               firstName: "",
               lastName: "",
@@ -123,7 +135,11 @@ const Auth = () => {
   };
 
   const fillTestCredential = () => {
-    setCredentials(defaultCredential);
+    if (authTypeLogin) {
+      setCredentials(defaultCredential);
+    } else {
+      setCredentials(testSignUpCredential);
+    }
   };
 
   return (
@@ -136,7 +152,7 @@ const Auth = () => {
         {!authTypeLogin && (
           <>
             <div className="input-container mg-top-2x wd-4x">
-              <label className="input-label">First Name</label>
+              <label className="input-label">First name</label>
               <input
                 type="text"
                 className="input-simple"
@@ -146,7 +162,7 @@ const Auth = () => {
               />
             </div>
             <div className="input-container mg-top-2x wd-4x">
-              <label className="input-label">Last Name</label>
+              <label className="input-label">Last name</label>
               <input
                 type="text"
                 className="input-simple"
@@ -189,50 +205,28 @@ const Auth = () => {
           </div>
         </div>
 
-        <div className="info-container flex-center mg-2x wd-4x">
-          <div>
-            <input type="checkbox" className="checkbox" />
-            <label className="t4 mg-left-1x">
-              {authTypeLogin
-                ? "Remember me"
-                : "I accept all Terms and Conditions"}
-            </label>
-          </div>
-          {authTypeLogin && (
-            <button className="btn-link btn-link-secondary t4">
-              Forgot your password?
-            </button>
-          )}
-        </div>
-
         <button
-          className="btn btn-primary wd-full mg-top-2x"
+          className="btn btn-primary wd-full mg-top-5x"
           onClick={() => {
             authTypeLogin ? loginHandler() : signupHandler();
           }}
         >
-          {authTypeLogin ? "Login" : "Create New Account"}
+          {authTypeLogin ? "Login" : "Create new account"}
         </button>
 
-        <div
-          className={`bottom-nav-container mg-top-2x ${
-            authTypeLogin && "justify-space-between"
-          }`}
-        >
-          {authTypeLogin && (
-            <button
-              className="t4 text-center pointer no-deco btn-link"
-              onClick={fillTestCredential}
-            >
-              Test credential
-            </button>
-          )}
+        <div className="bottom-nav-container mg-top-2x justify-space-between">
+          <button
+            className="t4 text-center pointer no-deco btn-link"
+            onClick={fillTestCredential}
+          >
+            Fill test credential
+          </button>
           <span className="bottom-right-btn flex-center">
             <button
               className="t4 text-center pointer no-deco btn-link"
               onClick={changeAuthType}
             >
-              {authTypeLogin ? "Create New Account" : "Already have an account"}
+              {authTypeLogin ? "Create new account" : "Already have an account"}
             </button>
             <IoChevronForward className="goto-icon" />
           </span>

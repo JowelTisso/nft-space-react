@@ -224,6 +224,7 @@ const Products = () => {
                 <input
                   type="checkbox"
                   name="category"
+                  id={categoryName}
                   checked={
                     categoryName === ART
                       ? settings.category.Art
@@ -239,7 +240,9 @@ const Products = () => {
                     onCategoryChange(categoryName, checked);
                   }}
                 />
-                <label className="t4">{categoryName}</label>
+                <label className="t4 pointer" htmlFor={categoryName}>
+                  {categoryName}
+                </label>
               </li>
             ))}
 
@@ -252,10 +255,13 @@ const Products = () => {
                 <input
                   type="radio"
                   name="ratings"
+                  id={item}
                   checked={settings.rating === item}
                   onChange={() => onRatingsChange(item)}
                 />
-                <label className="t4">{item}</label>
+                <label className="t4 pointer" htmlFor={item}>
+                  {item}
+                </label>
               </li>
             ))}
 
@@ -268,9 +274,12 @@ const Products = () => {
                 <input
                   type="radio"
                   name="price"
+                  id={item}
                   onChange={() => onPriceSortChange(i)}
                 />
-                <label className="t4">{item}</label>
+                <label className="t4 pointer" htmlFor={item}>
+                  {item}
+                </label>
               </li>
             ))}
           </ul>
